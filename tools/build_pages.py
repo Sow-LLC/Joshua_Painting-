@@ -438,7 +438,13 @@ def faq_page(src):
 def reviews_page(src):
     ES.update({"reviewsp.meta.title": "Reseñas — Joshua's Painting Service", "reviewsp.expect": "Lo que puede esperar",
                "reviewsp.meta.description": "Joshua's Painting Service tiene 5.0 estrellas en Yelp. Lea las reseñas y vea los trabajos."})
-    promises = re.search(r'<ul class="promises".*?</ul>', src, re.S).group(0)
+    # the reviews page keeps the full promises (the front page shows titles only)
+    promises = """<ul class="promises" aria-label="Our promises" data-i18n-attr="aria-label:aria.promises">
+  <li><b data-i18n="pr1.title">Insured</b><span data-i18n="pr1.body">General liability insurance on every job.</span></li>
+  <li><b data-i18n="pr2.title">Free written estimates</b><span data-i18n="pr2.body">Itemised, and sent as soon as possible after the visit.</span></li>
+  <li><b data-i18n="pr3.title">Interior warranty</b><span data-i18n="pr3.body">3 to 6 months on interior work. Peeling or flaking? We come back and fix it.</span></li>
+  <li><b data-i18n="pr4.title">Spotless clean-up</b><span data-i18n="pr4.body">Floors covered, rooms swept, every day.</span></li>
+</ul>"""
     figs = "\n".join("    " + photo(p) for p in ["petaluma-house", "orinda-deck", "kitchen", "interior-room"])
     main = "\n\n".join([
         page_h1(section(src, '<section id="reviews"'), "reviews-title", "nav.reviews", "Reviews"),
@@ -516,35 +522,19 @@ def landing():
                "home.work.title": "Trabajos recientes", "home.rev.body": "Todos los clientes que nos han reseñado en Yelp nos dieron cinco estrellas.",
                "home.rev.read": "Leer las reseñas", "home.story.more": "Leer nuestra historia",
                "home.story": "Joshua empezó a pintar con su familia de adolescente y lleva más de diez años con su propio equipo en el Área de la Bahía. Visita cada trabajo en persona, escribe cada presupuesto y revisa con usted el trabajo terminado."})
-    tiles = []
-    for sv in SERVICES:
-        g = sv["gid"]; en, es_ = SHORT[g]; ES[f"home.svc.{g}"] = es_
-        tiles.append(f'''    <a class="tile" href="/services/{sv["slug"]}/">
-      {photo(sv["hero"], "tile-fig", caption=False)}
-      <span class="tile-title"><span data-i18n="svcp.{g}.h1">{e(sv["h1"][0])}</span> →</span>
-      <span class="tile-line" data-i18n="home.svc.{g}">{e(en)}</span>
-    </a>''')
-    work = "\n".join("    " + photo(p) for p in ["petaluma-house", "orinda-deck", "kitchen", "white-house-stairs"])
+    ES["hero.short"] = "Casas y negocios, pintados con cuidado."
+    rows = []
+    for i, sv in enumerate(SERVICES, 1):
+        g = sv["gid"]
+        rows.append(f'''    <a href="/services/{sv["slug"]}/"><span class="svc-n">0{i}</span><span data-i18n="svcp.{g}.h1">{e(sv["h1"][0])}</span><span class="svc-arrow" aria-hidden="true">→</span></a>''')
     return f'''<!-- explore -->
 <section class="block home-services" aria-labelledby="home-svc-title">
   <div class="block-head">
-    <p class="label" data-i18n="home.svc.label">What we do</p>
-    <h2 id="home-svc-title" data-i18n="home.svc.title">Six kinds of work</h2>
+    <h2 id="home-svc-title" data-i18n="home.svc.label">What we do</h2>
   </div>
-  <nav class="tiles" aria-labelledby="home-svc-title">
-{chr(10).join(tiles)}
+  <nav class="svc-list" aria-labelledby="home-svc-title">
+{chr(10).join(rows)}
   </nav>
-</section>
-
-<section class="block work home-work" aria-labelledby="home-work-title">
-  <div class="block-head">
-    <p class="label" data-i18n="work.label">Our work</p>
-    <h2 id="home-work-title" data-i18n="home.work.title">Recent jobs</h2>
-  </div>
-  <div class="work-grid work-strip">
-{work}
-  </div>
-  <p class="work-more"><a class="btn btn-ghost" href="/work/" data-i18n="workp.all">See all our work</a></p>
 </section>
 
 <section class="block home-story" aria-labelledby="home-story-title">
@@ -563,14 +553,6 @@ def landing():
     </div>
   </div>
 </section>
-
-<section class="rev-band" aria-label="Reviews">
-  <p><span class="stars" aria-hidden="true">★★★★★</span> <b data-i18n="rev.short">5.0 on Yelp</b>
-     <span class="muted" data-i18n="home.rev.body">Every customer who has reviewed us on Yelp gave us five stars.</span>
-     <a href="/reviews/"><span data-i18n="home.rev.read">Read the reviews</span> →</a></p>
-</section>
-
-{steps()}
 <!-- /explore -->'''
 
 # ───────────────────────── pages ─────────────────────────
