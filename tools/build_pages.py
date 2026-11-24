@@ -232,7 +232,7 @@ def header():
     <a class="nav-opt" href="/reviews/" data-i18n="nav.reviews">Reviews</a>
     <a class="nav-opt" href="/faq/" data-i18n="nav.faq">FAQ</a>
     <a class="nav-cta" href="/contact/" data-cta data-i18n="nav.quote" data-short="Quote" data-i18n-attr="data-short:nav.quote.short">Free quote</a>
-    <span class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-pressed="true">EN</a><a href="?lang=es" data-lang="es" lang="es" aria-pressed="false">ES</a></span>
+    <span class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">EN</a><a href="?lang=es" data-lang="es" lang="es">ES</a></span>
   </nav>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-i18n-attr="aria-label:nav.menu" aria-label="Menu"><span></span><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Menu" data-i18n-attr="aria-label:nav.menu" hidden>
@@ -298,7 +298,30 @@ def localize(html, path, has_form):
                   else f'href="{moved.get(m.group(1), "/#" + m.group(1))}"', html)
     # mark the current page in the menus
     html = re.sub(rf'(<a(?: class="[^"]*")? href="{re.escape(path)}")(?= )', r'\1 aria-current="page"', html) if path != "/" else html
+    return webp(hreflang(html))
+
+def hreflang(html):
+    """Search engines need full addresses in hreflang links, plus an x-default."""
+    html = re.sub(r'(<link rel="alternate" hreflang="(?:en|es|x-default)" href=")(/[^"]*")', rf'\1{SITE}\2', html)
+    if 'hreflang="x-default"' not in html:
+        html = re.sub(r'(<link rel="alternate" hreflang="en" href="([^"]*)">\n)',
+                      r'\1<link rel="alternate" hreflang="x-default" href="\2">\n', html, count=1)
     return html
+
+# how wide each kind of photo is drawn, so phones download a small file
+SIZES = {"wall-photo": "100vw", "story-photo": "(max-width: 960px) 100vw, 40vw", "about-photo": "(max-width: 960px) 100vw, 40vw",
+         "area-photo": "(max-width: 960px) 100vw, 35vw", "svc-hero-photo": "(max-width: 960px) 100vw, 50vw",
+         "frame-fig": "(max-width: 960px) 100vw, 45vw"}
+
+def webp(html):
+    """Swap job-photo JPEGs for WebP (made by tools/make_webp.py) with a 600 / 800 / full srcset."""
+    def sub(m):
+        attrs, name, w = m.group(1), m.group(2), int(m.group(3))
+        before = html[max(0, m.start() - 160): m.start()] + attrs
+        sizes = next((v for k, v in SIZES.items() if k in before.rsplit("<figure", 1)[-1] or f'class="{k}"' in attrs), "(max-width: 960px) 50vw, 25vw")
+        srcs = [f"/img/work/{name}-600.webp 600w"] + ([f"/img/work/{name}-800.webp 800w"] if w > 800 else []) + [f"/img/work/{name}.webp {w}w"]
+        return f'<img {attrs}src="/img/work/{name}.webp" srcset="{", ".join(srcs)}" sizes="{sizes}" width="{w}"'
+    return re.sub(r'<img ([^>]*?)src="/img/work/([\w-]+)\.jpg" width="(\d+)"', sub, html)
 
 def head(path, key, title, dkey, desc, es_title, es_desc, image="cape-cod-exterior", ld=None, noindex=False):
     ES[key], ES[dkey] = es_title, es_desc
@@ -307,6 +330,7 @@ def head(path, key, title, dkey, desc, es_title, es_desc, image="cape-cod-exteri
     post = src[src.index('<link rel="icon"'): src.index("</head>")]
     post = re.sub(r'<link rel="alternate" hreflang="en" href="[^"]*">', f'<link rel="alternate" hreflang="en" href="{path}">', post)
     post = re.sub(r'<link rel="alternate" hreflang="es" href="[^"]*">', f'<link rel="alternate" hreflang="es" href="{path}?lang=es">', post)
+    post = re.sub(r'<link rel="alternate" hreflang="x-default" href="[^"]*">', f'<link rel="alternate" hreflang="x-default" href="{path}">', post)
     return (pre + f'<title data-i18n="{key}">{e(title)}</title>\n'
             f'<meta name="description" data-i18n-attr="content:{dkey}" content="{e(desc)}">\n'
             + seo(path, title, desc, image, ld, noindex) + post + "</head>\n<body>\n\n")

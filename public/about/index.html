@@ -20,8 +20,9 @@
 <!-- /seo -->
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/site.css">
-<link rel="alternate" hreflang="en" href="/about/">
-<link rel="alternate" hreflang="es" href="/about/?lang=es">
+<link rel="alternate" hreflang="en" href="https://atelier-blanc.raymondsantopietro.workers.dev/about/">
+<link rel="alternate" hreflang="x-default" href="https://atelier-blanc.raymondsantopietro.workers.dev/about/">
+<link rel="alternate" hreflang="es" href="https://atelier-blanc.raymondsantopietro.workers.dev/about/?lang=es">
 <script>(function(){var r=document.documentElement;try{var q=new URLSearchParams(location.search).get("lang"),s=localStorage.getItem("ab-lang"),n=(navigator.languages||[navigator.language||""]).some(function(l){return /^es\b/i.test(l)});if(q==="es"||(q!=="en"&&(s==="es"||(!s&&n))))r.className+=" i18n-pending"}catch(e){}})();</script>
 </head>
 <body>
@@ -50,7 +51,7 @@
     <a class="nav-opt" href="/reviews/" data-i18n="nav.reviews">Reviews</a>
     <a class="nav-opt" href="/faq/" data-i18n="nav.faq">FAQ</a>
     <a class="nav-cta" href="/contact/" data-cta data-i18n="nav.quote" data-short="Quote" data-i18n-attr="data-short:nav.quote.short">Free quote</a>
-    <span class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-pressed="true">EN</a><a href="?lang=es" data-lang="es" lang="es" aria-pressed="false">ES</a></span>
+    <span class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">EN</a><a href="?lang=es" data-lang="es" lang="es">ES</a></span>
   </nav>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-i18n-attr="aria-label:nav.menu" aria-label="Menu"><span></span><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Menu" data-i18n-attr="aria-label:nav.menu" hidden>
@@ -78,7 +79,7 @@
 <section id="about" class="block about" aria-labelledby="about-title">
   <nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.about">About</span></nav>
   <div class="about-grid">
-    <figure class="about-photo"><img src="/img/work/crew-prep.jpg" width="744" height="992" alt="Painter preparing wood siding before painting" data-i18n-attr="alt:about.alt" decoding="async"><figcaption data-i18n="about.cap">Prep comes first, on every job</figcaption></figure>
+    <figure class="about-photo"><img src="/img/work/crew-prep.webp" srcset="/img/work/crew-prep-600.webp 600w, /img/work/crew-prep.webp 744w" sizes="(max-width: 960px) 100vw, 40vw" width="744" height="992" alt="Painter preparing wood siding before painting" data-i18n-attr="alt:about.alt" decoding="async"><figcaption data-i18n="about.cap">Prep comes first, on every job</figcaption></figure>
     <div>
       <p class="label" data-i18n="about.label">About us</p>
       <h1 id="about-title" data-i18n="about.title">A family crew from Hercules</h1>

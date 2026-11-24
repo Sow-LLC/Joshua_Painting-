@@ -78,7 +78,7 @@ img { max-width: 100%; }
 .nav .lang a { padding: 7px 8px; text-decoration: none; color: var(--graphite); }
 .nav .lang a + a { border-left: 1px solid var(--rule); }
 .nav .lang a:hover { color: var(--ink); }
-.nav .lang a[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+.nav .lang a[aria-current="true"] { background: var(--ink); color: var(--white); }
 /* Spanish visitors: hold the first paint until the Spanish is in (i18n.js removes this) */
 html.i18n-pending body { visibility: hidden; }
 

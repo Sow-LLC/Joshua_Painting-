@@ -19,8 +19,9 @@
 <!-- /seo -->
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/site.css">
-<link rel="alternate" hreflang="en" href="/reviews/">
-<link rel="alternate" hreflang="es" href="/reviews/?lang=es">
+<link rel="alternate" hreflang="en" href="https://atelier-blanc.raymondsantopietro.workers.dev/reviews/">
+<link rel="alternate" hreflang="x-default" href="https://atelier-blanc.raymondsantopietro.workers.dev/reviews/">
+<link rel="alternate" hreflang="es" href="https://atelier-blanc.raymondsantopietro.workers.dev/reviews/?lang=es">
 <script>(function(){var r=document.documentElement;try{var q=new URLSearchParams(location.search).get("lang"),s=localStorage.getItem("ab-lang"),n=(navigator.languages||[navigator.language||""]).some(function(l){return /^es\b/i.test(l)});if(q==="es"||(q!=="en"&&(s==="es"||(!s&&n))))r.className+=" i18n-pending"}catch(e){}})();</script>
 </head>
 <body>
@@ -49,7 +50,7 @@
     <a class="nav-opt" href="/reviews/" aria-current="page" data-i18n="nav.reviews">Reviews</a>
     <a class="nav-opt" href="/faq/" data-i18n="nav.faq">FAQ</a>
     <a class="nav-cta" href="/contact/" data-cta data-i18n="nav.quote" data-short="Quote" data-i18n-attr="data-short:nav.quote.short">Free quote</a>
-    <span class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-pressed="true">EN</a><a href="?lang=es" data-lang="es" lang="es" aria-pressed="false">ES</a></span>
+    <span class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">EN</a><a href="?lang=es" data-lang="es" lang="es">ES</a></span>
   </nav>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-i18n-attr="aria-label:nav.menu" aria-label="Menu"><span></span><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Menu" data-i18n-attr="aria-label:nav.menu" hidden>
@@ -104,10 +105,10 @@
     <h2 id="jobs-title" data-i18n="work.title">Recent jobs</h2>
   </div>
   <div class="work-grid">
-    <figure class="work-item" data-cat="exterior"><img src="/img/work/petaluma-house.jpg" width="750" height="1000" alt="Full exterior · Petaluma, CA" data-i18n-attr="alt:ph.petaluma-house" loading="lazy" decoding="async"><figcaption data-i18n="ph.petaluma-house">Full exterior · Petaluma, CA</figcaption></figure>
-    <figure class="work-item" data-cat="decks"><img src="/img/work/orinda-deck.jpg" width="1000" height="750" alt="Deck job · Orinda, CA" data-i18n-attr="alt:ph.orinda-deck" loading="lazy" decoding="async"><figcaption data-i18n="ph.orinda-deck">Deck job · Orinda, CA</figcaption></figure>
-    <figure class="work-item" data-cat="interior"><img src="/img/work/kitchen.jpg" width="1000" height="750" alt="Kitchen cabinets and walls" data-i18n-attr="alt:ph.kitchen" loading="lazy" decoding="async"><figcaption data-i18n="ph.kitchen">Kitchen cabinets and walls</figcaption></figure>
-    <figure class="work-item" data-cat="interior"><img src="/img/work/interior-room.jpg" width="750" height="1000" alt="Bright room, walls and trim" data-i18n-attr="alt:ph.interior-room" loading="lazy" decoding="async"><figcaption data-i18n="ph.interior-room">Bright room, walls and trim</figcaption></figure>
+    <figure class="work-item" data-cat="exterior"><img src="/img/work/petaluma-house.webp" srcset="/img/work/petaluma-house-600.webp 600w, /img/work/petaluma-house.webp 750w" sizes="(max-width: 960px) 50vw, 25vw" width="750" height="1000" alt="Full exterior · Petaluma, CA" data-i18n-attr="alt:ph.petaluma-house" loading="lazy" decoding="async"><figcaption data-i18n="ph.petaluma-house">Full exterior · Petaluma, CA</figcaption></figure>
+    <figure class="work-item" data-cat="decks"><img src="/img/work/orinda-deck.webp" srcset="/img/work/orinda-deck-600.webp 600w, /img/work/orinda-deck-800.webp 800w, /img/work/orinda-deck.webp 1000w" sizes="(max-width: 960px) 50vw, 25vw" width="1000" height="750" alt="Deck job · Orinda, CA" data-i18n-attr="alt:ph.orinda-deck" loading="lazy" decoding="async"><figcaption data-i18n="ph.orinda-deck">Deck job · Orinda, CA</figcaption></figure>
+    <figure class="work-item" data-cat="interior"><img src="/img/work/kitchen.webp" srcset="/img/work/kitchen-600.webp 600w, /img/work/kitchen-800.webp 800w, /img/work/kitchen.webp 1000w" sizes="(max-width: 960px) 50vw, 25vw" width="1000" height="750" alt="Kitchen cabinets and walls" data-i18n-attr="alt:ph.kitchen" loading="lazy" decoding="async"><figcaption data-i18n="ph.kitchen">Kitchen cabinets and walls</figcaption></figure>
+    <figure class="work-item" data-cat="interior"><img src="/img/work/interior-room.webp" srcset="/img/work/interior-room-600.webp 600w, /img/work/interior-room.webp 750w" sizes="(max-width: 960px) 50vw, 25vw" width="750" height="1000" alt="Bright room, walls and trim" data-i18n-attr="alt:ph.interior-room" loading="lazy" decoding="async"><figcaption data-i18n="ph.interior-room">Bright room, walls and trim</figcaption></figure>
   </div>
   <p class="work-more"><a class="btn btn-ghost" href="/work/" data-i18n="workp.all">See all our work</a></p>
 </section>

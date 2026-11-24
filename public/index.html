@@ -20,8 +20,9 @@
 <!-- /seo -->
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/site.css">
-<link rel="alternate" hreflang="en" href="/">
-<link rel="alternate" hreflang="es" href="/?lang=es">
+<link rel="alternate" hreflang="en" href="https://atelier-blanc.raymondsantopietro.workers.dev/">
+<link rel="alternate" hreflang="x-default" href="https://atelier-blanc.raymondsantopietro.workers.dev/">
+<link rel="alternate" hreflang="es" href="https://atelier-blanc.raymondsantopietro.workers.dev/?lang=es">
 <script>(function(){var r=document.documentElement;try{var q=new URLSearchParams(location.search).get("lang"),s=localStorage.getItem("ab-lang"),n=(navigator.languages||[navigator.language||""]).some(function(l){return /^es\b/i.test(l)});if(q==="es"||(q!=="en"&&(s==="es"||(!s&&n))))r.className+=" i18n-pending"}catch(e){}})();</script>
 </head>
 <body>
@@ -50,7 +51,7 @@
     <a class="nav-opt" href="/reviews/" data-i18n="nav.reviews">Reviews</a>
     <a class="nav-opt" href="/faq/" data-i18n="nav.faq">FAQ</a>
     <a class="nav-cta" href="/contact/" data-cta data-i18n="nav.quote" data-short="Quote" data-i18n-attr="data-short:nav.quote.short">Free quote</a>
-    <span class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-pressed="true">EN</a><a href="?lang=es" data-lang="es" lang="es" aria-pressed="false">ES</a></span>
+    <span class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">EN</a><a href="?lang=es" data-lang="es" lang="es">ES</a></span>
   </nav>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-i18n-attr="aria-label:nav.menu" aria-label="Menu"><span></span><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Menu" data-i18n-attr="aria-label:nav.menu" hidden>
@@ -78,7 +79,7 @@
 <!-- ───── Hero: one full-width photo, the name on top of it ───── -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="wall" aria-hidden="true">
-    <img class="wall-photo" src="/img/work/cape-cod-exterior.jpg" width="1000" height="750" alt="" fetchpriority="high">
+    <img class="wall-photo" src="/img/work/cape-cod-exterior.webp" srcset="/img/work/cape-cod-exterior-600.webp 600w, /img/work/cape-cod-exterior-800.webp 800w, /img/work/cape-cod-exterior.webp 1000w" sizes="100vw" width="1000" height="750" alt="" fetchpriority="high">
   </div>
 
   <div class="hero-copy">
@@ -118,7 +119,7 @@
 
 <section class="block home-story" aria-labelledby="home-story-title">
   <div class="story-grid">
-    <figure class="story-photo" data-cat="prep"><img src="/img/work/crew-prep.jpg" width="744" height="992" alt="Scraping and sanding siding" data-i18n-attr="alt:ph.crew-prep" loading="lazy" decoding="async"></figure>
+    <figure class="story-photo" data-cat="prep"><img src="/img/work/crew-prep.webp" srcset="/img/work/crew-prep-600.webp 600w, /img/work/crew-prep.webp 744w" sizes="(max-width: 960px) 100vw, 40vw" width="744" height="992" alt="Scraping and sanding siding" data-i18n-attr="alt:ph.crew-prep" loading="lazy" decoding="async"></figure>
     <div>
       <p class="label" data-i18n="about.label">About us</p>
       <h2 id="home-story-title" data-i18n="about.title">A family crew from Hercules</h2>

@@ -497,7 +497,7 @@
       }
     });
 
-    document.querySelectorAll("[data-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+    document.querySelectorAll("[data-lang]").forEach((b) => b.dataset.lang === lang ? b.setAttribute("aria-current", "true") : b.removeAttribute("aria-current"));
     const field = document.querySelector('#quote-form input[name="lang"]');
     if (field) field.value = lang;
 
