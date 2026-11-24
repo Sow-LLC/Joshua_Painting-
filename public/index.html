@@ -23,7 +23,7 @@
 <link rel="alternate" hreflang="en" href="https://atelier-blanc.raymondsantopietro.workers.dev/">
 <link rel="alternate" hreflang="x-default" href="https://atelier-blanc.raymondsantopietro.workers.dev/">
 <link rel="alternate" hreflang="es" href="https://atelier-blanc.raymondsantopietro.workers.dev/?lang=es">
-<script>(function(){var r=document.documentElement;try{var q=new URLSearchParams(location.search).get("lang"),s=localStorage.getItem("ab-lang"),n=(navigator.languages||[navigator.language||""]).some(function(l){return /^es\b/i.test(l)});if(q==="es"||(q!=="en"&&(s==="es"||(!s&&n))))r.className+=" i18n-pending"}catch(e){}})();</script>
+<script>(function(){var r=document.documentElement;r.className+=" js";try{var q=new URLSearchParams(location.search).get("lang"),s=localStorage.getItem("ab-lang"),n=(navigator.languages||[navigator.language||""]).some(function(l){return /^es\b/i.test(l)});if(q==="es"||(q!=="en"&&(s==="es"||(!s&&n))))r.className+=" i18n-pending"}catch(e){}})();</script>
 </head>
 <body>
 
@@ -53,8 +53,8 @@ Joshua's Painting Service</a>
   </nav>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-i18n-attr="aria-label:nav.menu" aria-label="Menu"><span></span><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Menu" data-i18n-attr="aria-label:nav.menu" hidden>
-    <a href="/services/" data-i18n="nav.services">Services</a>
-    <div class="menu-sub">
+    <div class="menu-row"><a href="/services/" data-i18n="nav.services">Services</a><button class="menu-expand" type="button" aria-expanded="false" aria-controls="menu-sub" aria-label="Show services" data-i18n-attr="aria-label:nav.showServices"><span aria-hidden="true"></span></button></div>
+    <div class="menu-sub" id="menu-sub" hidden>
       <a href="/services/interior/" data-i18n="svcp.interior.h1">Interior painting</a>
       <a href="/services/exterior/" data-i18n="svcp.exterior.h1">Exterior painting</a>
       <a href="/services/cabinets/" data-i18n="svcp.cabinets.h1">Cabinet painting</a>
@@ -67,9 +67,10 @@ Joshua's Painting Service</a>
     <a href="/reviews/" data-i18n="nav.reviews">Reviews</a>
     <a href="/faq/" data-i18n="nav.faq">FAQ</a>
     <a href="/contact/" data-i18n="nav.contact">Contact</a>
-    <span class="lang menu-lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">English</a><a href="?lang=es" data-lang="es" lang="es">Español</a></span>
-    <a class="menu-call" href="tel:+15103699079"><span data-i18n="util.call">Call</span> (510) 369-9079</a>
-    <a class="btn" href="/contact/" data-cta data-i18n="nav.quote">Free quote</a>
+    <div class="menu-foot">
+      <span class="lang menu-lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">English</a><a href="?lang=es" data-lang="es" lang="es">Español</a></span>
+      <a class="menu-call" href="tel:+15103699079">(510) 369-9079</a>
+    </div>
   </nav>
 </header>
 

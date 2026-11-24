@@ -120,8 +120,9 @@ def photo(name, cls="work-item", lazy=True, caption=True):
     key = f"ph.{name}"
     ES[key] = es
     lazy_attr = ' loading="lazy"' if lazy else ""
-    img = (f'<img src="/img/work/{name}.jpg" width="{w}" height="{h}" alt="{e(en)}" '
-           f'data-i18n-attr="alt:{key}"{lazy_attr} decoding="async">')
+    # with a caption underneath, the caption describes the photo; alt text would only repeat it
+    alt = 'alt=""' if caption else f'alt="{e(en)}" data-i18n-attr="alt:{key}"'
+    img = f'<img src="/img/work/{name}.jpg" width="{w}" height="{h}" {alt}{lazy_attr} decoding="async">'
     cap = f'<figcaption data-i18n="{key}">{e(en)}</figcaption>' if caption else ""
     return f'<figure class="{cls}" data-cat="{cat}">{img}{cap}</figure>'
 
@@ -170,7 +171,7 @@ SERVICES = [
                "¿La pintura va a durar?", "Desengrasamos, lijamos, usamos un primer de adherencia y terminamos con un esmalte resistente para gabinetes, que aguanta golpes y limpieza diaria."),
               ("Can you change the hardware?", "Yes. We fill the old holes and drill for new handles if you choose them before we start.",
                "¿Pueden cambiar las jaladeras?", "Sí. Rellenamos los agujeros viejos y perforamos para las nuevas si las elige antes de empezar.")]),
-    dict(slug="wall-repair", gid="walls", scope="other", n=4,
+    dict(slug="wall-repair", gid="walls", scope="walls", n=4,
          h1=("Wall repair & texture", "Reparación y textura de paredes"),
          note=("s5.note", "hourly or flat", None),
          title=("Walls & repairs", None), body=("The work under the paint: holes, cracks, old finishes and texture, fixed so the new coat looks right.", None),
@@ -184,7 +185,7 @@ SERVICES = [
                "¿Quitan papel tapiz?", "Sí. Lo retiramos, lavamos el pegamento, reparamos la pared de abajo y le aplicamos primer para pintar."),
               ("Is repair work charged separately?", "Small repairs are included in a painting quote. Bigger repairs are priced by the hour or as a flat price, agreed before we start.",
                "¿Las reparaciones se cobran aparte?", "Las reparaciones pequeñas van incluidas en la cotización de pintura. Las grandes se cobran por hora o con precio fijo, acordado antes de empezar.")]),
-    dict(slug="waterproofing", gid="water", scope="other", n=5,
+    dict(slug="waterproofing", gid="water", scope="waterproofing", n=5,
          h1=("Waterproofing", "Impermeabilización"),
          note=("svcp.water.note", "priced per job", "precio por trabajo"),
          title=("Waterproofing", None), body=("Keeping water out of walls, decks and masonry, on its own or as part of an exterior job.", None),
@@ -240,8 +241,8 @@ Joshua's Painting Service</a>
   </nav>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-i18n-attr="aria-label:nav.menu" aria-label="Menu"><span></span><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Menu" data-i18n-attr="aria-label:nav.menu" hidden>
-    <a href="/services/" data-i18n="nav.services">Services</a>
-    <div class="menu-sub">
+    <div class="menu-row"><a href="/services/" data-i18n="nav.services">Services</a><button class="menu-expand" type="button" aria-expanded="false" aria-controls="menu-sub" aria-label="Show services" data-i18n-attr="aria-label:nav.showServices"><span aria-hidden="true"></span></button></div>
+    <div class="menu-sub" id="menu-sub" hidden>
 {sub}
     </div>
     <a href="/work/" data-i18n="nav.work">Our work</a>
@@ -249,9 +250,10 @@ Joshua's Painting Service</a>
     <a href="/reviews/" data-i18n="nav.reviews">Reviews</a>
     <a href="/faq/" data-i18n="nav.faq">FAQ</a>
     <a href="/contact/" data-i18n="nav.contact">Contact</a>
-    <span class="lang menu-lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">English</a><a href="?lang=es" data-lang="es" lang="es">Español</a></span>
-    <a class="menu-call" href="tel:{PHONE_TEL}"><span data-i18n="util.call">Call</span> {PHONE}</a>
-    <a class="btn" href="/contact/" data-cta data-i18n="nav.quote">Free quote</a>
+    <div class="menu-foot">
+      <span class="lang menu-lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">English</a><a href="?lang=es" data-lang="es" lang="es">Español</a></span>
+      <a class="menu-call" href="tel:{PHONE_TEL}">{PHONE}</a>
+    </div>
   </nav>
 </header>'''
 
@@ -314,6 +316,8 @@ def localize(html, path, has_form):
                   else f'href="{moved.get(m.group(1), "/#" + m.group(1))}"', html)
     # mark the current page in the menus
     html = re.sub(rf'(<a(?: class="[^"]*")? href="{re.escape(path)}")(?= )', r'\1 aria-current="page"', html) if path != "/" else html
+    if path == "/contact/":   # the form is right there, so the phone bar keeps only Call
+        html = html.replace('<div class="dock">', '<div class="dock dock-call-only">', 1)
     return webp(hreflang(html))
 
 def hreflang(html):
@@ -364,7 +368,7 @@ def section(src, start_marker):
 
 def page(path, head_html, main, scripts, has_form=False, out_file=None):
     html = head_html + header() + "\n\n<main>\n\n" + main + "\n\n</main>\n\n" + footer() + "\n\n"
-    html += "".join(f'<script src="/js/{s}.js" defer></script>\n' for s in ["i18n", "menu", "reveal"] + scripts)
+    html += "".join(f'<script src="/js/{s}.js" defer></script>\n' for s in ["i18n", "menu", "reveal"] + (["lightbox"] if 'class="work-item"' in main else []) + scripts)
     html += "</body>\n</html>\n"
     html = localize(html, path, has_form)
     out = PUB / out_file if out_file else PUB / path.strip("/") / "index.html"
@@ -373,6 +377,11 @@ def page(path, head_html, main, scripts, has_form=False, out_file=None):
     return path
 
 def quote_section(src, scope):
+    ES.update({"q.step": "Paso", "q.s1": "¿En qué le podemos ayudar?", "q.s2": "Cuéntenos sobre el trabajo",
+               "q.s2hint": "Todo es opcional. Omita lo que prefiera explicar por teléfono.", "q.s3": "¿Cómo lo contactamos?",
+               "q.next": "Siguiente", "q.back": "Atrás", "scope.walls": "Reparación de paredes", "scope.waterproofing": "Impermeabilización",
+               "done.label": "Solicitud enviada", "done.title": "Gracias",
+               "done.body": "Josué le llamará o le enviará un mensaje lo antes posible para agendar una visita gratis. Sin costo ni presión."})
     q = section(src, '<section id="quote"')
     q = q.replace('value="interior" checked>', 'value="interior">')
     q = q.replace(f'name="scope" value="{scope}">', f'name="scope" value="{scope}" checked>', 1)

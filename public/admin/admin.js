@@ -2,7 +2,7 @@
 (() => {
   const STATUSES = ["lead", "estimated", "scheduled", "in_progress", "done", "cancelled"];
   const STATUS_LABEL = { lead: "Lead", estimated: "Estimated", scheduled: "Scheduled", in_progress: "In progress", done: "Done", cancelled: "Cancelled" };
-  const SCOPES = ["interior", "exterior", "cabinets", "commercial", "other"];
+  const SCOPES = ["interior", "exterior", "cabinets", "walls", "waterproofing", "commercial", "other"];
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const money = (n) => "$" + (Number(n) || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });

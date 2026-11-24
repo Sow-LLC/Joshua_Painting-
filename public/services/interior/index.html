@@ -24,7 +24,7 @@
 <link rel="alternate" hreflang="en" href="https://atelier-blanc.raymondsantopietro.workers.dev/services/interior/">
 <link rel="alternate" hreflang="x-default" href="https://atelier-blanc.raymondsantopietro.workers.dev/services/interior/">
 <link rel="alternate" hreflang="es" href="https://atelier-blanc.raymondsantopietro.workers.dev/services/interior/?lang=es">
-<script>(function(){var r=document.documentElement;try{var q=new URLSearchParams(location.search).get("lang"),s=localStorage.getItem("ab-lang"),n=(navigator.languages||[navigator.language||""]).some(function(l){return /^es\b/i.test(l)});if(q==="es"||(q!=="en"&&(s==="es"||(!s&&n))))r.className+=" i18n-pending"}catch(e){}})();</script>
+<script>(function(){var r=document.documentElement;r.className+=" js";try{var q=new URLSearchParams(location.search).get("lang"),s=localStorage.getItem("ab-lang"),n=(navigator.languages||[navigator.language||""]).some(function(l){return /^es\b/i.test(l)});if(q==="es"||(q!=="en"&&(s==="es"||(!s&&n))))r.className+=" i18n-pending"}catch(e){}})();</script>
 </head>
 <body>
 
@@ -54,8 +54,8 @@ Joshua's Painting Service</a>
   </nav>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-i18n-attr="aria-label:nav.menu" aria-label="Menu"><span></span><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Menu" data-i18n-attr="aria-label:nav.menu" hidden>
-    <a href="/services/" data-i18n="nav.services">Services</a>
-    <div class="menu-sub">
+    <div class="menu-row"><a href="/services/" data-i18n="nav.services">Services</a><button class="menu-expand" type="button" aria-expanded="false" aria-controls="menu-sub" aria-label="Show services" data-i18n-attr="aria-label:nav.showServices"><span aria-hidden="true"></span></button></div>
+    <div class="menu-sub" id="menu-sub" hidden>
       <a href="/services/interior/" aria-current="page" data-i18n="svcp.interior.h1">Interior painting</a>
       <a href="/services/exterior/" data-i18n="svcp.exterior.h1">Exterior painting</a>
       <a href="/services/cabinets/" data-i18n="svcp.cabinets.h1">Cabinet painting</a>
@@ -68,9 +68,10 @@ Joshua's Painting Service</a>
     <a href="/reviews/" data-i18n="nav.reviews">Reviews</a>
     <a href="/faq/" data-i18n="nav.faq">FAQ</a>
     <a href="/contact/" data-i18n="nav.contact">Contact</a>
-    <span class="lang menu-lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">English</a><a href="?lang=es" data-lang="es" lang="es">Español</a></span>
-    <a class="menu-call" href="tel:+15103699079"><span data-i18n="util.call">Call</span> (510) 369-9079</a>
-    <a class="btn" href="#quote" data-cta data-i18n="nav.quote">Free quote</a>
+    <div class="menu-foot">
+      <span class="lang menu-lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">English</a><a href="?lang=es" data-lang="es" lang="es">Español</a></span>
+      <a class="menu-call" href="tel:+15103699079">(510) 369-9079</a>
+    </div>
   </nav>
 </header>
 
@@ -95,7 +96,7 @@ Joshua's Painting Service</a>
     </div>
     <a class="rating" href="https://www.yelp.com/biz/joshua-painting-jm-waterproofing-hercules" target="_blank" rel="noopener"><span class="stars" aria-hidden="true">★★★★★</span> <span data-i18n="rev.short">5.0 on Yelp</span></a>
   </div>
-  <figure class="svc-hero-photo" data-cat="interior"><img src="/img/work/interior-room.webp" srcset="/img/work/interior-room-600.webp 600w, /img/work/interior-room.webp 750w" sizes="(max-width: 960px) 100vw, 50vw" width="750" height="1000" alt="Bright room, walls and trim" data-i18n-attr="alt:ph.interior-room" decoding="async"><figcaption data-i18n="ph.interior-room">Bright room, walls and trim</figcaption></figure>
+  <figure class="svc-hero-photo" data-cat="interior"><img src="/img/work/interior-room.webp" srcset="/img/work/interior-room-600.webp 600w, /img/work/interior-room.webp 750w" sizes="(max-width: 960px) 100vw, 50vw" width="750" height="1000" alt="" decoding="async"><figcaption data-i18n="ph.interior-room">Bright room, walls and trim</figcaption></figure>
 </section>
 
 <section class="block work" aria-labelledby="jobs-title">
@@ -104,10 +105,10 @@ Joshua's Painting Service</a>
     <h2 id="jobs-title" data-i18n="work.title">Recent jobs</h2>
   </div>
   <div class="work-grid">
-    <figure class="work-item" data-cat="interior"><img src="/img/work/interior-bedroom.webp" srcset="/img/work/interior-bedroom-600.webp 600w, /img/work/interior-bedroom.webp 750w" sizes="(max-width: 960px) 50vw, 25vw" width="750" height="1000" alt="Bedroom, ready to move in" data-i18n-attr="alt:ph.interior-bedroom" loading="lazy" decoding="async"><figcaption data-i18n="ph.interior-bedroom">Bedroom, ready to move in</figcaption></figure>
-    <figure class="work-item" data-cat="interior"><img src="/img/work/interior-door.webp" srcset="/img/work/interior-door-600.webp 600w, /img/work/interior-door.webp 750w" sizes="(max-width: 960px) 50vw, 25vw" width="750" height="1000" alt="Doors and casings" data-i18n-attr="alt:ph.interior-door" loading="lazy" decoding="async"><figcaption data-i18n="ph.interior-door">Doors and casings</figcaption></figure>
-    <figure class="work-item" data-cat="prep"><img src="/img/work/drywall-prep.webp" srcset="/img/work/drywall-prep-600.webp 600w, /img/work/drywall-prep.webp 750w" sizes="(max-width: 960px) 50vw, 25vw" width="750" height="1000" alt="Patching before paint" data-i18n-attr="alt:ph.drywall-prep" loading="lazy" decoding="async"><figcaption data-i18n="ph.drywall-prep">Patching before paint</figcaption></figure>
-    <figure class="work-item" data-cat="prep"><img src="/img/work/surface-prep.webp" srcset="/img/work/surface-prep-600.webp 600w, /img/work/surface-prep-800.webp 800w, /img/work/surface-prep.webp 992w" sizes="(max-width: 960px) 50vw, 25vw" width="992" height="744" alt="Surface preparation" data-i18n-attr="alt:ph.surface-prep" loading="lazy" decoding="async"><figcaption data-i18n="ph.surface-prep">Surface preparation</figcaption></figure>
+    <figure class="work-item" data-cat="interior"><img src="/img/work/interior-bedroom.webp" srcset="/img/work/interior-bedroom-600.webp 600w, /img/work/interior-bedroom.webp 750w" sizes="(max-width: 960px) 50vw, 25vw" width="750" height="1000" alt="" loading="lazy" decoding="async"><figcaption data-i18n="ph.interior-bedroom">Bedroom, ready to move in</figcaption></figure>
+    <figure class="work-item" data-cat="interior"><img src="/img/work/interior-door.webp" srcset="/img/work/interior-door-600.webp 600w, /img/work/interior-door.webp 750w" sizes="(max-width: 960px) 50vw, 25vw" width="750" height="1000" alt="" loading="lazy" decoding="async"><figcaption data-i18n="ph.interior-door">Doors and casings</figcaption></figure>
+    <figure class="work-item" data-cat="prep"><img src="/img/work/drywall-prep.webp" srcset="/img/work/drywall-prep-600.webp 600w, /img/work/drywall-prep.webp 750w" sizes="(max-width: 960px) 50vw, 25vw" width="750" height="1000" alt="" loading="lazy" decoding="async"><figcaption data-i18n="ph.drywall-prep">Patching before paint</figcaption></figure>
+    <figure class="work-item" data-cat="prep"><img src="/img/work/surface-prep.webp" srcset="/img/work/surface-prep-600.webp 600w, /img/work/surface-prep-800.webp 800w, /img/work/surface-prep.webp 992w" sizes="(max-width: 960px) 50vw, 25vw" width="992" height="744" alt="" loading="lazy" decoding="async"><figcaption data-i18n="ph.surface-prep">Surface preparation</figcaption></figure>
   </div>
   <p class="work-more"><a class="btn btn-ghost" href="/work/" data-i18n="workp.all">See all our work</a></p>
 </section>
@@ -200,60 +201,92 @@ Joshua's Painting Service</a>
     <div class="block-head">
       <p class="label" data-i18n="quote.label">Free quote</p>
       <h2 id="quote-title" data-i18n="quote.title">Request a quote</h2>
-      <p class="muted" data-i18n="quote.intro">Name, a way to reach you and a line about the job is enough. We reply as soon as possible, usually the same day, to set up a free visit.</p>
-      <ul class="contact">
-        <li><span class="label" data-i18n="contact.phone">Phone</span><a href="tel:+15103699079">(510) 369-9079</a></li>
-        <li><span class="label" data-i18n="contact.hours">Hours</span><span data-i18n="util.hours">Mon–Sat · 8 am – 7 pm</span></li>
-        <li><span class="label" data-i18n="contact.reviews">Reviews</span><a href="https://www.yelp.com/biz/joshua-painting-jm-waterproofing-hercules" target="_blank" rel="noopener"><span class="stars" aria-hidden="true">★★★★★</span> <span data-i18n="rev.short">5.0 on Yelp</span></a></li>
-        <li><span class="label">Facebook</span><a href="https://www.facebook.com/p/Joshua-Painting-JM-Waterproofing-100094531236267/" target="_blank" rel="noopener" data-i18n="social.fb">Joshua Painting JM Waterproofing</a></li>
-        <li><span class="label" data-i18n="contact.reply">Reply</span><span data-i18n="contact.reply.body">As soon as possible</span></li>
-      </ul>
+      <p class="muted" data-i18n="quote.intro">Three quick steps. We reply as soon as possible, usually the same day, to set up a free visit.</p>
     </div>
 
     <form id="quote-form" class="form" method="post" action="/api/quotes" novalidate>
-      <div class="field"><label for="f-name" data-i18n="f.name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
-      <div class="field"><label for="f-email" data-i18n="f.email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
-      <div class="field"><label for="f-phone" data-i18n="f.phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
-      <fieldset class="field wide chips">
-        <legend data-i18n="f.scope">Type of work</legend>
-        <label><input type="radio" name="scope" value="interior" checked><span data-i18n="scope.interior">Interior</span></label>
-        <label><input type="radio" name="scope" value="exterior"><span data-i18n="scope.exterior">Exterior</span></label>
-        <label><input type="radio" name="scope" value="cabinets"><span data-i18n="scope.cabinets">Cabinets</span></label>
-        <label><input type="radio" name="scope" value="commercial"><span data-i18n="scope.commercial">Commercial</span></label>
-        <label><input type="radio" name="scope" value="other"><span data-i18n="scope.other">Other</span></label>
+      <!-- progress: shown only when the form runs step by step (site.js) -->
+      <div class="step-bar wide" hidden>
+        <p class="step-count"><span data-i18n="q.step">Step</span> <b class="step-now">1</b> / 3</p>
+        <div class="step-track" aria-hidden="true"><span></span></div>
+      </div>
+
+      <!-- step 1: the job -->
+      <fieldset class="step wide" data-step="1">
+        <legend class="step-title" data-i18n="q.s1">What can we help with?</legend>
+        <div class="choice-grid">
+          <label><input type="radio" name="scope" value="interior" checked><span data-i18n="scope.interior">Interior</span></label>
+          <label><input type="radio" name="scope" value="exterior"><span data-i18n="scope.exterior">Exterior</span></label>
+          <label><input type="radio" name="scope" value="cabinets"><span data-i18n="scope.cabinets">Cabinets</span></label>
+          <label><input type="radio" name="scope" value="walls"><span data-i18n="scope.walls">Wall repair</span></label>
+          <label><input type="radio" name="scope" value="waterproofing"><span data-i18n="scope.waterproofing">Waterproofing</span></label>
+          <label><input type="radio" name="scope" value="commercial"><span data-i18n="scope.commercial">Commercial</span></label>
+          <label class="choice-wide"><input type="radio" name="scope" value="other"><span data-i18n="scope.other">Something else</span></label>
+        </div>
       </fieldset>
 
-      <details class="wide more">
-        <summary data-i18n="f.more">Add details (optional): address, size, timing</summary>
-        <div class="more-grid">
+      <!-- step 2: details, all optional -->
+      <div class="step wide" data-step="2">
+        <p class="step-title" data-i18n="q.s2">Tell us about the job</p>
+        <p class="step-hint" data-i18n="q.s2hint">All optional. Skip anything you'd rather explain on the phone.</p>
+        <div class="step-grid">
           <div class="field wide"><label for="f-address" data-i18n="f.address">Address of the job</label><input id="f-address" name="address" autocomplete="street-address"></div>
           <div class="field"><label for="f-rooms" data-i18n-html="f.rooms">Rooms <small>(approx.)</small></label><input id="f-rooms" name="rooms" type="number" min="0" inputmode="numeric"></div>
           <div class="field"><label for="f-sqft" data-i18n-html="f.sqft">Square feet <small>(if known)</small></label><input id="f-sqft" name="sqft" type="number" min="0" inputmode="numeric"></div>
-          <div class="field wide">
-            <label for="f-timeline" data-i18n="f.when">When</label>
-            <select id="f-timeline" name="timeline">
-              <option value="As soon as possible" data-i18n="when.asap">As soon as possible</option>
-              <option value="Within a month" data-i18n="when.month">Within a month</option>
-              <option value="1–3 months" data-i18n="when.quarter">1–3 months</option>
-              <option value="Just planning" data-i18n="when.planning">Just planning</option>
-            </select>
-          </div>
+          <fieldset class="field wide chips">
+            <legend data-i18n="f.when">When</legend>
+            <label><input type="radio" name="timeline" value="As soon as possible" checked><span data-i18n="when.asap">As soon as possible</span></label>
+            <label><input type="radio" name="timeline" value="Within a month"><span data-i18n="when.month">Within a month</span></label>
+            <label><input type="radio" name="timeline" value="1–3 months"><span data-i18n="when.quarter">1–3 months</span></label>
+            <label><input type="radio" name="timeline" value="Just planning"><span data-i18n="when.planning">Just planning</span></label>
+          </fieldset>
+          <div class="field wide"><label for="f-message" data-i18n="f.message">Anything else</label><textarea id="f-message" name="message" rows="3" data-i18n-attr="placeholder:f.message.ph" placeholder="Colours you have in mind, problem areas, access, pets…"></textarea></div>
         </div>
-      </details>
+      </div>
 
-      <div class="field wide"><label for="f-message" data-i18n="f.message">Anything else</label><textarea id="f-message" name="message" rows="4" data-i18n-attr="placeholder:f.message.ph" placeholder="Colours you have in mind, problem areas, access, pets…"></textarea></div>
+      <!-- step 3: contact -->
+      <div class="step wide" data-step="3">
+        <p class="step-title" data-i18n="q.s3">How can we reach you?</p>
+        <div class="step-grid">
+          <div class="field wide"><label for="f-name" data-i18n="f.name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="f-phone" data-i18n="f.phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"></div>
+          <div class="field"><label for="f-email" data-i18n="f.email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email"></div>
+        </div>
+        <p class="form-note" data-i18n-html="f.privacy">We only use your details to reply about your job. <a href="/privacy/">Privacy</a></p>
+      </div>
 
       <input type="hidden" name="lang" value="en">
       <!-- honeypot: hidden from people, irresistible to bots -->
       <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
 
-      <p class="form-note wide" data-i18n-html="f.privacy">We only use your details to reply about your job. <a href="/privacy/">Privacy</a></p>
-
       <div class="form-foot wide">
+        <button class="btn btn-ghost step-back" type="button" hidden data-i18n="q.back">Back</button>
         <p class="form-msg" role="status" aria-live="polite"></p>
-        <button class="btn" type="submit" data-i18n="f.send">Send request</button>
+        <button class="btn step-next" type="button" hidden data-i18n="q.next">Next</button>
+        <button class="btn step-send" type="submit" data-i18n="f.send">Send request</button>
       </div>
     </form>
+
+    <div class="quote-contact">
+        <ul class="contact">
+          <li><span class="label" data-i18n="contact.phone">Phone</span><a href="tel:+15103699079">(510) 369-9079</a></li>
+          <li><span class="label" data-i18n="contact.hours">Hours</span><span data-i18n="util.hours">Mon–Sat · 8 am – 7 pm</span></li>
+          <li><span class="label" data-i18n="contact.reviews">Reviews</span><a href="https://www.yelp.com/biz/joshua-painting-jm-waterproofing-hercules" target="_blank" rel="noopener"><span class="stars" aria-hidden="true">★★★★★</span> <span data-i18n="rev.short">5.0 on Yelp</span></a></li>
+          <li><span class="label">Facebook</span><a href="https://www.facebook.com/p/Joshua-Painting-JM-Waterproofing-100094531236267/" target="_blank" rel="noopener" data-i18n="social.fb">Joshua Painting JM Waterproofing</a></li>
+          <li><span class="label" data-i18n="contact.reply">Reply</span><span data-i18n="contact.reply.body">As soon as possible</span></li>
+        </ul>
+    </div>
+
+    <!-- shown after a successful request -->
+    <div class="quote-done" hidden tabindex="-1">
+      <p class="label" data-i18n="done.label">Request sent</p>
+      <p class="done-title"><span data-i18n="done.title">Thank you</span><span class="done-name"></span>.</p>
+      <p class="done-body" data-i18n="done.body">Josué will call or text you as soon as possible to set up a free visit. No cost and no pressure.</p>
+      <div class="hero-actions">
+        <a class="btn" href="tel:+15103699079"><span data-i18n="util.call">Call</span> (510) 369-9079</a>
+        <a class="btn btn-ghost" href="/work/" data-i18n="hero.work">See our work</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -298,6 +331,7 @@ Joshua's Painting Service</a>
 <script src="/js/i18n.js" defer></script>
 <script src="/js/menu.js" defer></script>
 <script src="/js/reveal.js" defer></script>
+<script src="/js/lightbox.js" defer></script>
 <script src="/js/site.js" defer></script>
 </body>
 </html>

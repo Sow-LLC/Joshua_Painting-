@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS quotes (
   email        TEXT,
   phone        TEXT,
   address      TEXT,
-  scope        TEXT,            -- interior | exterior | cabinets | commercial | other
+  scope        TEXT,            -- interior | exterior | cabinets | walls | waterproofing | commercial | other
   rooms        INTEGER,
   sqft         INTEGER,
   timeline     TEXT,

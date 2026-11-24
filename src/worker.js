@@ -30,7 +30,7 @@
 
 const JOB_STATUSES = ["lead", "estimated", "scheduled", "in_progress", "done", "cancelled"];
 const EST_STATUSES = ["draft", "sent", "accepted", "rejected"];
-const SCOPES = ["interior", "exterior", "cabinets", "commercial", "other"];
+const SCOPES = ["interior", "exterior", "cabinets", "walls", "waterproofing", "commercial", "other"];
 const MAX_FIELD = 4000;
 
 // ───────────────────────────── helpers ─────────────────────────────
@@ -274,7 +274,7 @@ async function alertUnlessFlooded(env, q, origin) {
  */
 async function notifyNewQuote(env, q, origin) {
   if (!env.NTFY_TOPIC) return;
-  const kind = { interior: "Interior", exterior: "Exterior", cabinets: "Cabinets", commercial: "Commercial" }[q.scope] || "Other";
+  const kind = { interior: "Interior", exterior: "Exterior", cabinets: "Cabinets", walls: "Wall repair", waterproofing: "Waterproofing", commercial: "Commercial" }[q.scope] || "Other";
   const lines = [
     `${kind} job${q.lang === "es" ? " · wrote in Spanish" : ""}`,
     q.phone && `Phone: ${q.phone}`,

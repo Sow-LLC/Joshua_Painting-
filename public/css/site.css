@@ -640,3 +640,198 @@ a.frame-media { display: block; }
   .nav { gap: 8px; }
   .nav-cta { padding: 8px 8px; }
 }
+
+/* ───── quote form, step by step (public/js/site.js) ───── */
+.form .step { border: 0; padding: 0; margin: 0; min-width: 0; }
+.form.stepped .step[hidden], .quote-done[hidden], .step-bar[hidden] { display: none !important; }
+.step-title { display: block; padding: 0; margin: 0 0 18px; font-size: clamp(24px, 3vw, 32px); letter-spacing: -.02em; line-height: 1.15; }
+.step-hint { margin: -8px 0 22px; color: var(--graphite); font-size: 15px; }
+.step-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; }
+.step .form-note { margin-top: 18px; }
+.step-bar { display: grid; gap: 10px; }
+.step-count { margin: 0; font: 12px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--graphite); }
+.step-count b { color: var(--ink); font-weight: 500; }
+.step-track { height: 2px; background: var(--rule); overflow: hidden; }
+.step-track span { display: block; height: 100%; width: var(--done, 33%); background: var(--ink); transition: width .45s cubic-bezier(.2, .7, .2, 1); }
+.form.stepped .step-in { animation: step-in .4s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes step-in { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+
+/* step 1: big tap-to-choose tiles */
+.choice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.choice-grid label { cursor: pointer; display: block; }
+.choice-grid input { position: absolute; opacity: 0; pointer-events: none; }
+.choice-grid span {
+  display: flex; align-items: center; min-height: 64px; padding: 16px 18px;
+  border: 1px solid var(--rule); background: var(--primer);
+  font-size: 18px; letter-spacing: -.01em; line-height: 1.2;
+  transition: border-color .2s, background .2s, color .2s, transform .12s;
+}
+.choice-grid label:hover span { border-color: var(--ink); }
+.choice-grid input:checked + span { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.choice-grid input:focus-visible + span { outline: 2px solid var(--graphite); outline-offset: 2px; }
+.choice-grid label:active span { transform: scale(.98); }
+.choice-wide { grid-column: 1 / -1; }
+
+/* form buttons: Back on the left, Next / Send on the right */
+.form.stepped .form-foot { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; }
+.form.stepped .form-msg { grid-column: 2; }
+.form.stepped .step-next, .form.stepped .step-send { grid-column: 3; }
+.form.stepped .step-back { grid-column: 1; }
+.form.stepped .form-foot > [hidden] { display: none; }
+
+/* after sending */
+.quote-done { padding: clamp(28px, 4vw, 48px); border: 1px solid var(--ink); background: var(--primer); outline: none; animation: step-in .5s cubic-bezier(.2, .7, .2, 1) both; }
+.done-title { margin: 8px 0 12px; font-size: clamp(30px, 4vw, 44px); letter-spacing: -.03em; line-height: 1.05; }
+.done-body { margin: 0 0 26px; color: #46433d; font-size: 17px; max-width: 46ch; }
+
+@media (max-width: 620px) {
+  .choice-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .choice-grid span { min-height: 58px; font-size: 16px; padding: 14px; }
+  .step-grid { grid-template-columns: 1fr; gap: 18px; }
+  /* phones: the main button full width, Back as a quiet link underneath */
+  .form.stepped .form-foot { grid-template-columns: 1fr; gap: 10px; }
+  .form.stepped .form-msg { grid-column: 1; order: -1; }
+  .form.stepped .step-next, .form.stepped .step-send { grid-column: 1; width: 100%; }
+  .form.stepped .step-back { grid-column: 1; order: 2; border: 0; background: none; color: var(--graphite); padding: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .form.stepped .step-in, .quote-done { animation: none; }
+  .step-track span { transition: none; }
+}
+
+/* quote section layout: heading + contact on the left, the form on the right;
+   on phones the form comes straight after the heading */
+.quote-grid { grid-template-areas: "head form" "contact form"; grid-template-rows: auto 1fr; align-items: start; }
+.quote-grid > .block-head { grid-area: head; }
+.quote-grid > .form, .quote-grid > .quote-done { grid-area: form; }
+.quote-grid > .quote-contact { grid-area: contact; }
+.quote-contact .contact { margin-top: 0; }
+@media (max-width: 960px) {
+  .quote-grid { grid-template-areas: "head" "form" "contact"; grid-template-columns: 1fr; }
+  .quote-contact { padding-top: 12px; border-top: 1px solid var(--rule); }
+}
+@media (max-width: 960px) { .quote-grid { gap: 22px; } .quote-grid > .block-head { margin-bottom: 0; } }
+
+/* ───── phone menu: full screen under the header ───── */
+.menu {
+  /* the header's blur makes it the containing block, so size from its bottom edge */
+  position: absolute; top: 100%; left: 0; right: 0; bottom: auto;
+  height: calc(100dvh - var(--menu-top, 64px) - var(--dock, 0px)); max-height: none; display: flex; flex-direction: column; gap: 0;
+  padding: 8px var(--pad) 24px; border-bottom: 0; box-shadow: none;
+  overflow-y: auto; overscroll-behavior: contain;
+}
+.menu[hidden] { display: none; }
+html.menu-open { overflow: hidden; }
+.menu > a, .menu .menu-row > a { font-size: 26px !important; letter-spacing: -.02em; padding: 14px 0 !important; }
+.menu > a, .menu-row { border-bottom: 1px solid var(--rule); }
+.menu-row { display: flex; align-items: center; justify-content: space-between; }
+.menu .menu-row > a { border-bottom: 0 !important; flex: 1; }
+.menu-expand { width: 48px; height: 48px; border: 0; background: none; cursor: pointer; position: relative; }
+.menu-expand span::before, .menu-expand span::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 1.5px; background: var(--ink);
+  transform: translate(-50%, -50%); transition: transform .25s;
+}
+.menu-expand span::after { transform: translate(-50%, -50%) rotate(90deg); }
+.menu-expand[aria-expanded="true"] span::after { transform: translate(-50%, -50%) rotate(0deg); }
+.menu-sub { padding: 4px 0 10px 2px; border-bottom: 1px solid var(--rule); }
+.menu-sub[hidden] { display: none; }
+.menu .menu-sub a { font-size: 17px; padding: 10px 0; }
+.menu-foot { margin-top: auto; padding-top: 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.menu .menu-foot .menu-call { border: 0; padding: 12px 0; font: 15px var(--mono); }
+.menu .menu-foot .menu-lang { margin: 0; }
+/* items arrive one after another */
+.menu:not([hidden]) > *, .menu:not([hidden]) > .menu-row { animation: menu-in .45s cubic-bezier(.2, .7, .2, 1) both; }
+.menu > *:nth-child(2) { animation-delay: 30ms; } .menu > *:nth-child(3) { animation-delay: 60ms; }
+.menu > *:nth-child(4) { animation-delay: 90ms; } .menu > *:nth-child(5) { animation-delay: 120ms; }
+.menu > *:nth-child(6) { animation-delay: 150ms; } .menu > *:nth-child(7) { animation-delay: 180ms; }
+.menu > *:nth-child(8) { animation-delay: 210ms; }
+@keyframes menu-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .menu:not([hidden]) > * { animation: none; } }
+
+/* one quote button per screen on phones: the bottom bar has it, so the header doesn't;
+   on the contact page the bar keeps only Call (the form is right there) */
+@media (max-width: 620px) {
+  .nav .nav-cta { display: none; }
+  .dock-call-only { grid-template-columns: 1fr !important; }
+  .dock-call-only .dock-cta { display: none !important; }
+}
+
+/* ───── smooth page changes (browsers that support cross-page view transitions) ───── */
+@view-transition { navigation: auto; }
+.top { view-transition-name: site-header; }
+.dock { view-transition-name: site-dock; }
+::view-transition-old(root) { animation: vt-out .22s ease both; }
+::view-transition-new(root) { animation: vt-in .32s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+/* ───── tap feedback: things press in slightly under a finger ───── */
+a, button, label, summary { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.btn, .dock a, .nav-cta, .svc-list a, .menu a, .menu-expand, .chips span, .filters button, .faq summary, .work-item, .frame-media {
+  transition: transform .12s ease, background-color .2s, color .2s, border-color .2s;
+}
+.btn:active, .nav-cta:active, .filters button:active { transform: scale(.97); }
+.dock a:active { background: #2b2b2b; color: var(--white); }
+.dock a:not(.dock-cta):active { background: var(--rule); color: var(--ink); }
+.svc-list a:active, .menu a:active, .faq summary:active { opacity: .6; }
+.work-item:active, .frame-media:active { transform: scale(.985); }
+@media (prefers-reduced-motion: reduce) { .btn:active, .nav-cta:active, .work-item:active { transform: none; } }
+
+/* ───── full-screen photo viewer (public/js/lightbox.js) ───── */
+.work-item { cursor: zoom-in; }
+.work-item:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+html.lb-open { overflow: hidden; }
+.lb {
+  position: fixed; inset: 0; z-index: 100; display: grid; grid-template-rows: auto 1fr auto;
+  background: rgba(16, 15, 13, var(--lb-fade, 1)); color: #fff;
+  animation: lb-in .25s ease both;
+}
+.lb[hidden] { display: none; }
+.lb-top, .lb-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px var(--pad); }
+.lb-count { font: 12px var(--mono); letter-spacing: .12em; color: rgba(255,255,255,.7); }
+.lb-cap { margin: 0; flex: 1; text-align: center; font: 13px/1.4 var(--mono); letter-spacing: .04em; color: rgba(255,255,255,.85); }
+.lb button { width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.35); background: transparent; color: #fff; font-size: 18px; cursor: pointer; }
+.lb button:hover { border-color: #fff; }
+.lb button:active { transform: scale(.94); }
+.lb-x { position: relative; }
+.lb-x::before, .lb-x::after { content: ""; position: absolute; left: 50%; top: 50%; width: 18px; height: 1.5px; background: #fff; }
+.lb-x::before { transform: translate(-50%, -50%) rotate(45deg); }
+.lb-x::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.lb-stage { display: flex; align-items: center; justify-content: center; min-height: 0; padding: 0 var(--pad); touch-action: none; transition: transform .2s ease; }
+.lb-img { max-width: 100%; max-height: 100%; object-fit: contain; user-select: none; -webkit-user-drag: none; }
+.lb-from-r { animation: lb-r .3s cubic-bezier(.2, .7, .2, 1) both; }
+.lb-from-l { animation: lb-l .3s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes lb-in { from { opacity: 0; } }
+@keyframes lb-r { from { opacity: 0; transform: translateX(40px); } }
+@keyframes lb-l { from { opacity: 0; transform: translateX(-40px); } }
+@media (max-width: 620px) { .lb-stage { padding: 0; } .lb-bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); } }
+@media (prefers-reduced-motion: reduce) { .lb, .lb-from-r, .lb-from-l { animation: none; } .lb-stage { transition: none; } }
+
+/* header hides on scroll down (public/js/menu.js) */
+.top { transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
+.top.hide { transform: translateY(-101%); }
+@media (prefers-reduced-motion: reduce) { .top { transition: none; } }
+
+/* phones: the opening screen is just the name, one line and two buttons */
+@media (max-width: 620px) {
+  .hero .label, .hero .rating { display: none; }
+  .hero-short { margin-bottom: 26px; }
+}
+.choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.choice-grid span { overflow-wrap: anywhere; hyphens: auto; }
+@media (max-width: 620px) { .choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 359px) { .choice-grid span { font-size: 15px; padding: 12px; } }
+@media (min-width: 961px) { .quote-grid { row-gap: 36px; } }
+
+/* photo viewer: an invisible button covers each job photo */
+.work-item { position: relative; }
+.work-open { position: absolute; inset: 0; width: 100%; border: 0; padding: 0; background: transparent; cursor: zoom-in; }
+.work-open:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* no layout jump: with JavaScript on, the quote form starts as step 1 before site.js runs */
+.js .form:not(.stepped) .step:not([data-step="1"]),
+.js .form:not(.stepped) .step-send { display: none; }
+.js .form .step-bar[hidden] { display: grid !important; }

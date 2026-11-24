@@ -178,3 +178,15 @@ ballpark range, add it with his real numbers.
 
 All job photos come from the business's Yelp page. One (a dining room) carried a
 "© bridgeMLS" real-estate watermark and was removed. Ask Joshua to confirm the rest are his.
+
+## Phone experience (Nov 2026)
+
+- **Quote form, step by step** (`public/js/site.js`): 1 pick the job (tap a tile, moves on by itself) →
+  2 details, all optional → 3 name and phone → thank-you screen. From a service page it starts at step 2.
+  Without JavaScript the same form shows all at once and still posts.
+- **Full-screen menu** on phones; Services folds open with +. One quote button per screen: on phones the
+  header has no Quote button (the bottom bar has it), and on /contact/ the bar shows only Call.
+- **Photo viewer** (`public/js/lightbox.js`): tap any job photo for full screen; swipe or ← → to move,
+  swipe down / Esc / ✕ to close. Follows the gallery filter.
+- **Smooth page changes** (CSS view transitions), **press feedback** on taps, and on phones the header
+  hides while scrolling down and returns on scroll up. All motion is off for "reduce motion" devices.
