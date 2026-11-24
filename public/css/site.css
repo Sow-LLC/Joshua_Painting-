@@ -568,7 +568,6 @@ a.frame-media { display: block; }
 .rv-on .rv-rise:not(.in) { opacity: 0; transform: translateY(26px); }
 .rv-on .rv-pop:not(.in) { opacity: 0; transform: translateY(18px) scale(.94); }
 /* the hero photo eases in on load */
-.wall-photo { animation: wall-in 1.4s cubic-bezier(.2, .7, .2, 1) both; }
 @keyframes wall-in { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: none; } }
 /* front page: the story */
 .story-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
@@ -579,7 +578,6 @@ a.frame-media { display: block; }
 .story-more { margin: 28px 0 0; }
 @media (max-width: 960px) { .story-grid { grid-template-columns: 1fr; } .story-photo { aspect-ratio: 4 / 3; } }
 @media (max-width: 620px) { .home-story .stats { grid-template-columns: repeat(3, 1fr); } .home-story .stats b { font-size: 28px; } }
-@media (prefers-reduced-motion: reduce) { .wall-photo { animation: none; } }
 @media print { .rv-on .rv { opacity: 1 !important; transform: none !important; } }
 
 /* front page: services as a clean clickable list */
@@ -607,3 +605,12 @@ a.frame-media { display: block; }
   .menu-btn { display: flex; }
 }
 @media (max-width: 620px) { .hero h1 { hyphens: manual; overflow-wrap: normal; font-size: clamp(38px, 11.5vw, 56px); } }
+
+/* rotating photos (public/js/slides.js): cross-fade with a slow drift */
+.wall-photo { opacity: 0; transition: opacity 1.6s ease; }
+.wall-photo.on { opacity: 1; animation: drift 9s ease-out both; }
+@keyframes drift { from { transform: scale(1.08); } to { transform: scale(1); } }
+.story-photo { position: relative; }
+.story-photo img { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
+.story-photo img.on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .wall-photo.on { animation: none; } .wall-photo, .story-photo img { transition: none; } }

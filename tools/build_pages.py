@@ -563,7 +563,7 @@ def landing():
 
 <section class="block home-story" aria-labelledby="home-story-title">
   <div class="story-grid">
-    {photo("crew-prep", "story-photo", caption=False)}
+    {photo("crew-prep", "story-photo", caption=False).replace('<figure class="story-photo"', '<figure class="story-photo" data-slides="5200"').replace("<img ", '<img class="on" ', 1).replace("</figure>", '<img data-srcset="/img/work/petaluma-house-600.webp 600w, /img/work/petaluma-house.webp 750w" sizes="(max-width: 960px) 100vw, 40vw" width="750" height="1000" alt=""><img data-srcset="/img/work/drywall-prep-600.webp 600w, /img/work/drywall-prep.webp 750w" sizes="(max-width: 960px) 100vw, 40vw" width="750" height="1000" alt=""></figure>')}
     <div>
       <p class="label" data-i18n="about.label">About us</p>
       <h2 id="home-story-title" data-i18n="about.title">A family crew from Hercules</h2>

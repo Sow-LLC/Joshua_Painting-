@@ -78,8 +78,11 @@
 
 <!-- ───── Hero: one full-width photo, the name on top of it ───── -->
 <section class="hero" aria-labelledby="hero-title">
-  <div class="wall" aria-hidden="true">
-    <img class="wall-photo" src="/img/work/cape-cod-exterior.webp" srcset="/img/work/cape-cod-exterior-600.webp 600w, /img/work/cape-cod-exterior-800.webp 800w, /img/work/cape-cod-exterior.webp 1000w" sizes="100vw" width="1000" height="750" alt="" fetchpriority="high">
+  <div class="wall" aria-hidden="true" data-slides="6500">
+    <img class="wall-photo on" src="/img/work/cape-cod-exterior.webp" srcset="/img/work/cape-cod-exterior-600.webp 600w, /img/work/cape-cod-exterior-800.webp 800w, /img/work/cape-cod-exterior.webp 1000w" sizes="100vw" width="1000" height="750" alt="" fetchpriority="high">
+    <img class="wall-photo" data-srcset="/img/work/kitchen-600.webp 600w, /img/work/kitchen-800.webp 800w, /img/work/kitchen.webp 1000w" sizes="100vw" width="1000" height="750" alt="">
+    <img class="wall-photo" data-srcset="/img/work/orinda-deck-600.webp 600w, /img/work/orinda-deck-800.webp 800w, /img/work/orinda-deck.webp 1000w" sizes="100vw" width="1000" height="750" alt="">
+    <img class="wall-photo" data-srcset="/img/work/green-house-600.webp 600w, /img/work/green-house-800.webp 800w, /img/work/green-house.webp 1000w" sizes="100vw" width="1000" height="750" alt="">
   </div>
 
   <div class="hero-copy">
@@ -119,7 +122,7 @@
 
 <section class="block home-story" aria-labelledby="home-story-title">
   <div class="story-grid">
-    <figure class="story-photo" data-cat="prep"><img src="/img/work/crew-prep.webp" srcset="/img/work/crew-prep-600.webp 600w, /img/work/crew-prep.webp 744w" sizes="(max-width: 960px) 100vw, 40vw" width="744" height="992" alt="Scraping and sanding siding" data-i18n-attr="alt:ph.crew-prep" loading="lazy" decoding="async"></figure>
+    <figure class="story-photo" data-slides="5200" data-cat="prep"><img class="on" src="/img/work/crew-prep.webp" srcset="/img/work/crew-prep-600.webp 600w, /img/work/crew-prep.webp 744w" sizes="(max-width: 960px) 100vw, 40vw" width="744" height="992" alt="Scraping and sanding siding" data-i18n-attr="alt:ph.crew-prep" loading="lazy" decoding="async"><img data-srcset="/img/work/petaluma-house-600.webp 600w, /img/work/petaluma-house.webp 750w" sizes="(max-width: 960px) 100vw, 40vw" width="750" height="1000" alt=""><img data-srcset="/img/work/drywall-prep-600.webp 600w, /img/work/drywall-prep.webp 750w" sizes="(max-width: 960px) 100vw, 40vw" width="750" height="1000" alt=""></figure>
     <div>
       <p class="label" data-i18n="about.label">About us</p>
       <h2 id="home-story-title" data-i18n="about.title">A family crew from Hercules</h2>
@@ -188,5 +191,6 @@
 <script src="/js/i18n.js" defer></script>
 <script src="/js/menu.js" defer></script>
 <script src="/js/reveal.js" defer></script>
+<script src="/js/slides.js" defer></script>
 </body>
 </html>
