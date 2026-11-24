@@ -897,15 +897,14 @@ def build():
     about = section(src, '<section id="about"')
     about = about.replace('<h2 id="about-title" data-i18n="about.title">', '<h1 id="about-title" data-i18n="about.title">', 1)
     about = re.sub(r'(<h1 id="about-title"[^>]*>[^<]*)</h2>', r'\1</h1>', about, 1)
-    about = about.replace('<div class="about-grid">',
-                          '<nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.about">About</span></nav>\n  <div class="about-grid">', 1)
-    about = about.replace(' loading="lazy"', "", 1)
+    about = about.replace('<div class="about-grid about-split">',
+                          '<nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.about">About</span></nav>\n  <div class="about-grid about-split">', 1)
     main = "\n\n".join([about, section(src, '<section id="method"'), section(src, '<section class="block cta-end"')])
     hd = head("/about/", "aboutp.meta.title", "About — Joshua's Painting Service", "aboutp.meta.description",
               "Joshua's Painting Service is a professional painting and waterproofing crew from Hercules, CA, rated 5.0 on Yelp.",
               "Nosotros — Joshua's Painting Service",
               "Joshua's Painting Service es un equipo profesional de pintura e impermeabilización de Hercules, CA, con 5.0 en Yelp.",
-              image="crew-prep", ld=[business_ld()])
+              ld=[business_ld()])
     built.append(page("/about/", hd, main, []))
 
     # /contact/, /faq/, /reviews/

@@ -1032,3 +1032,13 @@ html:not([lang="es"]) .es-only { display: none; }
 .faq-side { max-height: calc(100vh - var(--head) - 40px); }
 @media (max-height: 720px) and (min-width: 961px) { .faq-side { position: static; max-height: none; } }
 @media (max-width: 960px) { .faq-side { max-height: none; } .faq-toc a { padding: 8px 0; } }
+
+/* About page: no photo; big title on the left, the story and numbers on the right */
+.about-split { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; }
+.about-split .about-head h1 { margin: 0; font-weight: 400; letter-spacing: -.03em; line-height: 1.02; font-size: clamp(40px, 5.2vw, 76px); }
+.about-split .about-body > p:first-child { margin-top: 0; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.55; color: #2f2d29; }
+.about-split .about-body p { max-width: 62ch; }
+.about-split .stats { margin-top: 32px; }
+@media (max-width: 960px) { .about-split { grid-template-columns: 1fr; gap: 18px; } }
+.about-split .about-head .label { display: none; }   /* the breadcrumb already says About */
+.about-split .about-head h1 { hyphens: manual; overflow-wrap: normal; }
