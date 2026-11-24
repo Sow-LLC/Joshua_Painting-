@@ -109,3 +109,17 @@
   openIt();
   addEventListener("hashchange", openIt);
 })();
+
+// FAQ page: highlight the topic you're reading in the side panel
+(() => {
+  const links = [...document.querySelectorAll(".faq-toc a")];
+  if (!links.length || !("IntersectionObserver" in window)) return;
+  const map = new Map(links.map((a) => [document.querySelector(a.getAttribute("href")), a]));
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) {
+      links.forEach((a) => a.classList.remove("on"));
+      map.get(e.target)?.classList.add("on");
+    }
+  }, { rootMargin: "-20% 0px -70% 0px" });
+  map.forEach((_, el) => el && io.observe(el));
+})();

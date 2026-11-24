@@ -491,14 +491,43 @@ def faq_page(src):
   <div class="faq-list">
 {qs}
   </div>''')
-    more = f'''<section class="block faq" aria-labelledby="faq-by">
-  <div class="block-head">
-    <h2 id="faq-by" data-i18n="faqp.by">By service</h2>
-  </div>
+    # two columns on computers: a side panel that stays put (title, topics, help) + all the questions
+    ES.update({"faqp.h1": "Preguntas frecuentes", "faqp.intro": "Respuestas rápidas sobre presupuestos, tiempos, pagos y cada servicio.",
+               "faqp.topics": "Temas", "faqp.general": "Generales", "faqp.help": "¿Tiene otra pregunta?",
+               "faqp.helpbody": "Llámenos o pida un presupuesto gratis; respondemos lo antes posible."})
+    general = section(src, '<section id="faq"')
+    general_list = general[general.index('<div class="faq-list">'): general.rindex("</div>") + len("</div>")]
+    toc = "\n".join(['        <a href="#faq-general" data-i18n="faqp.general">General</a>'] +
+                     [f'        <a href="#faq-{sv["slug"]}" data-i18n="svcp.{sv["gid"]}.h1">{e(sv["h1"][0])}</a>' for sv in SERVICES])
+    for k, sv in enumerate(SERVICES):
+        groups[k] = groups[k].replace('<h3 class="faq-group">', f'<h3 class="faq-group" id="faq-{sv["slug"]}">', 1)
+    faq = f'''<section class="block faq faq-page" aria-labelledby="faq-h1">
+  <div class="faq-layout">
+    <aside class="faq-side">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.faq">FAQ</span></nav>
+      <h1 id="faq-h1" data-i18n="faqp.h1">Questions &amp; answers</h1>
+      <p class="muted" data-i18n="faqp.intro">Quick answers about estimates, timing, payment and each service.</p>
+      <nav class="faq-toc" aria-label="Topics" data-i18n-attr="aria-label:faqp.topics">
+{toc}
+      </nav>
+      <div class="faq-help">
+        <p class="faq-help-title" data-i18n="faqp.help">Still have a question?</p>
+        <p class="muted" data-i18n="faqp.helpbody">Call us or ask for a free quote; we reply as soon as possible.</p>
+        <div class="faq-help-actions">
+          <a class="btn" href="/contact/" data-cta data-i18n="nav.quote">Free quote</a>
+          <a class="btn btn-ghost" href="tel:{PHONE_TEL}">{PHONE}</a>
+        </div>
+      </div>
+    </aside>
+    <div class="faq-main">
+      <h2 class="faq-group faq-first" id="faq-general" data-i18n="faq.title">Before you ask</h2>
+  {general_list}
+      <h2 class="faq-by" id="faq-by" data-i18n="faqp.by">By service</h2>
 {chr(10).join(groups)}
+    </div>
+  </div>
 </section>'''
-    main = "\n\n".join([page_h1(section(src, '<section id="faq"'), "faq-title", "nav.faq", "FAQ"), more,
-                         section(src, '<section class="block cta-end"')])
+    main = faq   # the side panel already has Call / Free quote, so no second call-to-action block here
     hd = head("/faq/", "faqp.meta.title", "Questions — Joshua's Painting Service", "faqp.meta.description",
               "Answers about estimates, timing, payment, warranty and each of Joshua's Painting Service's services.",
               ES["faqp.meta.title"], ES["faqp.meta.description"])
