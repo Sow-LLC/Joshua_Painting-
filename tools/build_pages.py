@@ -29,6 +29,7 @@ FACEBOOK = "https://www.facebook.com/p/Joshua-Painting-JM-Waterproofing-10009453
 # https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx and https://www.bbb.org
 LICENSE = ""   # CSLB licence number, e.g. "1234567"
 BBB = ""       # full BBB profile address, e.g. "https://www.bbb.org/us/ca/hercules/profile/..."
+CITY_LICENSE = "233556"   # city business licence (NOT a CSLB contractor licence; shown as such)
 
 PHONE_TEL, PHONE = "+15103699079", "(510) 369-9079"
 
@@ -259,7 +260,10 @@ Joshua's Painting Service</a>
 def credentials():
     """Licence and BBB line for the footer, shown only once LICENSE / BBB are filled in."""
     ES["foot.lic"] = "Licencia de contratista de CA"
+    ES["foot.citylic"] = "Licencia comercial municipal"
     parts = []
+    if CITY_LICENSE:
+        parts.append(f'<span><span data-i18n="foot.citylic">City business licence</span> #{e(CITY_LICENSE)}</span>')
     if LICENSE:
         parts.append(f'<a href="https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/LicenseDetail.aspx?LicNum={e(LICENSE)}" '
                      f'target="_blank" rel="noopener"><span data-i18n="foot.lic">CA contractor licence</span> #{e(LICENSE)}</a>')

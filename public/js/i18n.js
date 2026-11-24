@@ -80,6 +80,7 @@
     "faqp.meta.description": "Respuestas sobre presupuestos, tiempos, pagos, garantía y cada servicio de Joshua's Painting Service.",
     "faqp.meta.title": "Preguntas frecuentes — Joshua's Painting Service",
     "foot.area": "Hercules y el East Bay",
+    "foot.citylic": "Licencia comercial municipal",
     "foot.company": "Empresa",
     "foot.contact": "Contacto",
     "foot.follow": "Síganos en",
