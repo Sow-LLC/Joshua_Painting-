@@ -17,7 +17,7 @@
       const next = imgs[(i + 1) % imgs.length];
       if (!next.complete || !next.naturalWidth) return;   // wait until it has downloaded
       imgs[i].classList.remove("on");
-      next.classList.add("on");
+      next.classList.add("on", "drift");
       i = (i + 1) % imgs.length;
     }, Number(box.dataset.slides) || 6000);
   });

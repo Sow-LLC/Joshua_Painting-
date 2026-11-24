@@ -608,9 +608,11 @@ a.frame-media { display: block; }
 
 /* rotating photos (public/js/slides.js): cross-fade with a slow drift */
 .wall-photo { opacity: 0; transition: opacity 1.6s ease; }
-.wall-photo.on { opacity: 1; animation: drift 9s ease-out both; }
+.wall-photo.on { opacity: 1; }
+/* only photos that rotate in drift; the first one stays still so the page settles fast */
+.wall-photo.on.drift { animation: drift 9s ease-out both; }
 @keyframes drift { from { transform: scale(1.08); } to { transform: scale(1); } }
 .story-photo { position: relative; }
 .story-photo img { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
 .story-photo img.on { opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .wall-photo.on { animation: none; } .wall-photo, .story-photo img { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .wall-photo.on.drift { animation: none; } .wall-photo, .story-photo img { transition: none; } }
