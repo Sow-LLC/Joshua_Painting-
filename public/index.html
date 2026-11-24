@@ -80,8 +80,6 @@ Joshua's Painting Service</a>
 <section class="hero" aria-labelledby="hero-title">
   <div class="wall" aria-hidden="true" data-slides="6500">
     <img class="wall-photo on" src="/img/work/cape-cod-exterior.webp" srcset="/img/work/cape-cod-exterior-600.webp 600w, /img/work/cape-cod-exterior-800.webp 800w, /img/work/cape-cod-exterior.webp 1000w" sizes="100vw" width="1000" height="750" alt="" fetchpriority="high">
-    <img class="wall-photo" data-srcset="/img/work/kitchen-600.webp 600w, /img/work/kitchen-800.webp 800w, /img/work/kitchen.webp 1000w" sizes="100vw" width="1000" height="750" alt="">
-    <img class="wall-photo" data-srcset="/img/work/orinda-deck-600.webp 600w, /img/work/orinda-deck-800.webp 800w, /img/work/orinda-deck.webp 1000w" sizes="100vw" width="1000" height="750" alt="">
     <img class="wall-photo" data-srcset="/img/work/green-house-600.webp 600w, /img/work/green-house-800.webp 800w, /img/work/green-house.webp 1000w" sizes="100vw" width="1000" height="750" alt="">
   </div>
 
@@ -106,18 +104,74 @@ Joshua's Painting Service</a>
 </ul>
 
 <!-- explore -->
-<section class="block home-services" aria-labelledby="home-svc-title">
-  <div class="block-head">
-    <h2 id="home-svc-title" data-i18n="home.svc.label">What we do</h2>
-  </div>
-  <nav class="svc-list" aria-labelledby="home-svc-title">
-    <a href="/services/interior/"><span class="svc-n">01</span><span data-i18n="svcp.interior.h1">Interior painting</span><span class="svc-arrow" aria-hidden="true">→</span></a>
-    <a href="/services/exterior/"><span class="svc-n">02</span><span data-i18n="svcp.exterior.h1">Exterior painting</span><span class="svc-arrow" aria-hidden="true">→</span></a>
-    <a href="/services/cabinets/"><span class="svc-n">03</span><span data-i18n="svcp.cabinets.h1">Cabinet painting</span><span class="svc-arrow" aria-hidden="true">→</span></a>
-    <a href="/services/wall-repair/"><span class="svc-n">04</span><span data-i18n="svcp.walls.h1">Wall repair &amp; texture</span><span class="svc-arrow" aria-hidden="true">→</span></a>
-    <a href="/services/waterproofing/"><span class="svc-n">05</span><span data-i18n="svcp.water.h1">Waterproofing</span><span class="svc-arrow" aria-hidden="true">→</span></a>
-    <a href="/services/commercial/"><span class="svc-n">06</span><span data-i18n="svcp.commercial.h1">Commercial painting</span><span class="svc-arrow" aria-hidden="true">→</span></a>
-  </nav>
+<!-- Services as full-screen panels, one per screen; the page snaps to each (Tesla-style) -->
+<section class="panels" aria-label="What we do" data-i18n-attr="aria-label:home.svc.label">
+  <article class="panel" id="panel-interior" aria-labelledby="pt-interior">
+    <img class="panel-photo" src="/img/work/interior-bedroom.webp" srcset="/img/work/interior-bedroom-600.webp 600w, /img/work/interior-bedroom.webp 750w" sizes="100vw" width="750" height="1000" alt="" loading="lazy" decoding="async" style="object-position:50% 50%">
+    <div class="panel-copy">
+      <h2 id="pt-interior" data-i18n="svcp.interior.h1">Interior painting</h2>
+      <p data-i18n="home.svc.interior">Walls, ceilings, trim and doors.</p>
+    </div>
+    <div class="panel-actions">
+      <a class="btn" href="/contact/?scope=interior" data-cta data-i18n="nav.quote">Free quote</a>
+      <a class="btn btn-ghost" href="/services/interior/" data-i18n="svcp.more">See details</a>
+    </div>
+  </article>
+  <article class="panel" id="panel-exterior" aria-labelledby="pt-exterior">
+    <img class="panel-photo" src="/img/work/petaluma-house.webp" srcset="/img/work/petaluma-house-600.webp 600w, /img/work/petaluma-house.webp 750w" sizes="100vw" width="750" height="1000" alt="" loading="lazy" decoding="async" style="object-position:50% 40%">
+    <div class="panel-copy">
+      <h2 id="pt-exterior" data-i18n="svcp.exterior.h1">Exterior painting</h2>
+      <p data-i18n="home.svc.exterior">Siding, stucco, trim, decks and fences.</p>
+    </div>
+    <div class="panel-actions">
+      <a class="btn" href="/contact/?scope=exterior" data-cta data-i18n="nav.quote">Free quote</a>
+      <a class="btn btn-ghost" href="/services/exterior/" data-i18n="svcp.more">See details</a>
+    </div>
+  </article>
+  <article class="panel" id="panel-cabinets" aria-labelledby="pt-cabinets">
+    <img class="panel-photo" src="/img/work/kitchen.webp" srcset="/img/work/kitchen-600.webp 600w, /img/work/kitchen-800.webp 800w, /img/work/kitchen.webp 1000w" sizes="100vw" width="1000" height="750" alt="" loading="lazy" decoding="async" style="object-position:50% 50%">
+    <div class="panel-copy">
+      <h2 id="pt-cabinets" data-i18n="svcp.cabinets.h1">Cabinet painting</h2>
+      <p data-i18n="home.svc.cabinets">Kitchen cabinets and bathroom vanities.</p>
+    </div>
+    <div class="panel-actions">
+      <a class="btn" href="/contact/?scope=cabinets" data-cta data-i18n="nav.quote">Free quote</a>
+      <a class="btn btn-ghost" href="/services/cabinets/" data-i18n="svcp.more">See details</a>
+    </div>
+  </article>
+  <article class="panel" id="panel-wall-repair" aria-labelledby="pt-walls">
+    <img class="panel-photo" src="/img/work/drywall-prep.webp" srcset="/img/work/drywall-prep-600.webp 600w, /img/work/drywall-prep.webp 750w" sizes="100vw" width="750" height="1000" alt="" loading="lazy" decoding="async" style="object-position:50% 50%">
+    <div class="panel-copy">
+      <h2 id="pt-walls" data-i18n="svcp.walls.h1">Wall repair &amp; texture</h2>
+      <p data-i18n="home.svc.walls">Patching, texture and wallpaper removal.</p>
+    </div>
+    <div class="panel-actions">
+      <a class="btn" href="/contact/?scope=walls" data-cta data-i18n="nav.quote">Free quote</a>
+      <a class="btn btn-ghost" href="/services/wall-repair/" data-i18n="svcp.more">See details</a>
+    </div>
+  </article>
+  <article class="panel" id="panel-waterproofing" aria-labelledby="pt-water">
+    <img class="panel-photo" src="/img/work/orinda-deck.webp" srcset="/img/work/orinda-deck-600.webp 600w, /img/work/orinda-deck-800.webp 800w, /img/work/orinda-deck.webp 1000w" sizes="100vw" width="1000" height="750" alt="" loading="lazy" decoding="async" style="object-position:50% 50%">
+    <div class="panel-copy">
+      <h2 id="pt-water" data-i18n="svcp.water.h1">Waterproofing</h2>
+      <p data-i18n="home.svc.water">Sealing decks, masonry and walls.</p>
+    </div>
+    <div class="panel-actions">
+      <a class="btn" href="/contact/?scope=waterproofing" data-cta data-i18n="nav.quote">Free quote</a>
+      <a class="btn btn-ghost" href="/services/waterproofing/" data-i18n="svcp.more">See details</a>
+    </div>
+  </article>
+  <article class="panel" id="panel-commercial" aria-labelledby="pt-commercial">
+    <img class="panel-photo" src="/img/work/commercial-accent-wall.webp" srcset="/img/work/commercial-accent-wall-600.webp 600w, /img/work/commercial-accent-wall-800.webp 800w, /img/work/commercial-accent-wall.webp 992w" sizes="100vw" width="992" height="744" alt="" loading="lazy" decoding="async" style="object-position:50% 30%">
+    <div class="panel-copy">
+      <h2 id="pt-commercial" data-i18n="svcp.commercial.h1">Commercial painting</h2>
+      <p data-i18n="home.svc.commercial">Offices, shops and rentals, after hours.</p>
+    </div>
+    <div class="panel-actions">
+      <a class="btn" href="/contact/?scope=commercial" data-cta data-i18n="nav.quote">Free quote</a>
+      <a class="btn btn-ghost" href="/services/commercial/" data-i18n="svcp.more">See details</a>
+    </div>
+  </article>
 </section>
 
 <section class="block home-story" aria-labelledby="home-story-title">

@@ -835,3 +835,43 @@ html.lb-open { overflow: hidden; }
 .js .form:not(.stepped) .step:not([data-step="1"]),
 .js .form:not(.stepped) .step-send { display: none; }
 .js .form .step-bar[hidden] { display: grid !important; }
+
+/* ───── front page: services as full-screen panels (Tesla-style) ───── */
+html.snap { scroll-snap-type: y proximity; }
+.hero, .panel { scroll-snap-align: start; }
+.panel {
+  position: relative; overflow: hidden; isolation: isolate;
+  min-height: calc(100svh - var(--head));
+  display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+  padding: clamp(48px, 9vh, 110px) var(--pad) clamp(36px, 7vh, 72px);
+  background: #2a2824; color: #fff; text-align: center;
+}
+.panel-photo { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+.panel::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to bottom, rgba(18,16,13,.62) 0%, rgba(18,16,13,.22) 30%, rgba(18,16,13,.04) 55%, rgba(18,16,13,.62) 100%);
+}
+.panel-copy h2 { margin: 0 0 10px; font-weight: 400; letter-spacing: -.03em; line-height: 1; font-size: clamp(38px, 5.6vw, 76px); text-shadow: 0 2px 18px rgba(0,0,0,.25); }
+.panel-copy p { margin: 0; font-size: clamp(16px, 1.6vw, 19px); color: rgba(255,255,255,.92); text-shadow: 0 1px 10px rgba(0,0,0,.3); }
+.panel-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; width: 100%; }
+.panel-actions .btn { min-width: 220px; justify-content: center; text-align: center; background: #fff; color: var(--ink); border-color: #fff; }
+.panel-actions .btn:hover { background: transparent; color: #fff; }
+.panel-actions .btn-ghost { background: rgba(18,16,13,.28); color: #fff; border-color: rgba(255,255,255,.85); backdrop-filter: blur(4px); }
+.panel-actions .btn-ghost:hover { background: #fff; color: var(--ink); }
+/* the copy arrives as each panel scrolls in (public/js/reveal.js) */
+
+@media (max-width: 620px) {
+  /* phones: each panel fills the screen; the header slides away while scrolling down */
+  html:has(.panels) { scroll-padding-top: 0; }
+  .panel { min-height: 100svh; padding: calc(var(--head) + 28px) var(--pad) calc(var(--dock) + 28px); }
+  .panel-actions { flex-direction: column; align-items: stretch; gap: 10px; }
+  .panel-actions .btn { min-width: 0; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { html.snap { scroll-snap-type: none; } }
+@media print { .panel { min-height: 0; break-inside: avoid; } }
+@media (max-width: 620px) {
+  .dock { transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
+  html.dock-off .dock { transform: translateY(100%); }
+  .panel { padding-bottom: max(32px, calc(env(safe-area-inset-bottom) + 24px)); }
+}
+@media (prefers-reduced-motion: reduce) { .dock { transition: none; } }

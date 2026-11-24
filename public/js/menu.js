@@ -74,3 +74,28 @@
   // jumping to a section by link (e.g. #quote) should not leave the header hidden over it
   document.addEventListener("focusin", (e) => { if (top.contains(e.target)) top.classList.remove("hide"); });
 })();
+
+// Front page on phones: the opening screen and the service panels carry their own buttons,
+// so the Call / Free quote bar slides away while one of them fills the screen.
+(() => {
+  const full = [...document.querySelectorAll(".hero, .panel")];
+  const dock = document.querySelector(".dock");
+  if (!full.length || !dock || !("IntersectionObserver" in window)) return;
+  const on = new Set();
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) e.isIntersecting ? on.add(e.target) : on.delete(e.target);
+    document.documentElement.classList.toggle("dock-off", on.size > 0);
+  }, { threshold: 0.5 });
+  full.forEach((el) => io.observe(el));
+})();
+
+// Front page: panels snap into place, switched on at the visitor's first scroll gesture
+// (switching it on at load makes Chrome stop measuring page speed before the first paint).
+(() => {
+  if (!document.querySelector(".panels")) return;
+  const go = () => {
+    document.documentElement.classList.add("snap");
+    ["wheel", "touchstart", "keydown"].forEach((t) => removeEventListener(t, go));
+  };
+  ["wheel", "touchstart", "keydown"].forEach((t) => addEventListener(t, go, { passive: true }));
+})();

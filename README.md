@@ -188,5 +188,9 @@ All job photos come from the business's Yelp page. One (a dining room) carried a
   header has no Quote button (the bottom bar has it), and on /contact/ the bar shows only Call.
 - **Photo viewer** (`public/js/lightbox.js`): tap any job photo for full screen; swipe or ← → to move,
   swipe down / Esc / ✕ to close. Follows the gallery filter.
+- **Front page panels:** each of the six services is a full-screen panel (photo, name, one line,
+  Free quote + See details), and the page snaps to each one once the visitor starts scrolling.
+  Panel photos are set in `PANEL_PHOTO` in `tools/build_pages.py`. On phones the Call / Free quote
+  bar hides while the opening screen or a panel fills the screen (they have their own buttons).
 - **Smooth page changes** (CSS view transitions), **press feedback** on taps, and on phones the header
   hides while scrolling down and returns on scroll up. All motion is off for "reduce motion" devices.

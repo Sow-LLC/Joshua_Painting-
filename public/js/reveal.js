@@ -5,7 +5,7 @@
   const root = document.documentElement;
   // photos and cards "pop" (scale up); headings, text and lists slide up and fade in
   const POP = ".work-item, .tile, .frame, .svc-hero-photo, .about-photo, .story-photo, .area-photo";
-  const RISE = "main .block-head, .svc-list a, .promises li, .steps-list li, .stats li, .faq-list details, .rev-band p, .svc-hero-copy > *, .story-grid > div > *, .hero-actions, .layer";
+  const RISE = "main .block-head, .panel-copy, .panel-actions, .svc-list a, .promises li, .steps-list li, .stats li, .faq-list details, .rev-band p, .svc-hero-copy > *, .story-grid > div > *, .hero-actions, .layer";
   // anything already on screen when the page opens is shown at once (no fade), so the first view is ready immediately
   const items = [...document.querySelectorAll(`${POP}, ${RISE}`)]
     .filter((el) => !el.closest(".hero") && el.getBoundingClientRect().top > innerHeight);

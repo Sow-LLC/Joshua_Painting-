@@ -331,7 +331,7 @@ def hreflang(html):
     return html
 
 # how wide each kind of photo is drawn, so phones download a small file
-SIZES = {"wall-photo": "100vw", "story-photo": "(max-width: 960px) 100vw, 40vw", "about-photo": "(max-width: 960px) 100vw, 40vw",
+SIZES = {"wall-photo": "100vw", "panel-photo": "100vw", "story-photo": "(max-width: 960px) 100vw, 40vw", "about-photo": "(max-width: 960px) 100vw, 40vw",
          "area-photo": "(max-width: 960px) 100vw, 35vw", "svc-hero-photo": "(max-width: 960px) 100vw, 50vw",
          "frame-fig": "(max-width: 960px) 100vw, 45vw"}
 
@@ -566,6 +566,10 @@ SHORT = {  # one line per service for the front page (EN, ES)
     "commercial": ("Offices, shops and rentals, after hours.", "Oficinas, tiendas y rentas, fuera de horario."),
 }
 
+PANEL_PHOTO = {"interior": "interior-bedroom", "exterior": "petaluma-house", "cabinets": "kitchen",
+               "walls": "drywall-prep", "water": "orinda-deck", "commercial": "commercial-accent-wall"}
+PANEL_POS = {"commercial": "50% 30%", "exterior": "50% 40%"}
+
 def landing():
     """Front page body, in the order visitors decide: what we do → proof → how it works.
     Each part is a short preview that links to its own page."""
@@ -574,18 +578,26 @@ def landing():
                "home.rev.read": "Leer las reseñas", "home.story.more": "Leer nuestra historia",
                "home.story": "Joshua Painting JM Waterproofing ofrece servicios de pintura e impermeabilización para proyectos residenciales y pequeños proyectos comerciales en el Área de la Bahía. Trabajamos con un equipo profesional de pintores en proyectos residenciales y comerciales. El dueño, Josué Mendoza, tiene 7 años de experiencia en pintura."})
     ES["hero.short"] = "Casas y negocios, pintados con cuidado."
-    rows = []
-    for i, sv in enumerate(SERVICES, 1):
-        g = sv["gid"]
-        rows.append(f'''    <a href="/services/{sv["slug"]}/"><span class="svc-n">0{i}</span><span data-i18n="svcp.{g}.h1">{e(sv["h1"][0])}</span><span class="svc-arrow" aria-hidden="true">→</span></a>''')
+    ES["svcp.more"] = "Ver detalles"
+    panels = []
+    for sv in SERVICES:
+        g = sv["gid"]; en, es_ = SHORT[g]; ES[f"home.svc.{g}"] = es_
+        ph = PANEL_PHOTO[g]; w, h = PHOTOS[ph][0], PHOTOS[ph][1]
+        panels.append(f'''  <article class="panel" id="panel-{sv["slug"]}" aria-labelledby="pt-{g}">
+    <img class="panel-photo" src="/img/work/{ph}.jpg" width="{w}" height="{h}" alt="" loading="lazy" decoding="async" style="object-position:{PANEL_POS.get(g, "50% 50%")}">
+    <div class="panel-copy">
+      <h2 id="pt-{g}" data-i18n="svcp.{g}.h1">{e(sv["h1"][0])}</h2>
+      <p data-i18n="home.svc.{g}">{e(en)}</p>
+    </div>
+    <div class="panel-actions">
+      <a class="btn" href="/contact/?scope={sv["scope"]}" data-cta data-i18n="nav.quote">Free quote</a>
+      <a class="btn btn-ghost" href="/services/{sv["slug"]}/" data-i18n="svcp.more">See details</a>
+    </div>
+  </article>''')
     return f'''<!-- explore -->
-<section class="block home-services" aria-labelledby="home-svc-title">
-  <div class="block-head">
-    <h2 id="home-svc-title" data-i18n="home.svc.label">What we do</h2>
-  </div>
-  <nav class="svc-list" aria-labelledby="home-svc-title">
-{chr(10).join(rows)}
-  </nav>
+<!-- Services as full-screen panels, one per screen; the page snaps to each (Tesla-style) -->
+<section class="panels" aria-label="What we do" data-i18n-attr="aria-label:home.svc.label">
+{chr(10).join(panels)}
 </section>
 
 <section class="block home-story" aria-labelledby="home-story-title">
