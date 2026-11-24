@@ -186,8 +186,11 @@ All job photos come from the business's Yelp page. One (a dining room) carried a
   Without JavaScript the same form shows all at once and still posts.
 - **Full-screen menu** on phones; Services folds open with +. One quote button per screen: on phones the
   header has no Quote button (the bottom bar has it), and on /contact/ the bar shows only Call.
+- **Our work** (`/work/`): one chapter per job type (Exterior, Interior, Decks & waterproofing, Commercial,
+  Prep & repair), each a single swipeable row of photos at the same height, so uneven photo counts look
+  intentional. Category comes from the last field in `PHOTOS` (`tools/build_pages.py`).
 - **Photo viewer** (`public/js/lightbox.js`): tap any job photo for full screen; swipe or ← → to move,
-  swipe down / Esc / ✕ to close. Follows the gallery filter.
+  swipe down / Esc / ✕ to close. On /work/ it stays within that job type.
 - **Front page panels:** each of the six services is a full-screen panel (photo, name, one line,
   Free quote + See details), and the page snaps to each one once the visitor starts scrolling.
   Panel photos are set in `PANEL_PHOTO` in `tools/build_pages.py`. On phones the Call / Free quote

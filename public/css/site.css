@@ -882,3 +882,43 @@ html.snap { scroll-snap-type: y proximity; }
 .story-solo .stats { max-width: 640px; margin-left: auto; margin-right: auto; text-align: center; }
 .home-story { padding-top: clamp(72px, 12vh, 140px); padding-bottom: clamp(72px, 12vh, 140px); }
 @media (max-width: 620px) { .story-solo { text-align: left; } .story-solo .stats { margin-left: 0; text-align: left; } }
+
+/* ───── /work/: one chapter per job type, photos in a single row at the same height ───── */
+.work-page .block-head { margin-bottom: clamp(24px, 4vw, 40px); }
+.chapter { padding: clamp(28px, 4vw, 44px) 0; border-top: 1px solid var(--rule); }
+.chapter-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; }
+.chapter-head h2 { margin: 0; font-weight: 400; font-size: clamp(24px, 2.6vw, 34px); letter-spacing: -.02em; }
+.chapter-n { font: 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--graphite); }
+.shots-nav { margin-left: auto; display: flex; gap: 8px; }
+.shots-nav[hidden] { display: none; }
+.shots-nav button { width: 40px; height: 40px; border: 1px solid var(--ink); background: transparent; cursor: pointer; font-size: 16px; }
+.shots-nav button:hover:not(:disabled) { background: var(--ink); color: var(--white); }
+.shots-nav button:disabled { opacity: .3; cursor: default; }
+.shots {
+  display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad);
+  margin: 0 calc(-1 * var(--pad)); padding: 0 var(--pad) 6px;
+  scrollbar-width: none;
+}
+.shots::-webkit-scrollbar { display: none; }
+.shots .work-item { flex: none; width: min-content; scroll-snap-align: start; }
+.shots .work-item img {
+  height: clamp(260px, 46vh, 460px); width: auto; max-width: none; object-fit: cover;
+}
+.shots .work-item figcaption { max-width: 100%; }
+/* a soft fade on the right edge says "there's more, swipe" */
+.chapter { position: relative; }
+.chapter.has-more::after {
+  content: ""; position: absolute; right: calc(-1 * var(--pad)); bottom: clamp(28px, 4vw, 44px);
+  width: 48px; height: clamp(260px, 46vh, 460px);
+  background: linear-gradient(to right, transparent, var(--paper)); pointer-events: none;
+}
+@media (max-width: 620px) {
+  .shots { gap: 8px; }
+  .shots .work-item img { height: 300px; max-width: 82vw; }
+  .chapter.has-more::after { height: 300px; width: 32px; }
+  .shots-nav { display: none !important; }
+}
+
+/* a small label right under the breadcrumb only repeats the page name: hide it */
+.crumbs + .label { display: none; }

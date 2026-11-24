@@ -108,7 +108,6 @@ PHOTOS = {  # name: (w, h, caption_en, caption_es, category)
     "deck-work": (750, 1000, "Deck prep among the trees", "Preparación de terraza entre los árboles", "decks"),
     "commercial-accent-wall": (992, 744, "Commercial accent wall", "Pared de acento comercial", "commercial"),
     "commercial-project": (992, 744, "Commercial interior project", "Proyecto comercial interior", "commercial"),
-    "commercial-prep": (992, 744, "Commercial space, floors protected", "Local comercial con pisos protegidos", "commercial"),
     "drywall-prep": (750, 1000, "Patching before paint", "Resane antes de pintar", "prep"),
     "surface-prep": (992, 744, "Surface preparation", "Preparación de superficies", "prep"),
     "crew-prep": (744, 992, "Scraping and sanding siding", "Raspado y lijado del revestimiento", "prep"),
@@ -134,7 +133,7 @@ SERVICES = [
          note=("s1.note", "from $2.40 / sq ft", None),
          title=("Interior", None), body=("Walls, ceilings and woodwork, with furniture moved and floors covered. Every surface is patched and sanded before the colour goes on.", None),
          items=["Walls and ceilings", "Trim and molding", "Doors", "Interior staining"],
-         hero="interior-room", photos=["interior-room", "interior-bedroom", "interior-door", "drywall-prep", "surface-prep"],
+         hero="interior-bedroom", photos=["interior-bedroom", "interior-room", "interior-door", "surface-prep"],
          lede=("Interior painting for houses, condos and rentals in Hercules and around the East Bay. We protect your floors and furniture, repair the walls first, and paint two full coats so the colour is even in every light.",
                "Pintura de interiores para casas, condominios y rentas en Hercules y el East Bay. Protegemos sus pisos y muebles, reparamos primero las paredes y aplicamos dos manos completas para que el color sea parejo con cualquier luz."),
          faq=[("How long does an interior job take?", "One or two rooms usually take one to two days. A whole-house interior takes three to six days, depending on ceilings, trim and repairs.",
@@ -204,7 +203,7 @@ SERVICES = [
          note=("s4.note", "priced per site", None),
          title=("Commercial", None), body=("Offices, shops and restaurants, painted at night or over a weekend so you can stay open.", None),
          items=["Offices", "Shops and restaurants", "Rentals and multi-unit buildings"],
-         hero="commercial-accent-wall", photos=["commercial-accent-wall", "commercial-project", "commercial-prep"],
+         hero="commercial-accent-wall", photos=["commercial-accent-wall", "commercial-project"],
          lede=("Offices, shops, restaurants and rental units painted on your schedule. We can work nights and weekends so you stay open, and keep the space clean and safe for staff and customers.",
                "Oficinas, tiendas, restaurantes y unidades de renta pintadas según su horario. Podemos trabajar de noche y en fin de semana para que siga abierto, y mantenemos el espacio limpio y seguro para empleados y clientes."),
          faq=[("Can you work after hours?", "Yes. Evening, overnight and weekend work can be scheduled so your business doesn't close.",
@@ -341,6 +340,8 @@ def webp(html):
         attrs, name, w = m.group(1), m.group(2), int(m.group(3))
         before = html[max(0, m.start() - 160): m.start()] + attrs
         sizes = next((v for k, v in SIZES.items() if k in before.rsplit("<figure", 1)[-1] or f'class="{k}"' in attrs), "(max-width: 960px) 50vw, 25vw")
+        if 'style="aspect-ratio' in attrs:   # /work/ rows: drawn at a fixed height, so up to ~620 px wide
+            sizes = "(max-width: 620px) 82vw, 620px"
         srcs = [f"/img/work/{name}-600.webp 600w"] + ([f"/img/work/{name}-800.webp 800w"] if w > 800 else []) + [f"/img/work/{name}.webp {w}w"]
         return f'<img {attrs}src="/img/work/{name}.webp" srcset="{", ".join(srcs)}" sizes="{sizes}" width="{w}"'
     return re.sub(r'<img ([^>]*?)src="/img/work/([\w-]+)\.jpg" width="(\d+)"', sub, html)
@@ -748,28 +749,40 @@ def build():
               ld=[crumbs_ld([("Home", "/"), ("Services", "/services/")])])
     built.append(page("/services/", hd, main, []))
 
-    # /work/
-    cats = [("all", "All", "Todos"), ("interior", "Interior", "Interiores"), ("exterior", "Exterior", "Exteriores"),
-            ("decks", "Decks", "Terrazas"), ("commercial", "Commercial", "Comercial"), ("prep", "Prep & repair", "Preparación y reparación")]
-    chips = "\n".join(f'    <button type="button" data-filter="{c}" aria-pressed="{str(c == "all").lower()}" data-i18n="workp.f.{c}">{e(en)}</button>' for c, en, es in cats)
-    for c, en, es in cats:
-        ES[f"workp.f.{c}"] = es
-    figs = "\n".join("    " + photo(p) for p in PHOTOS)
-    ES.update({"workp.title": "Trabajos terminados", "workp.filter": "Filtrar fotos", "workp.all": "Ver todo nuestro trabajo",
-               "workp.intro": "Fotos reales del equipo de Joshua: interiores, exteriores, terrazas y negocios en el Área de la Bahía."})
+    # /work/ — one chapter per kind of job, each a single row of photos at the same height,
+    # so 2 or 7 photos both look intentional (no filters, no half-empty grid rows)
+    chapters = [("exterior", "Exterior", "Exteriores"), ("interior", "Interior", "Interiores"),
+                ("decks", "Decks & waterproofing", "Terrazas e impermeabilización"),
+                ("commercial", "Commercial", "Comercial"), ("prep", "Prep & repair", "Preparación y reparación")]
+    ES.update({"workp.title": "Trabajos terminados", "workp.photos": "fotos", "workp.prev": "Fotos anteriores", "workp.next": "Más fotos",
+               "workp.intro": "Trabajos reales del equipo de Josué en el Área de la Bahía. Toque una foto para verla en grande.",
+               "workp.all": "Ver todo nuestro trabajo"})
+    parts = []
+    for c, en, es in chapters:
+        ES[f"workp.c.{c}"] = es
+        names = [n for n, v in PHOTOS.items() if v[4] == c]
+        # each photo keeps its own proportions (reserved before it loads, so nothing jumps);
+        # the first chapter's first two photos load straight away (they are on the first screen)
+        figs = "\n".join("      " + photo(n, lazy=not (c == chapters[0][0] and k < 2)).replace(
+            "<img ", f'<img style="aspect-ratio:{PHOTOS[n][0]}/{PHOTOS[n][1]}" ' + ('fetchpriority="high" ' if c == chapters[0][0] and k == 0 else ""), 1)
+            for k, n in enumerate(names))
+        parts.append(f'''  <section class="chapter" aria-labelledby="ch-{c}">
+    <div class="chapter-head">
+      <h2 id="ch-{c}" data-i18n="workp.c.{c}">{e(en)}</h2>
+      <span class="chapter-n">{len(names)} <span data-i18n="workp.photos">photos</span></span>
+      <span class="shots-nav" hidden><button type="button" class="shots-prev" aria-label="Previous photos" data-i18n-attr="aria-label:workp.prev">←</button><button type="button" class="shots-next" aria-label="More photos" data-i18n-attr="aria-label:workp.next">→</button></span>
+    </div>
+    <div class="shots">
+{figs}
+    </div>
+  </section>''')
     main = f'''<section class="block work work-page" aria-labelledby="work-h1">
   <div class="block-head">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.work">Our work</span></nav>
-    <p class="label" data-i18n="work.label">Our work</p>
     <h1 id="work-h1" data-i18n="workp.title">Jobs we've finished</h1>
-    <p class="muted" data-i18n="workp.intro">Real photos from Joshua's crew: interiors, exteriors, decks and businesses around the Bay Area.</p>
+    <p class="muted" data-i18n="workp.intro">Real jobs by Josué's crew around the Bay Area. Tap a photo to see it full size.</p>
   </div>
-  <div class="filters" role="group" aria-label="Filter photos" data-i18n-attr="aria-label:workp.filter">
-{chips}
-  </div>
-  <div class="work-grid">
-{figs}
-  </div>
+{chr(10).join(parts)}
   <p class="work-more"><a href="{YELP}" target="_blank" rel="noopener" data-i18n="work.more">See more photos on Yelp</a></p>
 </section>
 

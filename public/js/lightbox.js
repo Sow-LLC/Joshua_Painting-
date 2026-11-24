@@ -47,7 +47,9 @@
     [i + 1, i - 1].forEach((k) => { const f = list[(k + list.length) % list.length]; if (f) new Image().src = big(f.querySelector("img")); });
   };
   const open = (fig) => {
-    list = all.filter((f) => !f.hidden && f.offsetParent !== null);   // respects the gallery filter
+    // only the photos of the same job type (the row it sits in), else every photo on the page
+    const group = fig.closest(".shots");
+    list = all.filter((f) => !f.hidden && f.offsetParent !== null && (!group || f.closest(".shots") === group));
     opener = fig.querySelector(".work-open");
     label();
     box.hidden = false;
