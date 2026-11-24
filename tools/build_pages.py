@@ -268,35 +268,48 @@ def credentials():
     return f'\n    <p class="foot-cred">{" · ".join(parts)}</p>' if parts else ""
 
 def footer():
-    svc = "\n".join(f'    <a href="/services/{s["slug"]}/" data-i18n="svcp.{s["gid"]}.h1">{e(s["h1"][0])}</a>' for s in SERVICES)
+    svc = "\n".join(f'        <a href="/services/{s["slug"]}/" data-i18n="svcp.{s["gid"]}.h1">{e(s["h1"][0])}</a>' for s in SERVICES)
     ES["foot.services"] = "Servicios"
     ES["foot.company"] = "Empresa"
     ES["nav.privacy"] = "Privacidad"
     ES["nav.contact"] = "Contacto"
     ES["foot.follow"] = "Síganos en"
+    ES.update({"foot.contact": "Contacto", "foot.tag": "Pintura e impermeabilización para casas y negocios en el Área de la Bahía.",
+               "foot.area": "Hercules y el East Bay", "foot.rights": "Hercules, CA"})
+    year = __import__("datetime").date.today().year
     return f'''<footer class="foot">
-  <div>
-    <span class="mark">Joshua's Painting Service</span>
-    <p class="muted" data-i18n="foot.licensed">Painting &amp; waterproofing · Insured · Hercules, CA</p>
-    <p class="foot-contact"><a href="tel:{PHONE_TEL}"><span data-i18n="util.call">Call</span> {PHONE}</a><span data-i18n="util.hours">Mon–Sat · 8 am – 7 pm</span></p>
-    <p class="foot-social"><span data-i18n="foot.follow">Follow us</span> <a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{YELP}" target="_blank" rel="noopener">Yelp</a></p>{credentials()}
-  </div>
-  <nav class="foot-nav foot-cols" aria-label="Footer" data-i18n-attr="aria-label:aria.foot">
-    <div>
-    <p class="label" data-i18n="foot.services">Services</p>
+  <div class="foot-main">
+    <div class="foot-brand">
+      <span class="mark">Joshua's Painting Service</span>
+      <p class="muted" data-i18n="foot.tag">Painting and waterproofing for homes and businesses around the Bay Area.</p>
+      <p class="foot-social"><span data-i18n="foot.follow">Follow us</span> <a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{YELP}" target="_blank" rel="noopener">Yelp</a></p>{credentials()}
+    </div>
+    <nav class="foot-cols" aria-label="Footer" data-i18n-attr="aria-label:aria.foot">
+      <div>
+        <p class="label" data-i18n="foot.services">Services</p>
 {svc}
-    </div>
-    <div>
-    <p class="label" data-i18n="foot.company">Company</p>
-    <a href="/work/" data-i18n="nav.work">Our work</a>
-    <a href="/about/" data-i18n="nav.about">About</a>
-    <a href="/reviews/" data-i18n="nav.reviews">Reviews</a>
-    <a href="/faq/" data-i18n="nav.faq">FAQ</a>
-    <a href="/contact/" data-i18n="nav.contact">Contact</a>
-    <a href="/privacy/" data-i18n="nav.privacy">Privacy</a>
-    </div>
-  </nav>
-  <p class="foot-code" data-i18n-html="foot.code">JP — painted by hand · <a href="/admin/">Studio login</a></p>
+      </div>
+      <div>
+        <p class="label" data-i18n="foot.company">Company</p>
+        <a href="/work/" data-i18n="nav.work">Our work</a>
+        <a href="/about/" data-i18n="nav.about">About</a>
+        <a href="/reviews/" data-i18n="nav.reviews">Reviews</a>
+        <a href="/faq/" data-i18n="nav.faq">FAQ</a>
+        <a href="/contact/" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="foot-reach">
+        <p class="label" data-i18n="foot.contact">Contact</p>
+        <a class="foot-phone" href="tel:{PHONE_TEL}">{PHONE}</a>
+        <span data-i18n="util.hours">Mon–Sat · 8 am – 7 pm</span>
+        <span data-i18n="foot.area">Hercules and the East Bay</span>
+        <a class="btn btn-ghost foot-cta" href="/contact/" data-cta data-i18n="nav.quote">Free quote</a>
+      </div>
+    </nav>
+  </div>
+  <div class="foot-bottom">
+    <span>© {year} Joshua's Painting Service · <span data-i18n="foot.rights">Hercules, CA</span></span>
+    <span><a href="/privacy/" data-i18n="nav.privacy">Privacy</a> · <a href="/admin/">Studio login</a></span>
+  </div>
 </footer>
 
 <!-- phones: call / quote always one tap away -->

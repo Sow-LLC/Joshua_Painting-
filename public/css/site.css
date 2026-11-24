@@ -948,3 +948,44 @@ html.snap { scroll-snap-type: y proximity; }
 .faq details.flash { animation: flash 1.6s ease-out; }
 @keyframes flash { from { background: #efe7cf; } to { background: transparent; } }
 @media (prefers-reduced-motion: reduce) { .faq details.flash { animation: none; } }
+
+/* ───── footer: four top-aligned columns + a thin bottom bar ───── */
+.foot { display: block; padding: clamp(48px, 6vw, 80px) var(--pad) 0; border-top: 1px solid var(--rule); }
+.foot-main { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 3fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+.foot-brand .mark { font-size: 18px; }
+.foot-brand .muted { max-width: 34ch; margin-top: 12px; line-height: 1.5; }
+.foot .foot-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px clamp(20px, 3vw, 48px); align-items: start; }
+.foot .foot-cols > div { display: grid; gap: 10px; align-content: start; font-size: 15px; }
+.foot .foot-cols .label { margin: 0 0 6px; }
+.foot-reach span { color: var(--graphite); font-size: 14px; }
+.foot-reach .foot-phone { font-weight: 600; }
+.foot-reach .foot-cta { justify-self: start; margin-top: 8px; padding: 11px 18px; font-size: 13px; }
+.foot-reach .foot-cta:hover { text-decoration: none; }
+.foot-bottom {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px;
+  margin-top: clamp(40px, 5vw, 64px); padding: 20px 0 26px; border-top: 1px solid var(--rule);
+  font: 12px/1.5 var(--mono); letter-spacing: .04em; color: var(--graphite);
+}
+.foot-bottom a { color: var(--graphite); }
+.foot-bottom a:hover { color: var(--ink); }
+@media (max-width: 960px) {
+  .foot-main { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .foot { padding: 40px var(--pad) 0; }
+  .foot .foot-cols { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+  .foot .foot-cols > div { gap: 2px; }
+  .foot .foot-cols a:not(.btn) { padding: 7px 0; }
+  .foot-reach { grid-column: 1 / -1; }
+  .foot-bottom { flex-direction: column; padding-bottom: 20px; }
+}
+
+/* ───── closing call to action: centred ───── */
+.cta-end { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.cta-end .block-head { max-width: 640px; margin-left: auto; margin-right: auto; }
+.cta-end .block-head h2 { margin-left: auto; margin-right: auto; }
+.cta-end .hero-actions { justify-content: center; }
+@media (max-width: 620px) {
+  .cta-end h2 { hyphens: manual; overflow-wrap: normal; }
+  .foot-reach .foot-cta { display: none; }   /* the bottom bar already has Free quote */
+}
