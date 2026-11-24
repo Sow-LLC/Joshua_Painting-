@@ -272,7 +272,7 @@ html.i18n-pending body { visibility: hidden; }
 
 /* ───── Services ▾ dropdown (desktop) ───── */
 .drop { position: relative; display: inline-flex; align-items: center; gap: 2px; }
-.drop-btn { border: 0; background: none; padding: 4px; cursor: pointer; color: var(--ink); font-size: 12px; line-height: 1; }
+.drop-btn { border: 0; background: none; padding: 0; min-width: 28px; min-height: 28px; display: inline-flex; align-items: center; justify-content: center; margin-left: -2px; cursor: pointer; color: var(--ink); font-size: 12px; line-height: 1; }
 .drop-menu {
   position: absolute; top: 100%; left: -18px; z-index: 30; min-width: 250px;
   display: none; padding: 8px 0; margin-top: 12px;

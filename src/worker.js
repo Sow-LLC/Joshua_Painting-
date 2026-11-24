@@ -79,6 +79,7 @@ function oneOf(v, list, field) {
 }
 
 async function readBody(req) {
+  if (Number(req.headers.get("content-length") || 0) > 64 * 1024) throw new HttpError(413, "Request too large");
   const type = req.headers.get("content-type") || "";
   if (type.includes("application/json")) {
     try {
@@ -220,6 +221,15 @@ async function createQuote(req, env, url) {
   if (!email && !phone) throw new HttpError(400, "Please leave an email or phone number");
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new HttpError(400, "That email address looks wrong");
 
+  // Spam guard: at most 5 requests a minute from one address (Cloudflare rate-limit binding).
+  if (env.QUOTE_LIMIT) {
+    const ip = req.headers.get("cf-connecting-ip") || "local";
+    const { success } = await env.QUOTE_LIMIT.limit({ key: "quote:" + ip });
+    if (!success) throw new HttpError(429, lang === "es"
+      ? "Demasiadas solicitudes. Espere un minuto o llámenos al (510) 369-9079."
+      : "Too many requests. Please wait a minute or call us at (510) 369-9079.");
+  }
+
   const scope = str(body.scope, 20);
   const q = {
     id: uid(),
@@ -239,10 +249,19 @@ async function createQuote(req, env, url) {
     `INSERT INTO quotes (id, created_at, name, email, phone, address, scope, rooms, sqft, timeline, message, lang)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   ).bind(q.id, q.created_at, q.name, q.email, q.phone, q.address, q.scope, q.rooms, q.sqft, q.timeline, q.message, q.lang).run();
-  url.waitUntil(notifyNewQuote(env, q, url.origin)); // don't make the visitor wait for the alert
+  url.waitUntil(alertUnlessFlooded(env, q, url.origin)); // don't make the visitor wait for the alert
 
   if (isForm) return back();
   return json({ ok: true, id: q.id }, 201);
+}
+
+/** If a flood of requests gets through (many senders at once), stop buzzing the phone:
+ *  after 10 alerts in 10 minutes the rest are only saved in the job manager. */
+async function alertUnlessFlooded(env, q, origin) {
+  const since = new Date(Date.now() - 10 * 60e3).toISOString();
+  const row = await env.DB.prepare("SELECT COUNT(*) AS n FROM quotes WHERE created_at > ?").bind(since).first();
+  if ((row?.n || 0) > 10) return;
+  return notifyNewQuote(env, q, origin);
 }
 
 /**

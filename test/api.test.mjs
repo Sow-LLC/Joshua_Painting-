@@ -6,11 +6,13 @@ import assert from "node:assert/strict";
 const BASE = process.env.BASE || "http://localhost:8787";
 const KEY = process.env.ADMIN_KEY || readFileSync(new URL("../.dev.vars", import.meta.url), "utf8").match(/ADMIN_KEY=(\S+)/)[1];
 
+// each test run is its own "visitor", so the quote spam limit (5 a minute per address) never trips
+const VISITOR = { "cf-connecting-ip": "test-" + Math.random().toString(36).slice(2) };
 async function call(method, path, body, { auth = true, raw = false } = {}) {
   const res = await fetch(BASE + path, {
     method,
     redirect: "manual",
-    headers: { ...(auth ? { authorization: "Bearer " + KEY } : {}), ...(body && !raw ? { "content-type": "application/json" } : {}) },
+    headers: { ...VISITOR, ...(auth ? { authorization: "Bearer " + KEY } : {}), ...(body && !raw ? { "content-type": "application/json" } : {}) },
     body: raw ? body : body ? JSON.stringify(body) : undefined,
   });
   const text = await res.text();
@@ -96,7 +98,7 @@ await step("honeypot submissions are accepted but not stored", async () => {
 
 await step("no-JS form POST redirects back with ?sent=1", async () => {
   const form = new URLSearchParams({ name: "Form Person", phone: "555-0100", scope: "exterior" });
-  const r = await fetch(BASE + "/api/quotes", { method: "POST", body: form, redirect: "manual" });
+  const r = await fetch(BASE + "/api/quotes", { method: "POST", body: form, headers: VISITOR, redirect: "manual" });
   assert.equal(r.status, 303);
   assert.match(r.headers.get("location"), /\/contact\/\?sent=1#quote$/);
 });
@@ -107,7 +109,7 @@ await step("Spanish quotes keep their language", async () => {
   const q = (await call("GET", "/api/admin/quotes")).data.find((x) => x.id === r.data.id);
   assert.equal(q.lang, "es");
   const form = new URLSearchParams({ name: "Forma", phone: "555-0102", lang: "es" });
-  const f = await fetch(BASE + "/api/quotes", { method: "POST", body: form, redirect: "manual" });
+  const f = await fetch(BASE + "/api/quotes", { method: "POST", body: form, headers: VISITOR, redirect: "manual" });
   assert.match(f.headers.get("location"), /\?sent=1&lang=es#quote$/);
   const job = (await call("POST", `/api/admin/quotes/${r.data.id}/convert`)).data;
   assert.match(job.notes, /Spanish/);
@@ -219,6 +221,19 @@ await step("retiring crews hides them from the schedule", async () => {
 await step("unknown routes and methods", async () => {
   assert.equal((await call("GET", "/api/nope")).status, 404);
   assert.equal((await call("DELETE", "/api/admin/summary")).status, 405);
+});
+
+await step("quote form spam limit and size cap", async () => {
+  const ip = { "cf-connecting-ip": "flood-" + Math.random().toString(36).slice(2), "content-type": "application/json" };
+  const codes = [];
+  for (let i = 0; i < 7; i++) {
+    const r = await fetch(BASE + "/api/quotes", { method: "POST", headers: ip, body: JSON.stringify({ name: "Flood", email: "flood@test.example" }) });
+    codes.push(r.status);
+  }
+  assert.deepEqual(codes.slice(0, 5), [201, 201, 201, 201, 201]);
+  assert.ok(codes.slice(5).every((c) => c === 429), codes.join(","));
+  const big = await fetch(BASE + "/api/quotes", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: "x", message: "a".repeat(70000) }) });
+  assert.equal(big.status, 413);
 });
 
 console.log(`\n${passed} checks passed`);
