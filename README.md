@@ -204,4 +204,4 @@ Quotes live in `tools/reviews.json` (the customer's exact words, no names). Each
 when `"approved": true`, set that ONLY after the customer agrees to be quoted, then run
 `python3 tools/build_pages.py` and `npx wrangler deploy`. With none approved, the "What people say
 about us" section is hidden and the front page shows the 5.0 line instead of a quote.
-The two current Yelp reviews (Apr 2026 exterior; Jul 2025) are already in the file, set to false.
+The two current Yelp reviews (Apr 2026 exterior; Jul 2025) are approved by the customers (Nov 2026) and shown.

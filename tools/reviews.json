@@ -2,7 +2,7 @@
   "_how": "Customer quotes for the Reviews page and the front page. Only entries with \"approved\": true are shown, so set it to true ONLY after the customer has agreed to be quoted. Names are never shown. Keep the customer's exact words (you may shorten with …). Then run: python3 tools/build_pages.py && npx wrangler deploy",
   "reviews": [
     {
-      "approved": false,
+      "approved": true,
       "stars": 5,
       "date": "2026-04",
       "job": "exterior",
@@ -10,7 +10,7 @@
       "text": "I highly recommend him for his outstanding work on the exterior of my home. He carefully sanded all the siding with great attention to detail, applied caulking precisely, and left the surface looking completely refreshed. His work was professional, punctual, and of high quality. You can clearly see his experience and dedication in every detail. Thanks to his effort, my house looks like new."
     },
     {
-      "approved": false,
+      "approved": true,
       "stars": 5,
       "date": "2025-07",
       "job": "",
