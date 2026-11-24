@@ -1,0 +1,12 @@
+# Security headers for every page and file (Cloudflare Workers static assets).
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=31536000
+  Cross-Origin-Opener-Policy: same-origin
+
+# the job manager is never cached by browsers or proxies
+/admin/*
+  Cache-Control: no-store

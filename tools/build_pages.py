@@ -221,9 +221,7 @@ def header():
     ES.update({"nav.allServices": "Todos los servicios", "nav.showServices": "Mostrar servicios"})
     return f'''<header class="top">
   <a class="mark" href="/" aria-label="Joshua's Painting Service home" data-i18n-attr="aria-label:aria.home">
-    <span class="mark-chip" aria-hidden="true"></span>
-    <span>Joshua's<span class="mark-rest"> Painting Service</span></span>
-  </a>
+Joshua's Painting Service</a>
   <nav class="nav" aria-label="Main" data-i18n-attr="aria-label:aria.nav">
     <div class="drop">
       <a href="/services/" data-i18n="nav.services">Services</a>
@@ -251,6 +249,7 @@ def header():
     <a href="/reviews/" data-i18n="nav.reviews">Reviews</a>
     <a href="/faq/" data-i18n="nav.faq">FAQ</a>
     <a href="/contact/" data-i18n="nav.contact">Contact</a>
+    <span class="lang menu-lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">English</a><a href="?lang=es" data-lang="es" lang="es">Español</a></span>
     <a class="menu-call" href="tel:{PHONE_TEL}"><span data-i18n="util.call">Call</span> {PHONE}</a>
     <a class="btn" href="/contact/" data-cta data-i18n="nav.quote">Free quote</a>
   </nav>
@@ -276,9 +275,9 @@ def footer():
     ES["foot.follow"] = "Síganos en"
     return f'''<footer class="foot">
   <div>
-    <span class="mark"><span class="mark-chip" aria-hidden="true"></span>Joshua's Painting Service</span>
+    <span class="mark">Joshua's Painting Service</span>
     <p class="muted" data-i18n="foot.licensed">Painting &amp; waterproofing · Insured · Hercules, CA</p>
-    <p class="foot-contact"><a href="tel:{PHONE_TEL}"><span data-i18n="util.call">Call</span> {PHONE}</a><span data-i18n="util.hours">Mon–Sat · 8 am – 7 pm</span><span data-i18n="util.trust">Hercules, CA · Free estimates</span></p>
+    <p class="foot-contact"><a href="tel:{PHONE_TEL}"><span data-i18n="util.call">Call</span> {PHONE}</a><span data-i18n="util.hours">Mon–Sat · 8 am – 7 pm</span></p>
     <p class="foot-social"><span data-i18n="foot.follow">Follow us</span> <a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{YELP}" target="_blank" rel="noopener">Yelp</a></p>{credentials()}
   </div>
   <nav class="foot-nav foot-cols" aria-label="Footer" data-i18n-attr="aria-label:aria.foot">
@@ -319,6 +318,8 @@ def localize(html, path, has_form):
 
 def hreflang(html):
     """Search engines need full addresses in hreflang links, plus an x-default."""
+    if 'name="robots" content="noindex' in html:   # e.g. the 404 page: no language alternates
+        return re.sub(r'<link rel="alternate" hreflang="[^"]*" href="[^"]*">\n', "", html)
     html = re.sub(r'(<link rel="alternate" hreflang="(?:en|es|x-default)" href=")(/[^"]*")', rf'\1{SITE}\2', html)
     if 'hreflang="x-default"' not in html:
         html = re.sub(r'(<link rel="alternate" hreflang="en" href="([^"]*)">\n)',

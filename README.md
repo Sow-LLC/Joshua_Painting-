@@ -7,9 +7,9 @@ a half-painted wall with masking tape and pencil notes, services coded
 `JP / 01…05`, and the method shown as a wall in cross-section. No fonts or marks are
 copied from anyone.
 
-**Photos** are original AI-generated images made for this site (Figma AI, Nov 2026). They
-show no real clients or jobs. Full-size PNGs are in `photos-src/`, and the web JPEGs in
-`public/img/` are resized copies. Swap in photos of your own finished jobs when you have them.
+**Photos:** the site now uses only real job photos (`public/img/work/`). The early
+AI-generated illustrations were removed from `public/img/` (Nov 2026); their source PNGs
+are still in `photos-src/` (not in git).
 
 **English / Español.** The public site has an EN / ES switch in the header. English is written in
 `public/index.html`; the Spanish lives in `public/js/i18n.js` (edit wording there, keyed by each

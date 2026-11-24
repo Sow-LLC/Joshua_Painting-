@@ -61,11 +61,6 @@ img { max-width: 100%; }
   display: inline-flex; align-items: center; gap: 10px;
   text-decoration: none; font-weight: 600; letter-spacing: .02em; white-space: nowrap;
 }
-.mark-chip {
-  width: 18px; height: 24px; background: var(--white); flex: none;
-  border: 1px solid var(--ink);
-  box-shadow: inset 0 -7px 0 var(--ink);
-}
 .nav { display: flex; gap: 26px; align-items: center; font-size: 14px; }
 .nav a { text-decoration: none; white-space: nowrap; }
 .nav > a:hover { text-decoration: underline; text-underline-offset: 4px; }
@@ -223,7 +218,7 @@ html.i18n-pending body { visibility: hidden; }
 }
 .menu[hidden] { display: none; }
 .menu { max-height: calc(100dvh - 72px - var(--dock, 0px)); overflow-y: auto; overscroll-behavior: contain; }
-.menu a[aria-current] { color: var(--ink) !important; font-weight: 600; }
+.menu a[aria-current="page"] { color: var(--ink) !important; font-weight: 600; }
 .menu a:not(.btn) { padding: 15px 0; border-bottom: 1px solid var(--rule); text-decoration: none; font-size: 19px; }
 .menu .menu-call { font: 15px var(--mono); letter-spacing: .04em; }
 .menu .btn { margin-top: 18px; text-align: center; padding: 16px; }
@@ -496,7 +491,6 @@ a.frame-media { display: block; }
   .nav { gap: 12px; }
   .nav-cta { padding: 8px 10px; font-size: 0; }   /* full label stays for screen readers; */
   .nav-cta::after { content: attr(data-short); font-size: 14px; } /* the short one is drawn */
-  .mark-rest { display: none; }
   .utility { justify-content: center; }
   .utility > span { display: none; }
   .promises li { padding: 20px var(--pad); }
@@ -616,3 +610,33 @@ a.frame-media { display: block; }
 .story-photo img { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
 .story-photo img.on { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .wall-photo.on.drift { animation: none; } .wall-photo, .story-photo img { transition: none; } }
+
+/* name-only wordmark */
+.mark { font-size: 17px; letter-spacing: -.01em; gap: 0; }
+
+/* language switch inside the phone menu */
+.menu .menu-lang { display: inline-flex; justify-self: start; align-self: flex-start; width: max-content; margin: 14px 0 4px; font: 13px/1 var(--mono); }
+.menu .menu-lang[hidden] { display: none; }
+.menu .menu-lang a { padding: 12px 16px; text-decoration: none; color: var(--graphite); border: 0; font-size: 13px; }
+.menu .menu-lang a + a { border-left: 1px solid var(--rule); }
+.menu .menu-lang a[aria-current="true"] { background: var(--ink); color: var(--white); }
+
+@media (max-width: 620px) {
+  /* header: full name, Quote and the menu button; EN/ES lives in the menu */
+  .top { gap: 10px; padding: 14px var(--pad); }
+  .mark { font-size: 15px; }
+  .nav .lang { display: none; }
+  /* footer: tighter, two link columns side by side */
+  .foot { flex-direction: column; align-items: stretch; gap: 28px; padding: 36px var(--pad) 28px; }
+  .foot-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+  .foot-cols > div { gap: 0; align-content: start; }
+  .foot-nav a, .foot-cols a { padding: 7px 0; }
+  .foot-code { margin: 0; }
+}
+/* very small phones (320–359 px): keep the full name, Quote and the menu on one line */
+@media (max-width: 359px) {
+  .top { gap: 8px; padding-left: 14px; padding-right: 14px; }
+  .mark { font-size: 13.5px; }
+  .nav { gap: 8px; }
+  .nav-cta { padding: 8px 8px; }
+}

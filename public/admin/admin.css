@@ -33,7 +33,6 @@ input:focus, select:focus, textarea:focus { outline: 1px solid var(--ink); }
 .app { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
 .side { border-right: 1px solid var(--rule); padding: 22px 18px; display: flex; flex-direction: column; gap: 28px; position: sticky; top: 0; height: 100vh; }
 .mark { display: inline-flex; gap: 10px; align-items: center; font-weight: 600; text-decoration: none; color: inherit; }
-.mark-chip { width: 14px; height: 19px; border: 1px solid var(--ink); background: var(--white); box-shadow: inset 0 -6px 0 var(--ink); }
 .tabs { display: flex; flex-direction: column; gap: 2px; flex: 1; }
 .tabs button { text-align: left; background: none; border: 0; padding: 9px 10px; cursor: pointer; display: flex; justify-content: space-between; }
 .tabs button:hover { background: #ece8df; }

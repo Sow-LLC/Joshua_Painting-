@@ -530,8 +530,7 @@
       if (document.readyState !== "complete") window.addEventListener("load", () => { if (scrollY < 10) jump(); }, { once: true });
     }
 
-    const switcher = document.querySelector(".lang");
-    if (switcher) switcher.hidden = false;
+    document.querySelectorAll(".lang").forEach((s) => { s.hidden = false; });
     document.querySelectorAll("[data-lang]").forEach((b) =>
       b.addEventListener("click", (e) => {
         e.preventDefault();
