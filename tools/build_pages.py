@@ -492,10 +492,10 @@ def reviews_page(src):
                "reviewsp.meta.description": "Joshua's Painting Service tiene 5.0 estrellas en Yelp. Lea las reseñas y vea los trabajos."})
     # the reviews page keeps the full promises (the front page shows titles only)
     promises = """<ul class="promises" aria-label="Our promises" data-i18n-attr="aria-label:aria.promises">
-  <li><b data-i18n="pr1.title">Insured</b><span data-i18n="pr1.body">General liability insurance on every job.</span></li>
-  <li><b data-i18n="pr2.title">Free written estimates</b><span data-i18n="pr2.body">Itemised, and sent as soon as possible after the visit.</span></li>
-  <li><b data-i18n="pr3.title">Interior warranty</b><span data-i18n="pr3.body">3 to 6 months on interior work. Peeling or flaking? We come back and fix it.</span></li>
-  <li><b data-i18n="pr4.title">Spotless clean-up</b><span data-i18n="pr4.body">Floors covered, rooms swept, every day.</span></li>
+  <li><a href="/faq/#insured"><b data-i18n="pr1.title">Insured</b><span data-i18n="pr1.body">General liability insurance on every job.</span></a></li>
+  <li><a href="/contact/"><b data-i18n="pr2.title">Free written estimates</b><span data-i18n="pr2.body">Itemised, and sent as soon as possible after the visit.</span></a></li>
+  <li><a href="/faq/#warranty"><b data-i18n="pr3.title">Interior warranty</b><span data-i18n="pr3.body">3 to 6 months on interior work. Peeling or flaking? We come back and fix it.</span></a></li>
+  <li><a href="/faq/#cleanup"><b data-i18n="pr4.title">Spotless clean-up</b><span data-i18n="pr4.body">Floors covered, rooms swept, every day.</span></a></li>
 </ul>"""
     figs = "\n".join("    " + photo(p) for p in ["petaluma-house", "orinda-deck", "kitchen", "interior-room"])
     main = "\n\n".join([
@@ -567,10 +567,6 @@ SHORT = {  # one line per service for the front page (EN, ES)
     "commercial": ("Offices, shops and rentals, after hours.", "Oficinas, tiendas y rentas, fuera de horario."),
 }
 
-PANEL_PHOTO = {"interior": "interior-bedroom", "exterior": "petaluma-house", "cabinets": "kitchen",
-               "walls": "drywall-prep", "water": "orinda-deck", "commercial": "commercial-accent-wall"}
-PANEL_POS = {"commercial": "50% 30%", "exterior": "50% 40%"}
-
 def landing():
     """Front page body, in the order visitors decide: what we do → proof → how it works.
     Each part is a short preview that links to its own page."""
@@ -579,27 +575,24 @@ def landing():
                "home.rev.read": "Leer las reseñas", "home.story.more": "Leer nuestra historia",
                "home.story": "Joshua Painting JM Waterproofing ofrece servicios de pintura e impermeabilización para proyectos residenciales y pequeños proyectos comerciales en el Área de la Bahía. Trabajamos con un equipo profesional de pintores en proyectos residenciales y comerciales. El dueño, Josué Mendoza, tiene 7 años de experiencia en pintura."})
     ES["hero.short"] = "Casas y negocios, pintados con cuidado."
-    ES["svcp.more"] = "Ver detalles"
-    panels = []
-    for sv in SERVICES:
+    ES.update({"home.svc.more": "Cada servicio tiene su página con fotos, detalles y preguntas frecuentes.",
+               "home.rev.title": "5.0 en Yelp", "home.rev.read": "Leer las reseñas"})
+    rows = []
+    for i, sv in enumerate(SERVICES, 1):
         g = sv["gid"]; en, es_ = SHORT[g]; ES[f"home.svc.{g}"] = es_
-        ph = PANEL_PHOTO[g]; w, h = PHOTOS[ph][0], PHOTOS[ph][1]
-        panels.append(f'''  <article class="panel" id="panel-{sv["slug"]}" aria-labelledby="pt-{g}">
-    <img class="panel-photo" src="/img/work/{ph}.jpg" width="{w}" height="{h}" alt="" loading="lazy" decoding="async" style="object-position:{PANEL_POS.get(g, "50% 50%")}">
-    <div class="panel-copy">
-      <h2 id="pt-{g}" data-i18n="svcp.{g}.h1">{e(sv["h1"][0])}</h2>
-      <p data-i18n="home.svc.{g}">{e(en)}</p>
-    </div>
-    <div class="panel-actions">
-      <a class="btn" href="/contact/?scope={sv["scope"]}" data-cta data-i18n="nav.quote">Free quote</a>
-      <a class="btn btn-ghost" href="/services/{sv["slug"]}/" data-i18n="svcp.more">See details</a>
-    </div>
-  </article>''')
+        rows.append(f'''    <a href="/services/{sv["slug"]}/"><span class="svc-n">0{i}</span><span class="svc-name"><span data-i18n="svcp.{g}.h1">{e(sv["h1"][0])}</span><small data-i18n="home.svc.{g}">{e(en)}</small></span><span class="svc-arrow" aria-hidden="true">→</span></a>''')
     return f'''<!-- explore -->
-<!-- Services as full-screen panels, one per screen; the page snaps to each (Tesla-style) -->
-<section class="panels" aria-label="What we do" data-i18n-attr="aria-label:home.svc.label">
-{chr(10).join(panels)}
+<section class="block home-services" aria-labelledby="home-svc-title">
+  <div class="block-head">
+    <h2 id="home-svc-title" data-i18n="home.svc.label">What we do</h2>
+    <p class="muted" data-i18n="home.svc.more">Each service has its own page with photos, details and common questions.</p>
+  </div>
+  <nav class="svc-list" aria-labelledby="home-svc-title">
+{chr(10).join(rows)}
+  </nav>
 </section>
+
+{steps()}
 
 <section class="block home-story" aria-labelledby="home-story-title">
   <div class="story-grid story-solo">
@@ -616,6 +609,11 @@ def landing():
     </div>
   </div>
 </section>
+<section class="rev-band" aria-label="Reviews" data-i18n-attr="aria-label:nav.reviews">
+  <a href="/reviews/"><span class="stars" aria-hidden="true">★★★★★</span> <b data-i18n="home.rev.title">5.0 on Yelp</b>
+     <span class="muted" data-i18n="home.rev.body">Every customer who has reviewed us on Yelp gave us five stars.</span>
+     <span class="rev-go"><span data-i18n="home.rev.read">Read the reviews</span> →</span></a>
+</section>
 <!-- /explore -->'''
 
 # ───────────────────────── pages ─────────────────────────
@@ -624,7 +622,9 @@ def build():
     ES["social.fb"] = "Joshua Painting JM Waterproofing"
     ES["cta.area"] = "Trabajamos en Hercules, Berkeley, Oakland, Alameda, Concord y el East Bay."
     ES.update({"about.s4n": "3–6 meses", "q8": "¿Tienen seguro?",
-               "a8": "Sí. Tenemos seguro de responsabilidad civil general, así que su casa o negocio está cubierto mientras trabajamos."})
+               "a8": "Sí. Tenemos seguro de responsabilidad civil general, así que su casa o negocio está cubierto mientras trabajamos.",
+               "q9": "¿Cómo dejan limpio el lugar?",
+               "a9": "Cubrimos pisos y muebles antes de empezar, barremos y recogemos cada día, y al final revisamos el trabajo con usted para que todo quede como lo encontramos, pero recién pintado."})
     ES["f.privacy"] = 'Solo usamos sus datos para responderle sobre su trabajo. <a href="/privacy/">Privacidad</a>'
     if 'data-i18n-html="f.privacy"' not in src:
         src = src.replace('      <div class="form-foot wide">',

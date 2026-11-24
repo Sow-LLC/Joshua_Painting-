@@ -922,3 +922,29 @@ html.snap { scroll-snap-type: y proximity; }
 
 /* a small label right under the breadcrumb only repeats the page name: hide it */
 .crumbs + .label { display: none; }
+
+/* ───── front page: promises are links ───── */
+.promises a { display: flex; flex-direction: column; gap: 6px; height: 100%; color: inherit; text-decoration: none; }
+.home-promises li { padding: 0; }
+.home-promises a { flex-direction: row; align-items: center; justify-content: center; gap: 8px; padding: 22px var(--pad); }
+.promises a:hover b { text-decoration: underline; text-underline-offset: 4px; }
+.pr-go { color: var(--graphite); transition: transform .2s; }
+.promises a:hover .pr-go { transform: translateX(4px); color: var(--ink); }
+.promises a:active { background: var(--primer); }
+@media (max-width: 620px) { .home-promises a { padding: 16px 10px; } }
+
+/* services list with a one-line description under each name */
+.svc-name { display: grid; gap: 4px; }
+.svc-name small { font-size: 15px; letter-spacing: 0; color: var(--graphite); line-height: 1.35; }
+.home-services .block-head .muted { margin: 8px 0 0; }
+@media (max-width: 620px) { .svc-name small { font-size: 13.5px; } }
+
+/* reviews strip: the whole line is one link */
+.rev-band a { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; color: inherit; text-decoration: none; font-size: 16px; }
+.rev-band .rev-go { font-weight: 500; }
+.rev-band a:hover .rev-go span { text-decoration: underline; }
+
+/* the FAQ answer you arrived at gets a brief highlight */
+.faq details.flash { animation: flash 1.6s ease-out; }
+@keyframes flash { from { background: #efe7cf; } to { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .faq details.flash { animation: none; } }

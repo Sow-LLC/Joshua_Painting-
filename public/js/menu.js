@@ -99,3 +99,13 @@
   };
   ["wheel", "touchstart", "keydown"].forEach((t) => addEventListener(t, go, { passive: true }));
 })();
+
+// /faq/#insured, #warranty, #cleanup …: open that answer when you arrive from a link
+(() => {
+  const openIt = () => {
+    const d = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (d && d.tagName === "DETAILS") { d.open = true; d.classList.add("flash"); }
+  };
+  openIt();
+  addEventListener("hashchange", openIt);
+})();

@@ -191,9 +191,9 @@ All job photos come from the business's Yelp page. One (a dining room) carried a
   intentional. Category comes from the last field in `PHOTOS` (`tools/build_pages.py`).
 - **Photo viewer** (`public/js/lightbox.js`): tap any job photo for full screen; swipe or ← → to move,
   swipe down / Esc / ✕ to close. On /work/ it stays within that job type.
-- **Front page panels:** each of the six services is a full-screen panel (photo, name, one line,
-  Free quote + See details), and the page snaps to each one once the visitor starts scrolling.
-  Panel photos are set in `PANEL_PHOTO` in `tools/build_pages.py`. On phones the Call / Free quote
-  bar hides while the opening screen or a panel fills the screen (they have their own buttons).
+- **Front page:** opening photo (slideshow) → four promises, each a link (Insured, warranty and clean-up
+  open their FAQ answer at /faq/#insured, #warranty, #cleanup; estimates go to /contact/) → "What we do",
+  a numbered list of the six services (no photos; each service page has them) → How it works →
+  the story → 5.0 on Yelp → final call to action with the service area.
 - **Smooth page changes** (CSS view transitions), **press feedback** on taps, and on phones the header
   hides while scrolling down and returns on scroll up. All motion is off for "reduce motion" devices.
