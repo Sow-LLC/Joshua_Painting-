@@ -579,6 +579,32 @@ def testimonials():
   <p class="work-more"><a href="{YELP}" target="_blank" rel="noopener"><span data-i18n="rv.all">Read all our reviews on Yelp</span> →</a></p>
 </section>'''
 
+
+def reviews_top():
+    """Reviews page opening when there are approved quotes: title, rating, quotes, then Yelp link."""
+    revs = approved_reviews()
+    if not revs:
+        return ""
+    ES.update({"rv.say": "Lo que dicen de nosotros", "rv.rating": "5.0 en Yelp: todos los clientes que nos han reseñado nos dieron cinco estrellas.",
+               "rv.en": "Reseñas originales en inglés.", "rv.yelp": "Leer todas las reseñas en Yelp"})
+    cards = "\n".join(f'''    <figure class="tm">
+      <p class="tm-stars" aria-label="{r["stars"]} of 5 stars"><span class="stars" aria-hidden="true">{"★" * r["stars"]}</span></p>
+      <blockquote lang="en"><p>{e(r["text"])}</p></blockquote>
+      <figcaption>{review_meta(r, i)}</figcaption>
+    </figure>''' for i, r in enumerate(revs))
+    return f'''<section class="block testimonials reviews-top" aria-labelledby="reviews-h1">
+  <div class="block-head">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.reviews">Reviews</span></nav>
+    <h1 id="reviews-h1" data-i18n="rv.say">What people say about us</h1>
+    <p class="rv-rating"><span class="stars" aria-hidden="true">★★★★★</span> <span data-i18n="rv.rating">5.0 on Yelp: every customer who has reviewed us gave five stars.</span></p>
+    <p class="muted es-only" data-i18n="rv.en"></p>
+  </div>
+  <div class="tm-row">
+{cards}
+  </div>
+  <p class="rv-yelp"><a class="btn btn-ghost" href="{YELP}" target="_blank" rel="noopener"><span data-i18n="rv.yelp">Read all our reviews on Yelp</span> →</a></p>
+</section>'''
+
 def reviews_page(src):
     ES.update({"reviewsp.meta.title": "Reseñas — Joshua's Painting Service", "reviewsp.expect": "Lo que puede esperar",
                "reviewsp.meta.description": "Joshua's Painting Service tiene 5.0 estrellas en Yelp. Lea las reseñas y vea los trabajos."})
@@ -591,8 +617,8 @@ def reviews_page(src):
 </ul>"""
     figs = "\n".join("    " + photo(p) for p in ["petaluma-house", "orinda-deck", "kitchen", "interior-room"])
     main = "\n\n".join(x for x in [
-        page_h1(section(src, '<section id="reviews"'), "reviews-title", "nav.reviews", "Reviews"),
-        testimonials(),
+        # with approved quotes: title on top, quotes, Yelp link at the bottom; otherwise the rating card
+        reviews_top() or page_h1(section(src, '<section id="reviews"'), "reviews-title", "nav.reviews", "Reviews"),
         f'''<section class="block" aria-labelledby="expect-title">
   <div class="block-head"><h2 id="expect-title" data-i18n="reviewsp.expect">What you can expect</h2></div>
 </section>

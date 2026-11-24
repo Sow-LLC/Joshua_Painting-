@@ -1042,3 +1042,10 @@ html:not([lang="es"]) .es-only { display: none; }
 @media (max-width: 960px) { .about-split { grid-template-columns: 1fr; gap: 18px; } }
 .about-split .about-head .label { display: none; }   /* the breadcrumb already says About */
 .about-split .about-head h1 { hyphens: manual; overflow-wrap: normal; }
+
+/* Reviews page opening: title, rating line, quotes, Yelp link last */
+.reviews-top .block-head h1 { margin: 0 0 14px; font-weight: 400; letter-spacing: -.03em; line-height: 1.02; font-size: clamp(40px, 5.2vw, 76px); hyphens: manual; overflow-wrap: normal; }
+.rv-rating { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; font-size: 17px; color: #46433d; }
+.rv-rating .stars { font-size: 20px; }
+.reviews-top .block-head { margin-bottom: clamp(24px, 3vw, 36px); }
+.rv-yelp { margin: clamp(24px, 3vw, 36px) 0 0; }
