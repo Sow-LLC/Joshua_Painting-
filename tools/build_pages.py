@@ -564,7 +564,7 @@ def testimonials():
     ES.update({"rv.say": "Lo que dicen de nosotros", "rv.all": "Leer todas las reseñas en Yelp",
                "rv.en": "Reseñas originales en inglés."})
     cards = "\n".join(f'''    <figure class="tm">
-      <p class="tm-stars" aria-label="{r["stars"]} of 5 stars"><span class="stars" aria-hidden="true">{"★" * r["stars"]}</span></p>
+      <p class="tm-stars"><span class="stars" aria-hidden="true">{"★" * r["stars"]}</span><span class="sr-only">{r["stars"]} / 5</span></p>
       <blockquote lang="en"><p>{e(r["text"])}</p></blockquote>
       <figcaption>{review_meta(r, i)}</figcaption>
     </figure>''' for i, r in enumerate(revs))
@@ -588,7 +588,7 @@ def reviews_top():
     ES.update({"rv.say": "Lo que dicen de nosotros", "rv.rating": "5.0 en Yelp: todos los clientes que nos han reseñado nos dieron cinco estrellas.",
                "rv.en": "Reseñas originales en inglés.", "rv.yelp": "Leer todas las reseñas en Yelp"})
     cards = "\n".join(f'''    <figure class="tm">
-      <p class="tm-stars" aria-label="{r["stars"]} of 5 stars"><span class="stars" aria-hidden="true">{"★" * r["stars"]}</span></p>
+      <p class="tm-stars"><span class="stars" aria-hidden="true">{"★" * r["stars"]}</span><span class="sr-only">{r["stars"]} / 5</span></p>
       <blockquote lang="en"><p>{e(r["text"])}</p></blockquote>
       <figcaption>{review_meta(r, i)}</figcaption>
     </figure>''' for i, r in enumerate(revs))

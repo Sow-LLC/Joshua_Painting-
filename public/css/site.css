@@ -1049,3 +1049,4 @@ html:not([lang="es"]) .es-only { display: none; }
 .rv-rating .stars { font-size: 20px; }
 .reviews-top .block-head { margin-bottom: clamp(24px, 3vw, 36px); }
 .rv-yelp { margin: clamp(24px, 3vw, 36px) 0 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
