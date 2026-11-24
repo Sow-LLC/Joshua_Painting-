@@ -500,6 +500,52 @@ def faq_page(src):
               ES["faqp.meta.title"], ES["faqp.meta.description"])
     return page("/faq/", hd, main, [])
 
+
+# ───────────────────────── customer quotes (tools/reviews.json) ─────────────────────────
+# Only quotes marked "approved" (customer agreed) are shown; names are never shown.
+MONTHS = {"en": "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(),
+          "es": "ene feb mar abr may jun jul ago sep oct nov dic".split()}
+JOB = {"interior": ("Interior painting", "Pintura de interiores"), "exterior": ("Exterior painting", "Pintura de exteriores"),
+       "cabinets": ("Cabinet painting", "Pintura de gabinetes"), "walls": ("Wall repair", "Reparación de paredes"),
+       "waterproofing": ("Waterproofing", "Impermeabilización"), "commercial": ("Commercial painting", "Pintura comercial")}
+
+def approved_reviews():
+    import json
+    data = json.loads((Path(__file__).resolve().parent / "reviews.json").read_text(encoding="utf-8"))
+    return [r for r in data["reviews"] if r.get("approved")]
+
+def review_meta(r, i):
+    y, m = r["date"].split("-")
+    when_en, when_es = f'{MONTHS["en"][int(m) - 1]} {y}', f'{MONTHS["es"][int(m) - 1]} {y}'
+    job_en, job_es = JOB.get(r.get("job", ""), ("", ""))
+    en = " · ".join(x for x in ["Yelp review", job_en, when_en] if x)
+    es = " · ".join(x for x in ["Reseña en Yelp", job_es, when_es] if x)
+    ES[f"rv.meta.{i}"] = es
+    return f'<span data-i18n="rv.meta.{i}">{e(en)}</span>'
+
+def testimonials():
+    """The "What people say about us" section; empty until a quote is approved."""
+    revs = approved_reviews()
+    if not revs:
+        return ""
+    ES.update({"rv.say": "Lo que dicen de nosotros", "rv.all": "Leer todas las reseñas en Yelp",
+               "rv.en": "Reseñas originales en inglés."})
+    cards = "\n".join(f'''    <figure class="tm">
+      <p class="tm-stars" aria-label="{r["stars"]} of 5 stars"><span class="stars" aria-hidden="true">{"★" * r["stars"]}</span></p>
+      <blockquote lang="en"><p>{e(r["text"])}</p></blockquote>
+      <figcaption>{review_meta(r, i)}</figcaption>
+    </figure>''' for i, r in enumerate(revs))
+    return f'''<section class="block testimonials" aria-labelledby="say-title">
+  <div class="block-head">
+    <h2 id="say-title" data-i18n="rv.say">What people say about us</h2>
+    <p class="muted es-only" data-i18n="rv.en"></p>
+  </div>
+  <div class="tm-row">
+{cards}
+  </div>
+  <p class="work-more"><a href="{YELP}" target="_blank" rel="noopener"><span data-i18n="rv.all">Read all our reviews on Yelp</span> →</a></p>
+</section>'''
+
 def reviews_page(src):
     ES.update({"reviewsp.meta.title": "Reseñas — Joshua's Painting Service", "reviewsp.expect": "Lo que puede esperar",
                "reviewsp.meta.description": "Joshua's Painting Service tiene 5.0 estrellas en Yelp. Lea las reseñas y vea los trabajos."})
@@ -511,8 +557,9 @@ def reviews_page(src):
   <li><a href="/faq/#cleanup"><b data-i18n="pr4.title">Spotless clean-up</b><span data-i18n="pr4.body">Floors covered, rooms swept, every day.</span></a></li>
 </ul>"""
     figs = "\n".join("    " + photo(p) for p in ["petaluma-house", "orinda-deck", "kitchen", "interior-room"])
-    main = "\n\n".join([
+    main = "\n\n".join(x for x in [
         page_h1(section(src, '<section id="reviews"'), "reviews-title", "nav.reviews", "Reviews"),
+        testimonials(),
         f'''<section class="block" aria-labelledby="expect-title">
   <div class="block-head"><h2 id="expect-title" data-i18n="reviewsp.expect">What you can expect</h2></div>
 </section>
@@ -527,7 +574,7 @@ def reviews_page(src):
   </div>
   <p class="work-more"><a class="btn btn-ghost" href="/work/" data-i18n="workp.all">See all our work</a></p>
 </section>''',
-        section(src, '<section class="block cta-end"')])
+        section(src, '<section class="block cta-end"')] if x)
     hd = head("/reviews/", "reviewsp.meta.title", "Reviews — Joshua's Painting Service", "reviewsp.meta.description",
               "Joshua's Painting Service is rated 5.0 stars on Yelp. Read the reviews and see the work.",
               ES["reviewsp.meta.title"], ES["reviewsp.meta.description"], image="petaluma-house")
@@ -580,6 +627,12 @@ SHORT = {  # one line per service for the front page (EN, ES)
     "commercial": ("Offices, shops and rentals, after hours.", "Oficinas, tiendas y rentas, fuera de horario."),
 }
 
+def rev_line():
+    revs = [r for r in approved_reviews() if r.get("short")]
+    if not revs:
+        return '     <span class="muted" data-i18n="home.rev.body">Every customer who has reviewed us on Yelp gave us five stars.</span>'
+    return f'     <q class="rev-quote" lang="en">{e(revs[0]["short"])}</q>'
+
 def landing():
     """Front page body, in the order visitors decide: what we do → proof → how it works.
     Each part is a short preview that links to its own page."""
@@ -624,7 +677,7 @@ def landing():
 </section>
 <section class="rev-band" aria-label="Reviews" data-i18n-attr="aria-label:nav.reviews">
   <a href="/reviews/"><span class="stars" aria-hidden="true">★★★★★</span> <b data-i18n="home.rev.title">5.0 on Yelp</b>
-     <span class="muted" data-i18n="home.rev.body">Every customer who has reviewed us on Yelp gave us five stars.</span>
+{rev_line()}
      <span class="rev-go"><span data-i18n="home.rev.read">Read the reviews</span> →</span></a>
 </section>
 <!-- /explore -->'''

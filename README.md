@@ -197,3 +197,11 @@ All job photos come from the business's Yelp page. One (a dining room) carried a
   the story → 5.0 on Yelp → final call to action with the service area.
 - **Smooth page changes** (CSS view transitions), **press feedback** on taps, and on phones the header
   hides while scrolling down and returns on scroll up. All motion is off for "reduce motion" devices.
+
+## Customer quotes (Reviews page + front page)
+
+Quotes live in `tools/reviews.json` (the customer's exact words, no names). Each one shows only
+when `"approved": true`, set that ONLY after the customer agrees to be quoted, then run
+`python3 tools/build_pages.py` and `npx wrangler deploy`. With none approved, the "What people say
+about us" section is hidden and the front page shows the 5.0 line instead of a quote.
+The two current Yelp reviews (Apr 2026 exterior; Jul 2025) are already in the file, set to false.

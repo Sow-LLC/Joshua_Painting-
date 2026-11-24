@@ -989,3 +989,18 @@ html.snap { scroll-snap-type: y proximity; }
   .cta-end h2 { hyphens: manual; overflow-wrap: normal; }
   .foot-reach .foot-cta { display: none; }   /* the bottom bar already has Free quote */
 }
+
+/* ───── customer quotes (tools/reviews.json): no names, the customer's own words ───── */
+.tm-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.tm { margin: 0; padding: clamp(22px, 3vw, 32px); background: var(--primer); border: 1px solid var(--rule); display: flex; flex-direction: column; gap: 14px; }
+.tm-stars { margin: 0; font-size: 15px; }
+.tm blockquote { margin: 0; flex: 1; }
+.tm blockquote p { margin: 0; font-size: clamp(17px, 1.6vw, 19px); line-height: 1.5; color: #2f2d29; }
+.tm blockquote p::before { content: "“"; } .tm blockquote p::after { content: "”"; }
+.tm figcaption { font: 12px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--graphite); }
+.testimonials .work-more { margin-top: 22px; }
+html:not([lang="es"]) .es-only { display: none; }
+/* front page strip: one short quote */
+.rev-quote { font-style: normal; color: #46433d; }
+.rev-quote::before { content: "“"; } .rev-quote::after { content: "”"; }
+@media (max-width: 620px) { .tm blockquote p { font-size: 16px; } }
