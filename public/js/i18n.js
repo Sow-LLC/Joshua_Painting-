@@ -81,6 +81,8 @@
     "hero.work": "Ver nuestro trabajo",
     "home.rev.body": "Todos los clientes que nos han reseñado en Yelp nos dieron cinco estrellas.",
     "home.rev.read": "Leer las reseñas",
+    "home.story": "Joshua empezó a pintar con su familia de adolescente y lleva más de diez años con su propio equipo en el Área de la Bahía. Visita cada trabajo en persona, escribe cada presupuesto y revisa con usted el trabajo terminado.",
+    "home.story.more": "Leer nuestra historia",
     "home.svc.cabinets": "Gabinetes de cocina y muebles de baño.",
     "home.svc.commercial": "Oficinas, tiendas y rentas, fuera de horario.",
     "home.svc.exterior": "Revestimiento, estuco, molduras, terrazas y cercas.",

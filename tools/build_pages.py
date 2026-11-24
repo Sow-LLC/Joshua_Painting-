@@ -322,7 +322,7 @@ def section(src, start_marker):
 
 def page(path, head_html, main, scripts, has_form=False, out_file=None):
     html = head_html + header() + "\n\n<main>\n\n" + main + "\n\n</main>\n\n" + footer() + "\n\n"
-    html += "".join(f'<script src="/js/{s}.js" defer></script>\n' for s in ["i18n", "menu"] + scripts)
+    html += "".join(f'<script src="/js/{s}.js" defer></script>\n' for s in ["i18n", "menu", "reveal"] + scripts)
     html += "</body>\n</html>\n"
     html = localize(html, path, has_form)
     out = PUB / out_file if out_file else PUB / path.strip("/") / "index.html"
@@ -514,7 +514,8 @@ def landing():
     Each part is a short preview that links to its own page."""
     ES.update({"home.svc.label": "Lo que hacemos", "home.svc.title": "Seis tipos de trabajo",
                "home.work.title": "Trabajos recientes", "home.rev.body": "Todos los clientes que nos han reseñado en Yelp nos dieron cinco estrellas.",
-               "home.rev.read": "Leer las reseñas"})
+               "home.rev.read": "Leer las reseñas", "home.story.more": "Leer nuestra historia",
+               "home.story": "Joshua empezó a pintar con su familia de adolescente y lleva más de diez años con su propio equipo en el Área de la Bahía. Visita cada trabajo en persona, escribe cada presupuesto y revisa con usted el trabajo terminado."})
     tiles = []
     for sv in SERVICES:
         g = sv["gid"]; en, es_ = SHORT[g]; ES[f"home.svc.{g}"] = es_
@@ -544,6 +545,23 @@ def landing():
 {work}
   </div>
   <p class="work-more"><a class="btn btn-ghost" href="/work/" data-i18n="workp.all">See all our work</a></p>
+</section>
+
+<section class="block home-story" aria-labelledby="home-story-title">
+  <div class="story-grid">
+    {photo("crew-prep", "story-photo", caption=False)}
+    <div>
+      <p class="label" data-i18n="about.label">About us</p>
+      <h2 id="home-story-title" data-i18n="about.title">A family crew from Hercules</h2>
+      <p class="story-text" data-i18n="home.story">Joshua started painting with his family as a teenager and has run his own crew in the Bay Area for more than ten years. He visits every job himself, writes every estimate and walks through the finished work with you.</p>
+      <ul class="stats">
+        <li><b>10+</b><span data-i18n="about.s1">years painting in the Bay Area</span></li>
+        <li><b>350+</b><span data-i18n="about.s2">homes and businesses painted</span></li>
+        <li><b>5.0</b><span data-i18n="about.s3">stars on Yelp</span></li>
+      </ul>
+      <p class="story-more"><a class="btn btn-ghost" href="/about/"><span data-i18n="home.story.more">Read our story</span> →</a></p>
+    </div>
+  </div>
 </section>
 
 <section class="rev-band" aria-label="Reviews">

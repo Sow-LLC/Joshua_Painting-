@@ -17,7 +17,7 @@ element's `data-i18n` name). The first visit follows the browser's language, the
 and `/?lang=es` links straight to Spanish. Quotes record the language used, and Spanish ones are
 flagged "ES" in the dashboard so you know to reply in Spanish. The studio dashboard stays English.
 
-**Layout.** A calm, static page: no scroll animations. The services are a grid of photo cards,
+**Layout.** Photos pop up and sections fade in as you scroll (`public/js/reveal.js`; off for visitors who ask their device for reduced motion). The services are a grid of photo cards,
 each showing a finished job (three per row on a computer, one per row on a phone). An earlier
 scroll-animated version was tried and dropped; old `/static/` links now redirect to the home page.
 
@@ -27,7 +27,7 @@ the quote form, FAQ and Reviews pages, and a Call / Free quote bar pinned to the
 ### Site map (pages)
 
 ```
-/                              front page: intro, promises, 6 services, 4 photos, Yelp line, how it works, call to action
+/                              front page: intro, promises, 6 services, 4 photos, story, Yelp line, how it works, call to action
 ├── /services/                 overview: 6 cards
 │   ├── /services/interior/
 │   ├── /services/exterior/
