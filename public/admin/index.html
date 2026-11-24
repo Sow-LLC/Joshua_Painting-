@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Studio — Joshua's Painting Service</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+
+<!-- sign-in -->
+<section id="login" class="login" hidden>
+  <form id="login-form" class="login-card">
+    <p class="label">Joshua's Painting · Studio</p>
+    <h1>Sign in</h1>
+    <label for="key">Admin key</label>
+    <input id="key" type="password" autocomplete="current-password" required>
+    <p class="err" id="login-err" role="alert"></p>
+    <button class="btn" type="submit">Enter</button>
+  </form>
+</section>
+
+<!-- app -->
+<div id="app" class="app" hidden>
+  <aside class="side">
+    <a class="mark" href="/"><span class="mark-chip"></span>Joshua's Painting</a>
+    <nav class="tabs" aria-label="Studio">
+      <button data-view="overview" class="on">Overview</button>
+      <button data-view="quotes">Quotes <span class="pill" id="pill-quotes"></span></button>
+      <button data-view="board">Job board</button>
+      <button data-view="schedule">Schedule</button>
+      <button data-view="crews">Crews</button>
+      <button data-view="visitors">Visitors</button>
+    </nav>
+    <button class="link" id="logout">Sign out</button>
+  </aside>
+
+  <main class="main">
+    <section data-panel="overview">
+      <header class="head"><h1>Overview</h1></header>
+      <div class="stats" id="stats"></div>
+      <h2 class="sub">Next 14 days</h2>
+      <div id="upcoming" class="list"></div>
+    </section>
+
+    <section data-panel="quotes" hidden>
+      <header class="head">
+        <h1>Quote requests</h1>
+        <div class="seg" id="quote-filter">
+          <button data-s="new" class="on">New</button><button data-s="converted">Converted</button><button data-s="declined">Declined</button><button data-s="">All</button>
+        </div>
+      </header>
+      <div id="quotes" class="list"></div>
+    </section>
+
+    <section data-panel="board" hidden>
+      <header class="head">
+        <h1>Job board</h1>
+        <div class="row">
+          <input id="board-q" type="search" placeholder="Search jobs…">
+          <button class="btn" id="new-job">New job</button>
+        </div>
+      </header>
+      <div id="board" class="board"></div>
+    </section>
+
+    <section data-panel="schedule" hidden>
+      <header class="head">
+        <h1>Schedule</h1>
+        <div class="row">
+          <button class="btn btn-ghost" id="wk-prev">←</button>
+          <span id="wk-label" class="mono"></span>
+          <button class="btn btn-ghost" id="wk-next">→</button>
+        </div>
+      </header>
+      <div id="calendar" class="cal"></div>
+    </section>
+
+    <section data-panel="crews" hidden>
+      <header class="head"><h1>Crews</h1></header>
+      <div id="crews" class="list"></div>
+      <form id="crew-form" class="inline-form">
+        <input name="name" placeholder="Crew name" required>
+        <input name="lead" placeholder="Lead painter">
+        <input name="phone" placeholder="Phone">
+        <input name="color" type="color" value="#141414" aria-label="Colour">
+        <button class="btn">Add crew</button>
+      </form>
+    </section>
+
+    <section data-panel="visitors" hidden>
+      <header class="head"><h1>Visitors</h1>
+        <div class="seg" id="visit-range"><button data-d="7">7 days</button><button data-d="30" class="on">30 days</button><button data-d="90">90 days</button></div>
+      </header>
+      <p class="muted">Page views on the public site. No cookies and no personal data are collected; bots are left out.</p>
+      <div class="stats" id="visit-stats"></div>
+      <h2 class="sub">Views per day</h2>
+      <div id="visit-days" class="bars"></div>
+      <h2 class="sub">Most viewed pages</h2>
+      <div id="visit-pages" class="list"></div>
+      <h2 class="sub">Where visitors came from</h2>
+      <div id="visit-refs" class="list"></div>
+    </section>
+  </main>
+</div>
+
+<!-- job drawer -->
+<div id="drawer" class="drawer" hidden>
+  <div class="drawer-bg" data-close></div>
+  <article class="drawer-body" role="dialog" aria-modal="true" aria-labelledby="dr-title">
+    <button class="x" data-close aria-label="Close">×</button>
+    <div id="drawer-content"></div>
+  </article>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="/admin/admin.js" defer></script>
+</body>
+</html>

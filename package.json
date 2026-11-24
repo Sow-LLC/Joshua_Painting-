@@ -1,0 +1,15 @@
+{
+  "name": "atelier-blanc",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 8787",
+    "db:local": "wrangler d1 execute atelier-blanc --local --file=schema.sql && wrangler d1 execute atelier-blanc --local --file=seed.sql",
+    "db:remote": "wrangler d1 execute atelier-blanc --remote --file=schema.sql",
+    "deploy": "wrangler deploy",
+    "test": "node test/api.test.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}
