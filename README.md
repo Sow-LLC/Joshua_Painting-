@@ -94,9 +94,9 @@ still an illustration, not a real job.
 These were written to fill the site and are **not verified**. Change or remove anything untrue:
 
 - Payment (confirmed): Zelle, card, check or cash. Deposit amounts are deliberately NOT on the site; they go in each written estimate
-- Confirmed by Joshua (Nov 2026): interior warranty 3–6 months, general liability insurance (workers' comp once he has employees), area Hercules / Berkeley / Oakland / Alameda / Concord / East Bay, reply ASAP. About story, 10+ years and 350+ jobs confirmed; estimates sent as soon as possible. Facebook linked (footer, Contact, Google data); Instagram link still missing
+- Confirmed by Joshua (Nov 2026): interior warranty 3–6 months, general liability insurance (workers' comp once he has employees), area Hercules / Berkeley / Oakland / Alameda / Concord / East Bay, reply ASAP. About story updated with Josué's own text (owner Josué Mendoza, 7 years of painting experience); 350+ jobs confirmed; estimates sent as soon as possible. Facebook linked (footer, Contact, Google data); Instagram link still missing
 
-Not invented on purpose: the CSLB licence number. Add the real one (shown as "Lic. #123456") when you have it.
+Not invented on purpose: the CSLB licence number and BBB profile. Set `LICENSE` and `BBB` at the top of `tools/build_pages.py` and rebuild; the footer line on every page appears only once they are filled in.
 
 ### Before going live: replace the placeholders
 

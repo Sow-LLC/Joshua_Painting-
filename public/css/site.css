@@ -530,9 +530,9 @@ a.frame-media { display: block; }
 .faq-group a { text-decoration: none; }
 .faq-group a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-.foot .foot-social { margin-top: 10px; font-size: 14px; color: var(--graphite); }
-.foot .foot-social a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-@media (max-width: 620px) { .foot-social a { display: inline-block; padding: 10px 4px; } }
+.foot .foot-social, .foot .foot-cred { margin-top: 10px; font-size: 14px; color: var(--graphite); }
+.foot .foot-social a, .foot .foot-cred a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 620px) { .foot-social a, .foot-cred a { display: inline-block; padding: 10px 4px; } }
 
 /* ───── front page: one tile per page ───── */
 .tiles { display: grid; gap: 28px 22px; grid-template-columns: repeat(3, 1fr); }

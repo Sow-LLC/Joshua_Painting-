@@ -24,6 +24,12 @@ PUB = ROOT / "public"
 SITE = "https://atelier-blanc.raymondsantopietro.workers.dev"
 YELP = "https://www.yelp.com/biz/joshua-painting-jm-waterproofing-hercules"
 FACEBOOK = "https://www.facebook.com/p/Joshua-Painting-JM-Waterproofing-100094531236267/"
+# Licence and BBB: fill these in with Josué's real details and rebuild; the footer line
+# appears on every page only when they are set. Check them first at
+# https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx and https://www.bbb.org
+LICENSE = ""   # CSLB licence number, e.g. "1234567"
+BBB = ""       # full BBB profile address, e.g. "https://www.bbb.org/us/ca/hercules/profile/..."
+
 PHONE_TEL, PHONE = "+15103699079", "(510) 369-9079"
 
 def e(s):
@@ -250,6 +256,17 @@ def header():
   </nav>
 </header>'''
 
+def credentials():
+    """Licence and BBB line for the footer, shown only once LICENSE / BBB are filled in."""
+    ES["foot.lic"] = "Licencia de contratista de CA"
+    parts = []
+    if LICENSE:
+        parts.append(f'<a href="https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/LicenseDetail.aspx?LicNum={e(LICENSE)}" '
+                     f'target="_blank" rel="noopener"><span data-i18n="foot.lic">CA contractor licence</span> #{e(LICENSE)}</a>')
+    if BBB:
+        parts.append(f'<a href="{e(BBB)}" target="_blank" rel="noopener">BBB</a>')
+    return f'\n    <p class="foot-cred">{" · ".join(parts)}</p>' if parts else ""
+
 def footer():
     svc = "\n".join(f'    <a href="/services/{s["slug"]}/" data-i18n="svcp.{s["gid"]}.h1">{e(s["h1"][0])}</a>' for s in SERVICES)
     ES["foot.services"] = "Servicios"
@@ -262,7 +279,7 @@ def footer():
     <span class="mark"><span class="mark-chip" aria-hidden="true"></span>Joshua's Painting Service</span>
     <p class="muted" data-i18n="foot.licensed">Painting &amp; waterproofing · Insured · Hercules, CA</p>
     <p class="foot-contact"><a href="tel:{PHONE_TEL}"><span data-i18n="util.call">Call</span> {PHONE}</a><span data-i18n="util.hours">Mon–Sat · 8 am – 7 pm</span><span data-i18n="util.trust">Hercules, CA · Free estimates</span></p>
-    <p class="foot-social"><span data-i18n="foot.follow">Follow us</span> <a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{YELP}" target="_blank" rel="noopener">Yelp</a></p>
+    <p class="foot-social"><span data-i18n="foot.follow">Follow us</span> <a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{YELP}" target="_blank" rel="noopener">Yelp</a></p>{credentials()}
   </div>
   <nav class="foot-nav foot-cols" aria-label="Footer" data-i18n-attr="aria-label:aria.foot">
     <div>
@@ -545,7 +562,7 @@ def landing():
     ES.update({"home.svc.label": "Lo que hacemos", "home.svc.title": "Seis tipos de trabajo",
                "home.work.title": "Trabajos recientes", "home.rev.body": "Todos los clientes que nos han reseñado en Yelp nos dieron cinco estrellas.",
                "home.rev.read": "Leer las reseñas", "home.story.more": "Leer nuestra historia",
-               "home.story": "Joshua empezó a pintar con su familia de adolescente y lleva más de diez años con su propio equipo en el Área de la Bahía. Visita cada trabajo en persona, escribe cada presupuesto y revisa con usted el trabajo terminado."})
+               "home.story": "Joshua Painting JM Waterproofing ofrece servicios de pintura e impermeabilización para proyectos residenciales y pequeños proyectos comerciales en el Área de la Bahía. Trabajamos con un equipo profesional de pintores en proyectos residenciales y comerciales. El dueño, Josué Mendoza, tiene 7 años de experiencia en pintura."})
     ES["hero.short"] = "Casas y negocios, pintados con cuidado."
     rows = []
     for i, sv in enumerate(SERVICES, 1):
@@ -566,10 +583,10 @@ def landing():
     {photo("crew-prep", "story-photo", caption=False).replace('<figure class="story-photo"', '<figure class="story-photo" data-slides="5200"').replace("<img ", '<img class="on" ', 1).replace("</figure>", '<img data-srcset="/img/work/petaluma-house-600.webp 600w, /img/work/petaluma-house.webp 750w" sizes="(max-width: 960px) 100vw, 40vw" width="750" height="1000" alt=""><img data-srcset="/img/work/drywall-prep-600.webp 600w, /img/work/drywall-prep.webp 750w" sizes="(max-width: 960px) 100vw, 40vw" width="750" height="1000" alt=""></figure>')}
     <div>
       <p class="label" data-i18n="about.label">About us</p>
-      <h2 id="home-story-title" data-i18n="about.title">A family crew from Hercules</h2>
-      <p class="story-text" data-i18n="home.story">Joshua started painting with his family as a teenager and has run his own crew in the Bay Area for more than ten years. He visits every job himself, writes every estimate and walks through the finished work with you.</p>
+      <h2 id="home-story-title" data-i18n="about.title">A professional crew from Hercules</h2>
+      <p class="story-text" data-i18n="home.story">Joshua Painting JM Waterproofing has provided painting and waterproofing services for residential and small commercial projects in the Bay Area. We work with a professional painting crew for residential and commercial projects. Owner Josué Mendoza has 7 years of painting experience.</p>
       <ul class="stats">
-        <li><b>10+</b><span data-i18n="about.s1">years painting in the Bay Area</span></li>
+        <li><b>7</b><span data-i18n="about.s1">years of painting experience</span></li>
         <li><b>350+</b><span data-i18n="about.s2">homes and businesses painted</span></li>
         <li><b>5.0</b><span data-i18n="about.s3">stars on Yelp</span></li>
       </ul>
@@ -752,9 +769,9 @@ def build():
     about = about.replace(' loading="lazy"', "", 1)
     main = "\n\n".join([about, section(src, '<section id="method"'), section(src, '<section class="block cta-end"')])
     hd = head("/about/", "aboutp.meta.title", "About — Joshua's Painting Service", "aboutp.meta.description",
-              "Joshua's Painting Service is a family painting and waterproofing crew from Hercules, CA, rated 5.0 on Yelp.",
+              "Joshua's Painting Service is a professional painting and waterproofing crew from Hercules, CA, rated 5.0 on Yelp.",
               "Nosotros — Joshua's Painting Service",
-              "Joshua's Painting Service es un equipo familiar de pintura e impermeabilización de Hercules, CA, con 5.0 en Yelp.",
+              "Joshua's Painting Service es un equipo profesional de pintura e impermeabilización de Hercules, CA, con 5.0 en Yelp.",
               image="crew-prep", ld=[business_ld()])
     built.append(page("/about/", hd, main, []))
 
