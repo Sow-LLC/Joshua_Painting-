@@ -205,3 +205,9 @@ when `"approved": true`, set that ONLY after the customer agrees to be quoted, t
 `python3 tools/build_pages.py` and `npx wrangler deploy`. With none approved, the "What people say
 about us" section is hidden and the front page shows the 5.0 line instead of a quote.
 The two current Yelp reviews (Apr 2026 exterior; Jul 2025) are approved by the customers (Nov 2026) and shown.
+
+## Moving to Josué's Cloudflare account (in progress)
+
+- `wrangler.josue.jsonc` deploys the same site into **Joshuapaintingjm@gmail.com's Account** (`0100e650…236440`), with its own D1 database (data copied from the Sow copy) and its own admin key (kept in `.admin-key-josue`, never committed). Test address: https://atelier-blanc.joshuapaintingjm.workers.dev
+- Deploy there: `npx wrangler deploy --config wrangler.josue.jsonc`
+- The domain can move into his account from about **4 Dec 2026** (Cloudflare's 10-day rule). Then: uncomment `routes` in `wrangler.josue.jsonc`, move `www-redirect/` too (add `account_id`), turn on Always Use HTTPS, and make `wrangler.josue.jsonc` the main `wrangler.jsonc`.

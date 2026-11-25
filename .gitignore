@@ -5,3 +5,4 @@ node_modules/
 .ntfy-topic
 photos-src/
 .DS_Store
+.admin-key-josue
