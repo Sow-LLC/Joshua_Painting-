@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PUB = ROOT / "public"
-SITE = "https://atelier-blanc.raymondsantopietro.workers.dev"
+SITE = "https://joshuapaintingjm.com"
 YELP = "https://www.yelp.com/biz/joshua-painting-jm-waterproofing-hercules"
 FACEBOOK = "https://www.facebook.com/p/Joshua-Painting-JM-Waterproofing-100094531236267/"
 # Licence and BBB: fill these in with Josué's real details and rebuild; the footer line

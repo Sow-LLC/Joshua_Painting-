@@ -145,7 +145,7 @@ The local admin key is in `.dev.vars` (gitignored).
 
 ## Deploy
 
-**Live:** https://atelier-blanc.raymondsantopietro.workers.dev (dashboard at `/admin/`).
+**Live:** https://joshuapaintingjm.com (dashboard at `/admin/`). `www.` forwards to it (see `www-redirect/`); the old `atelier-blanc.raymondsantopietro.workers.dev` address still works.
 The production admin key is in `.admin-key` (gitignored, separate from the local `.dev.vars` key).
 After code changes, `npm run deploy` is all that's needed.
 

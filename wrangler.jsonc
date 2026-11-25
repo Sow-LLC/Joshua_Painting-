@@ -3,6 +3,10 @@
   "name": "atelier-blanc",
   "main": "src/worker.js",
   "compatibility_date": "2026-11-12",
+  // joshuapaintingjm.com (bought in this Cloudflare account) serves the site; www forwards here via www-redirect/
+  "routes": [{ "pattern": "joshuapaintingjm.com", "custom_domain": true }],
+  // keep the old atelier-blanc.raymondsantopietro.workers.dev address working (pages say the new domain is the real one)
+  "workers_dev": true,
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",

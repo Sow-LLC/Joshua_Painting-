@@ -1,0 +1,9 @@
+{
+  // Tiny worker that only forwards www.joshuapaintingjm.com to the main address.
+  // Deploy: npx wrangler deploy --config www-redirect/wrangler.jsonc
+  "name": "joshuapaintingjm-www",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-12",
+  "workers_dev": false,
+  "routes": [{ "pattern": "www.joshuapaintingjm.com", "custom_domain": true }]
+}
