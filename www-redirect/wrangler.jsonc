@@ -2,6 +2,8 @@
   // Tiny worker that only forwards www.joshuapaintingjm.com to the main address.
   // Deploy: npx wrangler deploy --config www-redirect/wrangler.jsonc
   "name": "joshuapaintingjm-www",
+  // Sow LLC - Shared Sites (until the domain moves to Josué's account, see wrangler.josue.jsonc)
+  "account_id": "2e1a541e05d8e438726681e349a1732b",
   "main": "worker.js",
   "compatibility_date": "2026-11-12",
   "workers_dev": false,

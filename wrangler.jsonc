@@ -1,6 +1,8 @@
 {
   // Joshua's Painting Service — public site + job manager on one Cloudflare Worker.
   "name": "atelier-blanc",
+  // Sow LLC - Shared Sites (until the domain moves to Josué's account, see wrangler.josue.jsonc)
+  "account_id": "2e1a541e05d8e438726681e349a1732b",
   "main": "src/worker.js",
   "compatibility_date": "2026-11-12",
   // joshuapaintingjm.com (bought in this Cloudflare account) serves the site; www forwards here via www-redirect/
