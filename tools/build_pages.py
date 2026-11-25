@@ -502,11 +502,13 @@ def faq_page(src):
     for k, sv in enumerate(SERVICES):
         groups[k] = groups[k].replace('<h3 class="faq-group">', f'<h3 class="faq-group" id="faq-{sv["slug"]}">', 1)
     faq = f'''<section class="block faq faq-page" aria-labelledby="faq-h1">
+  <header class="faq-head">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.faq">FAQ</span></nav>
+    <h1 id="faq-h1" data-i18n="faqp.h1">Questions &amp; answers</h1>
+    <p class="muted" data-i18n="faqp.intro">Quick answers about estimates, timing, payment and each service.</p>
+  </header>
   <div class="faq-layout">
     <aside class="faq-side">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.faq">FAQ</span></nav>
-      <h1 id="faq-h1" data-i18n="faqp.h1">Questions &amp; answers</h1>
-      <p class="muted" data-i18n="faqp.intro">Quick answers about estimates, timing, payment and each service.</p>
       <nav class="faq-toc" aria-label="Topics" data-i18n-attr="aria-label:faqp.topics">
 {toc}
       </nav>
@@ -520,7 +522,7 @@ def faq_page(src):
       </div>
     </aside>
     <div class="faq-main">
-      <h2 class="faq-group faq-first" id="faq-general" data-i18n="faq.title">Before you ask</h2>
+      <h2 class="faq-group faq-first" id="faq-general" data-i18n="faqp.general">General</h2>
   {general_list}
       <h2 class="faq-by" id="faq-by" data-i18n="faqp.by">By service</h2>
 {chr(10).join(groups)}
