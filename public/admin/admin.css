@@ -137,3 +137,5 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
 .bars { display: flex; align-items: flex-end; gap: 2px; height: 120px; padding: 8px; background: var(--white); border: 1px solid var(--rule); }
 .bar { flex: 1; min-width: 2px; height: max(2px, var(--h)); background: var(--ink); }
 .bar:hover { background: var(--graphite); }
+.login-card .show-key { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--graphite, #6b675f); cursor: pointer; }
+.login-card .show-key input { width: 18px; height: 18px; margin: 0; }

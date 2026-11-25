@@ -57,6 +57,8 @@
     $("#app").hidden = true;
     $("#login").hidden = false;
   }
+  // on a phone it's easy to mistype a hidden key, so it can be shown while typing
+  $("#show-key").addEventListener("change", (e) => { $("#key").type = e.target.checked ? "text" : "password"; });
   $("#login-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     key = $("#key").value.trim();
