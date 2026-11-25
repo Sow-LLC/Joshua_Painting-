@@ -1060,3 +1060,14 @@ html:not([lang="es"]) .es-only { display: none; }
 .faq-main h2.faq-first { margin-top: 0; }
 .faq-main .faq-by { font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--graphite); margin: 64px 0 0; padding-top: 20px; }
 .faq-main .faq-by + .faq-group { margin-top: 20px; }
+
+/* the longer name (Joshua Painting JM & Waterproofing) may take two lines on the smallest phones */
+@media (max-width: 359px) {
+  .top .mark { white-space: normal; line-height: 1.15; min-width: 0; flex: 1 1 auto; }
+}
+.foot-brand .mark { white-space: normal; line-height: 1.2; }
+/* mid-size screens (laptops, iPad landscape): the longer name + Spanish menu need a little less spacing */
+@media (min-width: 821px) and (max-width: 1140px) {
+  .nav { gap: 16px; }
+  .top .mark { font-size: 15px; }
+}

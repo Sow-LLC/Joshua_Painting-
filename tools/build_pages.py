@@ -48,7 +48,7 @@ def business_ld():
     week = ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"]
     return {
         "@context": "https://schema.org", "@type": "HousePainter", "@id": BUSINESS_ID,
-        "name": "Joshua's Painting Service", "alternateName": "Joshua Painting JM Waterproofing",
+        "name": "Joshua Painting JM & Waterproofing", "alternateName": ["Joshua Painting JM Waterproofing", "Joshua's Painting Service"],  # old site name, so searches for it still match
         "url": SITE + "/", "telephone": "+1-510-369-9079", "image": SITE + "/img/work/cape-cod-exterior.jpg",
         "knowsLanguage": ["en", "es"],
         "address": {"@type": "PostalAddress", "addressLocality": "Hercules", "addressRegion": "CA",
@@ -221,8 +221,8 @@ def header():
     sub = "\n".join(f'      <a href="/services/{s["slug"]}/" data-i18n="svcp.{s["gid"]}.h1">{e(s["h1"][0])}</a>' for s in SERVICES)
     ES.update({"nav.allServices": "Todos los servicios", "nav.showServices": "Mostrar servicios"})
     return f'''<header class="top">
-  <a class="mark" href="/" aria-label="Joshua's Painting Service home" data-i18n-attr="aria-label:aria.home">
-Joshua's Painting Service</a>
+  <a class="mark" href="/" aria-label="Joshua Painting JM & Waterproofing home" data-i18n-attr="aria-label:aria.home">
+Joshua Painting JM & Waterproofing</a>
   <nav class="nav" aria-label="Main" data-i18n-attr="aria-label:aria.nav">
     <div class="drop">
       <a href="/services/" data-i18n="nav.services">Services</a>
@@ -284,7 +284,7 @@ def footer():
     return f'''<footer class="foot">
   <div class="foot-main">
     <div class="foot-brand">
-      <span class="mark">Joshua's Painting Service</span>
+      <span class="mark">Joshua Painting JM & Waterproofing</span>
       <p class="muted" data-i18n="foot.tag">Painting and waterproofing for homes and businesses around the Bay Area.</p>
       <p class="foot-social"><span data-i18n="foot.follow">Follow us</span> <a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{YELP}" target="_blank" rel="noopener">Yelp</a></p>{credentials()}
     </div>
@@ -311,7 +311,7 @@ def footer():
     </nav>
   </div>
   <div class="foot-bottom">
-    <span>© {year} Joshua's Painting Service · <span data-i18n="foot.rights">Hercules, CA</span></span>
+    <span>© {year} Joshua Painting JM & Waterproofing · <span data-i18n="foot.rights">Hercules, CA</span></span>
     <span><a href="/privacy/" data-i18n="nav.privacy">Privacy</a> · <a href="/admin/">Studio login</a></span>
   </div>
 </footer>
@@ -471,17 +471,17 @@ def page_h1(sec, h2_id, crumb_key, crumb_en):
     return re.sub(r'(<div class="block-head">\s*)', lambda m: m.group(1) + crumbs, sec, count=1)
 
 def contact_page(src):
-    ES.update({"contactp.meta.title": "Presupuesto gratis y contacto — Joshua's Painting Service",
+    ES.update({"contactp.meta.title": "Presupuesto gratis y contacto — Joshua Painting JM & Waterproofing",
                "contactp.meta.description": "Pida un presupuesto gratis de pintura o impermeabilización en Hercules, CA. Llame al (510) 369-9079 o envíe el formulario."})
     main = page_h1(section(src, '<section id="quote"'), "quote-title", "nav.contact", "Contact") + "\n\n" + section(src, '<section class="block area"')
-    hd = head("/contact/", "contactp.meta.title", "Free estimate & contact — Joshua's Painting Service", "contactp.meta.description",
+    hd = head("/contact/", "contactp.meta.title", "Free estimate & contact — Joshua Painting JM & Waterproofing", "contactp.meta.description",
               "Ask for a free painting or waterproofing estimate in Hercules, CA. Call (510) 369-9079 or send the form.",
               ES["contactp.meta.title"], ES["contactp.meta.description"], ld=[business_ld()])
     return page("/contact/", hd, main, ["site"], has_form=True)
 
 def faq_page(src):
-    ES.update({"faqp.meta.title": "Preguntas frecuentes — Joshua's Painting Service", "faqp.by": "Por servicio",
-               "faqp.meta.description": "Respuestas sobre presupuestos, tiempos, pagos, garantía y cada servicio de Joshua's Painting Service."})
+    ES.update({"faqp.meta.title": "Preguntas frecuentes — Joshua Painting JM & Waterproofing", "faqp.by": "Por servicio",
+               "faqp.meta.description": "Respuestas sobre presupuestos, tiempos, pagos, garantía y cada servicio de Joshua Painting JM & Waterproofing."})
     groups = []
     for sv in SERVICES:
         g = sv["gid"]
@@ -530,8 +530,8 @@ def faq_page(src):
   </div>
 </section>'''
     main = faq   # the side panel already has Call / Free quote, so no second call-to-action block here
-    hd = head("/faq/", "faqp.meta.title", "Questions — Joshua's Painting Service", "faqp.meta.description",
-              "Answers about estimates, timing, payment, warranty and each of Joshua's Painting Service's services.",
+    hd = head("/faq/", "faqp.meta.title", "Questions — Joshua Painting JM & Waterproofing", "faqp.meta.description",
+              "Answers about estimates, timing, payment, warranty and each of Joshua Painting JM & Waterproofing's services.",
               ES["faqp.meta.title"], ES["faqp.meta.description"])
     return page("/faq/", hd, main, [])
 
@@ -608,8 +608,8 @@ def reviews_top():
 </section>'''
 
 def reviews_page(src):
-    ES.update({"reviewsp.meta.title": "Reseñas — Joshua's Painting Service", "reviewsp.expect": "Lo que puede esperar",
-               "reviewsp.meta.description": "Joshua's Painting Service tiene 5.0 estrellas en Yelp. Lea las reseñas y vea los trabajos."})
+    ES.update({"reviewsp.meta.title": "Reseñas — Joshua Painting JM & Waterproofing", "reviewsp.expect": "Lo que puede esperar",
+               "reviewsp.meta.description": "Joshua Painting JM & Waterproofing tiene 5.0 estrellas en Yelp. Lea las reseñas y vea los trabajos."})
     # the reviews page keeps the full promises (the front page shows titles only)
     promises = """<ul class="promises" aria-label="Our promises" data-i18n-attr="aria-label:aria.promises">
   <li><a href="/faq/#insured"><b data-i18n="pr1.title">Insured</b><span data-i18n="pr1.body">General liability insurance on every job.</span></a></li>
@@ -636,8 +636,8 @@ def reviews_page(src):
   <p class="work-more"><a class="btn btn-ghost" href="/work/" data-i18n="workp.all">See all our work</a></p>
 </section>''',
         section(src, '<section class="block cta-end"')] if x)
-    hd = head("/reviews/", "reviewsp.meta.title", "Reviews — Joshua's Painting Service", "reviewsp.meta.description",
-              "Joshua's Painting Service is rated 5.0 stars on Yelp. Read the reviews and see the work.",
+    hd = head("/reviews/", "reviewsp.meta.title", "Reviews — Joshua Painting JM & Waterproofing", "reviewsp.meta.description",
+              "Joshua Painting JM & Waterproofing is rated 5.0 stars on Yelp. Read the reviews and see the work.",
               ES["reviewsp.meta.title"], ES["reviewsp.meta.description"], image="petaluma-house")
     return page("/reviews/", hd, main, [])
 
@@ -654,9 +654,9 @@ def privacy_page():
 {chr(10).join(parts)}
   <p class="muted" data-i18n="privacy.updated">Last updated November 19, 2026</p>
 </section>'''
-    hd = head("/privacy/", "privacy.meta.title", "Privacy — Joshua's Painting Service", "privacy.meta.description",
-              "How Joshua's Painting Service uses the details you send with a quote request.",
-              "Privacidad — Joshua's Painting Service", "Cómo usa Joshua's Painting Service los datos que envía al pedir una cotización.")
+    hd = head("/privacy/", "privacy.meta.title", "Privacy — Joshua Painting JM & Waterproofing", "privacy.meta.description",
+              "How Joshua Painting JM & Waterproofing uses the details you send with a quote request.",
+              "Privacidad — Joshua Painting JM & Waterproofing", "Cómo usa Joshua Painting JM & Waterproofing los datos que envía al pedir una cotización.")
     return page("/privacy/", hd, main, [])
 
 def not_found_page():
@@ -675,8 +675,8 @@ def not_found_page():
   </ul>
   <p><a class="btn" href="tel:{PHONE_TEL}"><span data-i18n="util.call">Call</span> {PHONE}</a></p>
 </section>'''
-    hd = head("/404.html", "nf.meta.title", "Page not found — Joshua's Painting Service", "nf.meta.description",
-              "This page doesn't exist.", "Página no encontrada — Joshua's Painting Service", "Esta página no existe.", noindex=True)
+    hd = head("/404.html", "nf.meta.title", "Page not found — Joshua Painting JM & Waterproofing", "nf.meta.description",
+              "This page doesn't exist.", "Página no encontrada — Joshua Painting JM & Waterproofing", "Esta página no existe.", noindex=True)
     page("/404.html", hd, main, [], out_file="404.html")
 
 SHORT = {  # one line per service for the front page (EN, ES)
@@ -831,8 +831,8 @@ def build():
 
 {quote_section(src, s["scope"])}'''
         path = f"/services/{s['slug']}/"
-        hd = head(path, f"svcp.{g}.meta", f"{s['h1'][0]} in Hercules, CA — Joshua's Painting Service", f"svcp.{g}.lede", s["lede"][0],
-                  f"{s['h1'][1]} en Hercules, CA — Joshua's Painting Service", s["lede"][1], image=s["hero"],
+        hd = head(path, f"svcp.{g}.meta", f"{s['h1'][0]} in Hercules, CA — Joshua Painting JM & Waterproofing", f"svcp.{g}.lede", s["lede"][0],
+                  f"{s['h1'][1]} en Hercules, CA — Joshua Painting JM & Waterproofing", s["lede"][1], image=s["hero"],
                   ld=[{"@context": "https://schema.org", "@type": "Service", "serviceType": s["h1"][0], "name": s["h1"][0],
                        "description": s["lede"][0], "url": SITE + path, "provider": {"@id": BUSINESS_ID},
                        "areaServed": AREAS},
@@ -869,10 +869,10 @@ def build():
     <a class="btn btn-ghost" href="tel:{PHONE_TEL}"><span data-i18n="util.call">Call</span> {PHONE}</a>
   </div>
 </section>'''
-    hd = head("/services/", "svc.meta.title", "Services — Joshua's Painting Service", "svc.meta.description",
-              "Everything Joshua's Painting Service does in Hercules, CA: interior and exterior painting, decks, fences, staining, cabinets, wall repair and texturing, wallpaper removal, waterproofing and commercial work.",
-              "Servicios — Joshua's Painting Service",
-              "Todo lo que hace Joshua's Painting Service en Hercules, CA: pintura de interiores y exteriores, terrazas, cercas, teñido, gabinetes, reparación y textura de paredes, retiro de papel tapiz, impermeabilización y trabajos comerciales.",
+    hd = head("/services/", "svc.meta.title", "Services — Joshua Painting JM & Waterproofing", "svc.meta.description",
+              "Everything Joshua Painting JM & Waterproofing does in Hercules, CA: interior and exterior painting, decks, fences, staining, cabinets, wall repair and texturing, wallpaper removal, waterproofing and commercial work.",
+              "Servicios — Joshua Painting JM & Waterproofing",
+              "Todo lo que hace Joshua Painting JM & Waterproofing en Hercules, CA: pintura de interiores y exteriores, terrazas, cercas, teñido, gabinetes, reparación y textura de paredes, retiro de papel tapiz, impermeabilización y trabajos comerciales.",
               ld=[crumbs_ld([("Home", "/"), ("Services", "/services/")])])
     built.append(page("/services/", hd, main, []))
 
@@ -914,10 +914,10 @@ def build():
 </section>
 
 {section(src, '<section class="block cta-end"')}'''
-    hd = head("/work/", "workp.meta.title", "Our work — Joshua's Painting Service", "workp.meta.description",
-              "Photos of interior, exterior, deck and commercial painting jobs by Joshua's Painting Service in Hercules and around the Bay Area.",
-              "Nuestro trabajo — Joshua's Painting Service",
-              "Fotos de trabajos de pintura de interiores, exteriores, terrazas y locales comerciales de Joshua's Painting Service en Hercules y el Área de la Bahía.",
+    hd = head("/work/", "workp.meta.title", "Our work — Joshua Painting JM & Waterproofing", "workp.meta.description",
+              "Photos of interior, exterior, deck and commercial painting jobs by Joshua Painting JM & Waterproofing in Hercules and around the Bay Area.",
+              "Nuestro trabajo — Joshua Painting JM & Waterproofing",
+              "Fotos de trabajos de pintura de interiores, exteriores, terrazas y locales comerciales de Joshua Painting JM & Waterproofing en Hercules y el Área de la Bahía.",
               image="orinda-deck")
     built.append(page("/work/", hd, main, ["work"]))
 
@@ -928,10 +928,10 @@ def build():
     about = about.replace('<div class="about-grid about-split">',
                           '<nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.about">About</span></nav>\n  <div class="about-grid about-split">', 1)
     main = "\n\n".join([about, section(src, '<section id="method"'), section(src, '<section class="block cta-end"')])
-    hd = head("/about/", "aboutp.meta.title", "About — Joshua's Painting Service", "aboutp.meta.description",
-              "Joshua's Painting Service is a professional painting and waterproofing crew from Hercules, CA, rated 5.0 on Yelp.",
-              "Nosotros — Joshua's Painting Service",
-              "Joshua's Painting Service es un equipo profesional de pintura e impermeabilización de Hercules, CA, con 5.0 en Yelp.",
+    hd = head("/about/", "aboutp.meta.title", "About — Joshua Painting JM & Waterproofing", "aboutp.meta.description",
+              "Joshua Painting JM & Waterproofing is a professional painting and waterproofing crew from Hercules, CA, rated 5.0 on Yelp.",
+              "Nosotros — Joshua Painting JM & Waterproofing",
+              "Joshua Painting JM & Waterproofing es un equipo profesional de pintura e impermeabilización de Hercules, CA, con 5.0 en Yelp.",
               ld=[business_ld()])
     built.append(page("/about/", hd, main, []))
 
@@ -956,7 +956,7 @@ def build():
     else:
         k = home.index("</ul>", home.index('<ul class="promises"')) + len("</ul>")
         home = home[:k] + "\n\n" + home_tiles + home[k:]
-    home_seo = seo("/", "Joshua's Painting Service — Painting & waterproofing in Hercules, CA",
+    home_seo = seo("/", "Joshua Painting JM & Waterproofing — Painting & waterproofing in Hercules, CA",
                    "Interior and exterior painting, cabinets, decks, wall repair and waterproofing for homes and businesses in Hercules and the Bay Area. Free estimates. 5.0 on Yelp.",
                    "cape-cod-exterior", [business_ld()])
     if "<!-- seo -->" in home:

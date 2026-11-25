@@ -1,4 +1,4 @@
-// Joshua's Painting Service — studio dashboard. Vanilla JS; talks to /api/admin/* with a Bearer key.
+// Joshua Painting JM & Waterproofing — studio dashboard. Vanilla JS; talks to /api/admin/* with a Bearer key.
 (() => {
   const STATUSES = ["lead", "estimated", "scheduled", "in_progress", "done", "cancelled"];
   const STATUS_LABEL = { lead: "Lead", estimated: "Estimated", scheduled: "Scheduled", in_progress: "In progress", done: "Done", cancelled: "Cancelled" };
@@ -382,7 +382,7 @@
             if (!confirm("Delete this estimate?")) return;
             try { await api("DELETE", `/estimates/${est.id}`); openJob(job.id); } catch (e) { fail(e); }
           } }, "Delete"))),
-      h("div", { class: "print-only-head" }, h("p", { class: "label" }, `Joshua's Painting Service · Estimate for ${job.ref}`), h("p", {}, `${job.client_name}${job.address ? " · " + job.address : ""}`)),
+      h("div", { class: "print-only-head" }, h("p", { class: "label" }, `Joshua Painting JM & Waterproofing · Estimate for ${job.ref}`), h("p", {}, `${job.client_name}${job.address ? " · " + job.address : ""}`)),
       h("table", {},
         h("thead", {}, h("tr", {}, h("th", {}, "Item"), h("th", { class: "n" }, "Qty"), h("th", { class: "n" }, "Rate"), h("th", { class: "n" }, "Paint"), h("th", { class: "n" }, "Amount"))),
         h("tbody", {}, est.items.map((i) => h("tr", {},

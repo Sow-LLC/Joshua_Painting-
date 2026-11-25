@@ -1,4 +1,4 @@
-# Joshua's Painting Service — painting company site + job manager
+# Joshua Painting JM & Waterproofing — painting company site + job manager
 
 An original painting-contractor website with a full back end for running the business.
 It borrows the *approach* of Maison Margiela (all-white palette, deconstruction, construction

@@ -1,5 +1,5 @@
 /**
- * Joshua's Painting Service — painting job manager API (Cloudflare Worker + D1).
+ * Joshua Painting JM & Waterproofing — painting job manager API (Cloudflare Worker + D1).
  *
  * Public
  *   POST /api/quotes                     quote request (JSON or HTML form; honeypot "website")
