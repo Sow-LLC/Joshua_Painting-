@@ -289,7 +289,7 @@ async function notifyNewQuote(env, q, origin) {
   if (q.email) actions.push({ action: "view", label: "Email", url: "mailto:" + encodeURI(q.email), clear: false });
   actions.push({ action: "view", label: "Job manager", url: origin + "/admin/", clear: false });
   try {
-    await fetch("https://ntfy.sh/", {
+    const res = await fetch("https://ntfy.sh/", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -302,6 +302,7 @@ async function notifyNewQuote(env, q, origin) {
         actions,
       }),
     });
+    if (!res.ok) console.error("quote alert refused by ntfy", res.status, (await res.text()).slice(0, 200));
   } catch (err) {
     console.error("quote alert failed", err);
   }
