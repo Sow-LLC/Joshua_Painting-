@@ -1071,3 +1071,4 @@ html:not([lang="es"]) .es-only { display: none; }
   .nav { gap: 16px; }
   .top .mark { font-size: 15px; }
 }
+.foot-cslb { font-size: 12.5px; line-height: 1.45; color: var(--graphite); max-width: 52ch; }

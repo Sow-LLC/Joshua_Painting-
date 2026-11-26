@@ -30,6 +30,12 @@ FACEBOOK = "https://www.facebook.com/p/Joshua-Painting-JM-Waterproofing-10009453
 LICENSE = ""   # CSLB licence number, e.g. "1234567"
 BBB = ""       # full BBB profile address, e.g. "https://www.bbb.org/us/ca/hercules/profile/..."
 CITY_LICENSE = "233556"   # city business licence (NOT a CSLB contractor licence; shown as such)
+# California B&P §7027.1: anyone not licensed by the CSLB must say so in their advertising, and may only take
+# jobs under $1,000 (labour + materials). Shown in the footer of every page and on /terms/ while LICENSE is empty.
+CSLB_NOTICE = ("Not licensed by the California Contractors State License Board (CSLB). "
+               "Jobs are limited to under $1,000 in total labor and materials.",
+               "Sin licencia de la Junta Estatal de Licencias de Contratistas de California (CSLB). "
+               "Los trabajos se limitan a menos de $1,000 en total de mano de obra y materiales.")
 
 PHONE_TEL, PHONE = "+15103699079", "(510) 369-9079"
 
@@ -269,13 +275,18 @@ def credentials():
                      f'target="_blank" rel="noopener"><span data-i18n="foot.lic">CA contractor licence</span> #{e(LICENSE)}</a>')
     if BBB:
         parts.append(f'<a href="{e(BBB)}" target="_blank" rel="noopener">BBB</a>')
-    return f'\n    <p class="foot-cred">{" · ".join(parts)}</p>' if parts else ""
+    out = f'\n    <p class="foot-cred">{" · ".join(parts)}</p>' if parts else ""
+    if not LICENSE:
+        ES["foot.cslb"] = CSLB_NOTICE[1]
+        out += f'\n    <p class="foot-cred foot-cslb" data-i18n="foot.cslb">{e(CSLB_NOTICE[0])}</p>'
+    return out
 
 def footer():
     svc = "\n".join(f'        <a href="/services/{s["slug"]}/" data-i18n="svcp.{s["gid"]}.h1">{e(s["h1"][0])}</a>' for s in SERVICES)
     ES["foot.services"] = "Servicios"
     ES["foot.company"] = "Empresa"
     ES["nav.privacy"] = "Privacidad"
+    ES["nav.terms"] = "Términos"
     ES["nav.contact"] = "Contacto"
     ES["foot.follow"] = "Síganos en"
     ES.update({"foot.contact": "Contacto", "foot.tag": "Pintura e impermeabilización para casas y negocios en el Área de la Bahía.",
@@ -312,7 +323,7 @@ def footer():
   </div>
   <div class="foot-bottom">
     <span>© {year} Joshua Painting JM & Waterproofing · <span data-i18n="foot.rights">Hercules, CA</span></span>
-    <span><a href="/privacy/" data-i18n="nav.privacy">Privacy</a> · <a href="/admin/">Studio login</a></span>
+    <span><a href="/privacy/" data-i18n="nav.privacy">Privacy</a> · <a href="/terms/" data-i18n="nav.terms">Terms</a> · <a href="/admin/">Studio login</a></span>
   </div>
 </footer>
 
@@ -442,25 +453,34 @@ def service_card(s, heading="h3"):
           </div>
         </li>'''
 
-PRIVACY = [  # (heading_en, heading_es, text_en, text_es)
+PRIVACY = [  # (heading_en, heading_es, text_en, text_es) — keep in line with what src/worker.js really does
     ("What we collect", "Qué datos recopilamos",
-     "Only what you type into the quote form: your name, email or phone, the address of the job, and anything you tell us about it.",
-     "Solo lo que escribe en el formulario de cotización: su nombre, correo o teléfono, la dirección del trabajo y lo que nos cuente sobre él."),
+     "Only what you type into the quote form: your name, your phone and/or email, the job (type, address, size and timing) and any message. We also note whether you used the site in English or Spanish.",
+     "Solo lo que escribe en el formulario de cotización: su nombre, su teléfono y/o correo, el trabajo (tipo, dirección, tamaño y fechas) y cualquier mensaje. También anotamos si usó el sitio en inglés o en español."),
     ("How we use it", "Cómo los usamos",
-     "To reply to you, visit, write your estimate and do the job. We never sell or share your details, and we don't send marketing emails.",
-     "Para responderle, visitarlo, preparar su presupuesto y hacer el trabajo. Nunca vendemos ni compartimos sus datos, y no enviamos correos publicitarios."),
-    ("Where it is kept", "Dónde se guardan",
-     "In our job manager, hosted by Cloudflare in the United States. When a request arrives, it is also sent to Joshua's phone through ntfy, a notification service, which keeps the message for about 12 hours and then deletes it.",
-     "En nuestro sistema de trabajos, alojado por Cloudflare en Estados Unidos. Cuando llega una solicitud, también se envía al teléfono de Joshua a través de ntfy, un servicio de notificaciones que guarda el mensaje unas 12 horas y luego lo borra."),
+     "To reply to you by phone, text or email, visit, write your estimate and do the job. We never sell or share your details, and we don't send marketing.",
+     "Para responderle por teléfono, mensaje de texto o correo, visitarlo, preparar su presupuesto y hacer el trabajo. Nunca vendemos ni compartimos sus datos, y no enviamos publicidad."),
+    ("Who can see it", "Quién puede verlos",
+     "Josué and the people who help run the business. The services that make the site work handle it for us: Cloudflare hosts the site and our job manager in the United States, and ntfy, a notification service, passes each new request to Josué's phone and deletes it after about 12 hours.",
+     "Josué y las personas que ayudan a llevar el negocio. Los servicios que hacen funcionar el sitio los manejan por nosotros: Cloudflare aloja el sitio y nuestro sistema de trabajos en Estados Unidos, y ntfy, un servicio de notificaciones, pasa cada solicitud nueva al teléfono de Josué y la borra después de unas 12 horas."),
+    ("Spam protection", "Protección contra spam",
+     "To stop spam, the quote form briefly checks your internet (IP) address to limit how many requests one sender can make per minute. It is not saved with your request. Cloudflare may keep standard technical logs to run and protect the site.",
+     "Para evitar el spam, el formulario revisa brevemente su dirección de internet (IP) para limitar cuántas solicitudes puede enviar una persona por minuto. No se guarda con su solicitud. Cloudflare puede guardar registros técnicos normales para operar y proteger el sitio."),
     ("Visitor counts", "Conteo de visitas",
-     "We count page views to see which pages are useful: the page, the website you came from and the language. No cookies, no IP addresses and nothing that identifies you.",
-     "Contamos las visitas para saber qué páginas son útiles: la página, el sitio del que viene y el idioma. Sin cookies, sin direcciones IP y nada que lo identifique."),
+     "We count page views to see which pages are useful: the page, the website you came from and the language. No cookies, no IP addresses and nothing that identifies you. Because we don't track you, the site works the same whether or not your browser sends a \"Do Not Track\" signal.",
+     "Contamos las visitas para saber qué páginas son útiles: la página, el sitio del que viene y el idioma. Sin cookies, sin direcciones IP y nada que lo identifique. Como no lo rastreamos, el sitio funciona igual si su navegador envía o no la señal \"No rastrear\" (Do Not Track)."),
     ("Your browser", "Su navegador",
      "If you switch to Spanish, your browser remembers that choice on your own device. That is the only thing the site stores.",
      "Si cambia a español, su navegador recuerda esa elección en su propio dispositivo. Es lo único que guarda el sitio."),
+    ("How long we keep it", "Cuánto tiempo los guardamos",
+     "We keep a request in our job manager until you ask us to delete it. Records of finished jobs may be kept as long as the law requires for invoices and warranties.",
+     "Guardamos su solicitud en nuestro sistema de trabajos hasta que nos pida borrarla. Los registros de trabajos terminados pueden guardarse el tiempo que exija la ley para facturas y garantías."),
     ("Seeing or deleting your details", "Ver o borrar sus datos",
-     "Call or text (510) 369-9079 and we will tell you what we have, correct it or delete it. Records of finished jobs may be kept as long as the law requires for invoices and warranties.",
-     "Llame o envíe un mensaje al (510) 369-9079 y le diremos qué datos tenemos, los corregiremos o los borraremos. Los registros de trabajos terminados pueden guardarse el tiempo que exija la ley para facturas y garantías."),
+     "Call or text (510) 369-9079 and we will tell you what we have, correct it or delete it.",
+     "Llame o envíe un mensaje al (510) 369-9079 y le diremos qué datos tenemos, los corregiremos o los borraremos."),
+    ("Changes", "Cambios",
+     "If we change how we use your details, we will update this page and the date below.",
+     "Si cambiamos cómo usamos sus datos, actualizaremos esta página y la fecha de abajo."),
 ]
 
 def page_h1(sec, h2_id, crumb_key, crumb_en):
@@ -643,7 +663,7 @@ def reviews_page(src):
 
 def privacy_page():
     ES.update({"privacy.title": "Privacidad", "privacy.intro": "En pocas palabras: usamos sus datos solo para su trabajo, y nada más.",
-               "privacy.updated": "Actualizado el 19 de noviembre de 2026"})
+               "privacy.updated": "Actualizado el 25 de noviembre de 2026"})
     parts = []
     for i, (h_en, h_es, p_en, p_es) in enumerate(PRIVACY, 1):
         parts.append(f'    {t(f"privacy.h{i}", h_en, h_es, "h2")}\n    {t(f"privacy.p{i}", p_en, p_es, "p")}')
@@ -652,12 +672,59 @@ def privacy_page():
   <h1 id="privacy-title" data-i18n="privacy.title">Privacy</h1>
   <p class="lede" data-i18n="privacy.intro">In short: we use your details for your job, and nothing else.</p>
 {chr(10).join(parts)}
-  <p class="muted" data-i18n="privacy.updated">Last updated November 19, 2026</p>
+  <p class="muted" data-i18n="privacy.updated">Last updated November 25, 2026</p>
 </section>'''
     hd = head("/privacy/", "privacy.meta.title", "Privacy — Joshua Painting JM & Waterproofing", "privacy.meta.description",
               "How Joshua Painting JM & Waterproofing uses the details you send with a quote request.",
               "Privacidad — Joshua Painting JM & Waterproofing", "Cómo usa Joshua Painting JM & Waterproofing los datos que envía al pedir una cotización.")
     return page("/privacy/", hd, main, [])
+
+TERMS = [  # (heading_en, heading_es, text_en, text_es) — plain-language terms for using the site and asking for a quote
+    ("About this website", "Sobre este sitio",
+     "This website is run by Joshua Painting JM & Waterproofing, a painting and waterproofing business in Hercules, CA. It describes our work and lets you ask for a free estimate.",
+     "Este sitio es de Joshua Painting JM & Waterproofing, un negocio de pintura e impermeabilización en Hercules, CA. Describe nuestro trabajo y le permite pedir un presupuesto gratis."),
+    ("Quote requests", "Solicitudes de cotización",
+     "Sending the quote form does not book a job or commit you to anything. We reply as soon as possible by phone, text or email.",
+     "Enviar el formulario no reserva un trabajo ni lo compromete a nada. Le respondemos lo antes posible por teléfono, mensaje de texto o correo."),
+    ("Estimates", "Presupuestos",
+     "Estimates are free. An estimate is our offer for the work it describes; it is not a contract. The price, the work included and how payment works are agreed in writing before any work starts.",
+     "Los presupuestos son gratis. Un presupuesto es nuestra oferta por el trabajo que describe; no es un contrato. El precio, el trabajo incluido y la forma de pago se acuerdan por escrito antes de empezar."),
+    ("Warranty", "Garantía",
+     "The warranty for your job is the one written in your estimate or agreement. If anything in it isn't clear, ask us before work starts.",
+     "La garantía de su trabajo es la que está escrita en su presupuesto o acuerdo. Si algo no está claro, pregúntenos antes de empezar."),
+    ("Licensing", "Licencias",
+     CSLB_NOTICE[0] + " We hold a city business licence (#" + CITY_LICENSE + ").",
+     CSLB_NOTICE[1] + " Tenemos licencia comercial municipal (#" + CITY_LICENSE + ")."),
+    ("Customer quotes and rating", "Opiniones y calificación",
+     "Customer quotes are shown with each customer's permission, in their own words and without their names. Our star rating comes from our Yelp page, where you can read every review.",
+     "Las opiniones de clientes se muestran con su permiso, con sus propias palabras y sin sus nombres. Nuestra calificación viene de nuestra página de Yelp, donde puede leer todas las reseñas."),
+    ("Photos and text", "Fotos y textos",
+     "Please don't copy the photos or text on this site without asking us first.",
+     "Por favor no copie las fotos ni los textos de este sitio sin pedirnos permiso."),
+    ("Questions", "Preguntas",
+     "Call or text (510) 369-9079.",
+     "Llame o envíe un mensaje al (510) 369-9079."),
+]
+
+def terms_page():
+    ES.update({"terms.title": "Términos", "terms.intro": "Lo básico sobre este sitio, los presupuestos y nuestro trabajo.",
+               "terms.updated": "Actualizado el 25 de noviembre de 2026"})
+    parts = []
+    for i, (h_en, h_es, p_en, p_es) in enumerate(TERMS, 1):
+        if LICENSE and h_en == "Licensing":
+            continue
+        parts.append(f'    {t(f"terms.h{i}", h_en, h_es, "h2")}\n    {t(f"terms.p{i}", p_en, p_es, "p")}')
+    main = f'''<section class="block prose" aria-labelledby="terms-title">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.terms">Terms</span></nav>
+  <h1 id="terms-title" data-i18n="terms.title">Terms</h1>
+  <p class="lede" data-i18n="terms.intro">The basics about this website, estimates and our work.</p>
+{chr(10).join(parts)}
+  <p class="muted" data-i18n="terms.updated">Last updated November 25, 2026</p>
+</section>'''
+    hd = head("/terms/", "terms.meta.title", "Terms — Joshua Painting JM & Waterproofing", "terms.meta.description",
+              "The basics about Joshua Painting JM & Waterproofing's website, free estimates, warranty and licensing.",
+              "Términos — Joshua Painting JM & Waterproofing", "Lo básico sobre el sitio de Joshua Painting JM & Waterproofing, los presupuestos gratis, la garantía y las licencias.")
+    return page("/terms/", hd, main, [])
 
 def not_found_page():
     ES.update({"nf.title": "Esta página no existe", "nf.body": "Puede que la dirección esté mal escrita o que la página se haya movido. Estos enlaces le pueden servir:",
@@ -752,11 +819,11 @@ def build():
                "a8": "Sí. Tenemos seguro de responsabilidad civil general, así que su casa o negocio está cubierto mientras trabajamos.",
                "q9": "¿Cómo dejan limpio el lugar?",
                "a9": "Cubrimos pisos y muebles antes de empezar, barremos y recogemos cada día, y al final revisamos el trabajo con usted para que todo quede como lo encontramos, pero recién pintado."})
-    ES["f.privacy"] = 'Solo usamos sus datos para responderle sobre su trabajo. <a href="/privacy/">Privacidad</a>'
+    ES["f.privacy"] = 'Al enviar, acepta que lo llamemos, le enviemos mensajes de texto o le escribamos por correo sobre esta solicitud. Solo usamos sus datos para su trabajo y nunca enviamos publicidad. <a href="/privacy/">Privacidad</a>'
     if 'data-i18n-html="f.privacy"' not in src:
         src = src.replace('      <div class="form-foot wide">',
-                          '      <p class="form-note wide" data-i18n-html="f.privacy">We only use your details to reply about your job. '
-                          '<a href="/privacy/">Privacy</a></p>\n\n      <div class="form-foot wide">', 1)
+                          '      <p class="form-note wide" data-i18n-html="f.privacy">By sending, you agree that we may call, text or email you about this request. '
+                          'We only use your details for your job and never send marketing. <a href="/privacy/">Privacy</a></p>\n\n      <div class="form-foot wide">', 1)
     for s in SERVICES:
         ES[f"svcp.{s['gid']}.h1"] = s["h1"][1]
     built = []
@@ -846,7 +913,7 @@ def build():
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-i18n="crumb.home">Home</a> / <span data-i18n="nav.services">Services</span></nav>
     <p class="label" data-i18n="svc.label">Services</p>
     <h1 id="svc-title" data-i18n="svc.title">Everything we paint, patch and protect</h1>
-    <p class="muted" data-i18n="svc.intro">Homes and businesses in and around Hercules, CA. No job too big or too small. Pick what you need and ask for a free estimate: we come out, measure and send you a written price.</p>
+    <p class="muted" data-i18n="svc.intro">Homes and businesses in and around Hercules, CA.. Pick what you need and ask for a free estimate: we come out, measure and send you a written price.</p>
     {rating()}
   </div>
 </section>
@@ -940,6 +1007,7 @@ def build():
 
     # /privacy/
     built.append(privacy_page())
+    built.append(terms_page())
 
     # 404 (served by Cloudflare for any address that doesn't exist; not in the sitemap)
     not_found_page()
