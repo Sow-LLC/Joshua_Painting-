@@ -30,5 +30,7 @@
   // spam guard for the quote form: 5 requests a minute per visitor address
   "ratelimits": [
     { "name": "QUOTE_LIMIT", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } }
-  ]
+  ],
+  // daily: delete quote requests older than a week that never became a job
+  "triggers": { "crons": ["0 10 * * *"] }
 }

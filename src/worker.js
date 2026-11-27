@@ -720,7 +720,19 @@ function staticView(url) {
   return Response.redirect(new URL("/" + url.search, url).href, 301);
 }
 
+// Quote requests that never became a job are deleted a week after they arrive
+// (Josué's choice, Nov 2026; the privacy page says so). Converted ones live on as jobs.
+const QUOTE_KEEP_DAYS = 7;
+async function purgeOldQuotes(env) {
+  const cutoff = new Date(Date.now() - QUOTE_KEEP_DAYS * 864e5).toISOString();
+  const r = await env.DB.prepare("DELETE FROM quotes WHERE status != 'converted' AND created_at < ?").bind(cutoff).run();
+  if (r.meta?.changes) console.log("deleted old quote requests", r.meta.changes);
+}
+
 export default {
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(purgeOldQuotes(env));
+  },
   async fetch(req, env, ctx) {
     const url = new URL(req.url);
     url.waitUntil = (p) => (ctx ? ctx.waitUntil(p) : p);

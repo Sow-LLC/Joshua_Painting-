@@ -473,8 +473,8 @@ PRIVACY = [  # (heading_en, heading_es, text_en, text_es) — keep in line with 
      "If you switch to Spanish, your browser remembers that choice on your own device. That is the only thing the site stores.",
      "Si cambia a español, su navegador recuerda esa elección en su propio dispositivo. Es lo único que guarda el sitio."),
     ("How long we keep it", "Cuánto tiempo los guardamos",
-     "We keep a request in our job manager until you ask us to delete it. Records of finished jobs may be kept as long as the law requires for invoices and warranties.",
-     "Guardamos su solicitud en nuestro sistema de trabajos hasta que nos pida borrarla. Los registros de trabajos terminados pueden guardarse el tiempo que exija la ley para facturas y garantías."),
+     "If your request doesn't become a job, we delete it automatically one week after you send it. If it does, we keep the details with your job, and records of finished jobs may be kept as long as the law requires for invoices and warranties.",
+     "Si su solicitud no se convierte en trabajo, la borramos automáticamente una semana después de que la envía. Si se convierte en trabajo, guardamos los datos con su trabajo, y los registros de trabajos terminados pueden guardarse el tiempo que exija la ley para facturas y garantías."),
     ("Seeing or deleting your details", "Ver o borrar sus datos",
      "Call or text (510) 369-9079 and we will tell you what we have, correct it or delete it.",
      "Llame o envíe un mensaje al (510) 369-9079 y le diremos qué datos tenemos, los corregiremos o los borraremos."),
@@ -634,7 +634,7 @@ def reviews_page(src):
     promises = """<ul class="promises" aria-label="Our promises" data-i18n-attr="aria-label:aria.promises">
   <li><a href="/faq/#insured"><b data-i18n="pr1.title">Insured</b><span data-i18n="pr1.body">General liability insurance on every job.</span></a></li>
   <li><a href="/contact/"><b data-i18n="pr2.title">Free written estimates</b><span data-i18n="pr2.body">Itemised, and sent as soon as possible after the visit.</span></a></li>
-  <li><a href="/faq/#warranty"><b data-i18n="pr3.title">Interior warranty</b><span data-i18n="pr3.body">3 to 6 months on interior work. Peeling or flaking? We come back and fix it.</span></a></li>
+  <li><a href="/faq/#warranty"><b data-i18n="pr3.title">3-month warranty</b><span data-i18n="pr3.body">3 months on interior and exterior work. Peeling or flaking? We come back and fix it.</span></a></li>
   <li><a href="/faq/#cleanup"><b data-i18n="pr4.title">Spotless clean-up</b><span data-i18n="pr4.body">Floors covered, rooms swept, every day.</span></a></li>
 </ul>"""
     figs = "\n".join("    " + photo(p) for p in ["petaluma-house", "orinda-deck", "kitchen", "interior-room"])
@@ -663,7 +663,7 @@ def reviews_page(src):
 
 def privacy_page():
     ES.update({"privacy.title": "Privacidad", "privacy.intro": "En pocas palabras: usamos sus datos solo para su trabajo, y nada más.",
-               "privacy.updated": "Actualizado el 25 de noviembre de 2026"})
+               "privacy.updated": "Actualizado el 27 de noviembre de 2026"})
     parts = []
     for i, (h_en, h_es, p_en, p_es) in enumerate(PRIVACY, 1):
         parts.append(f'    {t(f"privacy.h{i}", h_en, h_es, "h2")}\n    {t(f"privacy.p{i}", p_en, p_es, "p")}')
@@ -672,7 +672,7 @@ def privacy_page():
   <h1 id="privacy-title" data-i18n="privacy.title">Privacy</h1>
   <p class="lede" data-i18n="privacy.intro">In short: we use your details for your job, and nothing else.</p>
 {chr(10).join(parts)}
-  <p class="muted" data-i18n="privacy.updated">Last updated November 25, 2026</p>
+  <p class="muted" data-i18n="privacy.updated">Last updated November 27, 2026</p>
 </section>'''
     hd = head("/privacy/", "privacy.meta.title", "Privacy — Joshua Painting JM & Waterproofing", "privacy.meta.description",
               "How Joshua Painting JM & Waterproofing uses the details you send with a quote request.",
@@ -690,8 +690,8 @@ TERMS = [  # (heading_en, heading_es, text_en, text_es) — plain-language terms
      "Estimates are free. An estimate is our offer for the work it describes; it is not a contract. The price, the work included and how payment works are agreed in writing before any work starts.",
      "Los presupuestos son gratis. Un presupuesto es nuestra oferta por el trabajo que describe; no es un contrato. El precio, el trabajo incluido y la forma de pago se acuerdan por escrito antes de empezar."),
     ("Warranty", "Garantía",
-     "The warranty for your job is the one written in your estimate or agreement. If anything in it isn't clear, ask us before work starts.",
-     "La garantía de su trabajo es la que está escrita en su presupuesto o acuerdo. Si algo no está claro, pregúntenos antes de empezar."),
+     "Interior and exterior work is covered for 3 months after we finish. If paint peels, blisters or flakes because of how we did the work, we come back, find the cause and fix it at no charge. If anything isn't clear, ask us before work starts.",
+     "Los trabajos de interior y exterior tienen garantía de 3 meses después de que terminamos. Si la pintura se pela, se ampolla o se descascara por cómo hicimos el trabajo, volvemos, vemos cuál es el problema y lo arreglamos sin costo. Si algo no está claro, pregúntenos antes de empezar."),
     ("Licensing", "Licencias",
      CSLB_NOTICE[0] + " We hold a city business licence (#" + CITY_LICENSE + ").",
      CSLB_NOTICE[1] + " Tenemos licencia comercial municipal (#" + CITY_LICENSE + ")."),
@@ -708,7 +708,7 @@ TERMS = [  # (heading_en, heading_es, text_en, text_es) — plain-language terms
 
 def terms_page():
     ES.update({"terms.title": "Términos", "terms.intro": "Lo básico sobre este sitio, los presupuestos y nuestro trabajo.",
-               "terms.updated": "Actualizado el 25 de noviembre de 2026"})
+               "terms.updated": "Actualizado el 27 de noviembre de 2026"})
     parts = []
     for i, (h_en, h_es, p_en, p_es) in enumerate(TERMS, 1):
         if LICENSE and h_en == "Licensing":
@@ -719,7 +719,7 @@ def terms_page():
   <h1 id="terms-title" data-i18n="terms.title">Terms</h1>
   <p class="lede" data-i18n="terms.intro">The basics about this website, estimates and our work.</p>
 {chr(10).join(parts)}
-  <p class="muted" data-i18n="terms.updated">Last updated November 25, 2026</p>
+  <p class="muted" data-i18n="terms.updated">Last updated November 27, 2026</p>
 </section>'''
     hd = head("/terms/", "terms.meta.title", "Terms — Joshua Painting JM & Waterproofing", "terms.meta.description",
               "The basics about Joshua Painting JM & Waterproofing's website, free estimates, warranty and licensing.",
@@ -815,7 +815,7 @@ def build():
     src = (PUB / "index.html").read_text(encoding="utf-8")
     ES["social.fb"] = "Joshua Painting JM Waterproofing"
     ES["cta.area"] = "Trabajamos en Hercules, Berkeley, Oakland, Alameda, Concord y el East Bay."
-    ES.update({"about.s4n": "3–6 meses", "q8": "¿Tienen seguro?",
+    ES.update({"about.s4n": "3 meses", "q8": "¿Tienen seguro?",
                "a8": "Sí. Tenemos seguro de responsabilidad civil general, así que su casa o negocio está cubierto mientras trabajamos.",
                "q9": "¿Cómo dejan limpio el lugar?",
                "a9": "Cubrimos pisos y muebles antes de empezar, barremos y recogemos cada día, y al final revisamos el trabajo con usted para que todo quede como lo encontramos, pero recién pintado."})
