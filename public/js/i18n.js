@@ -89,7 +89,7 @@
     "foot.citylic": "Licencia comercial municipal",
     "foot.company": "Empresa",
     "foot.contact": "Contacto",
-    "foot.cslb": "Sin licencia de la Junta Estatal de Licencias de Contratistas de California (CSLB). Los trabajos se limitan a menos de $1,000 en total de mano de obra y materiales.",
+    "foot.cslb": "Contratista sin licencia de la CSLB.",
     "foot.follow": "Síganos en",
     "foot.lic": "Licencia de contratista de CA",
     "foot.rights": "Hercules, CA",

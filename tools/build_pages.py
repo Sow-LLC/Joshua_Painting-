@@ -32,6 +32,8 @@ BBB = ""       # full BBB profile address, e.g. "https://www.bbb.org/us/ca/hercu
 CITY_LICENSE = "233556"   # city business licence (NOT a CSLB contractor licence; shown as such)
 # California B&P §7027.1: anyone not licensed by the CSLB must say so in their advertising, and may only take
 # jobs under $1,000 (labour + materials). Shown in the footer of every page and on /terms/ while LICENSE is empty.
+# short line for the footer (B&P §7027.1 asks unlicensed advertisers to say so); the full one is on /terms/
+CSLB_SHORT = ("Not a CSLB-licensed contractor.", "Contratista sin licencia de la CSLB.")
 CSLB_NOTICE = ("Not licensed by the California Contractors State License Board (CSLB). "
                "Jobs are limited to under $1,000 in total labor and materials.",
                "Sin licencia de la Junta Estatal de Licencias de Contratistas de California (CSLB). "
@@ -277,8 +279,8 @@ def credentials():
         parts.append(f'<a href="{e(BBB)}" target="_blank" rel="noopener">BBB</a>')
     out = f'\n    <p class="foot-cred">{" · ".join(parts)}</p>' if parts else ""
     if not LICENSE:
-        ES["foot.cslb"] = CSLB_NOTICE[1]
-        out += f'\n    <p class="foot-cred foot-cslb" data-i18n="foot.cslb">{e(CSLB_NOTICE[0])}</p>'
+        ES["foot.cslb"] = CSLB_SHORT[1]
+        out += f'\n    <p class="foot-cred foot-cslb" data-i18n="foot.cslb">{e(CSLB_SHORT[0])}</p>'
     return out
 
 def footer():
