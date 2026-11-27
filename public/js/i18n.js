@@ -4,7 +4,8 @@
 //   data-i18n="key"        → textContent
 //   data-i18n-html="key"   → innerHTML (only our own strings below, for <br>/<em>/<small>/<a>)
 //   data-i18n-attr="alt:key; placeholder:key"
-// Choice order: ?lang=es|en  →  saved choice  →  browser language  →  English.
+// Spanish pages live at /es/… with the Spanish already in the HTML (tools/build_es.py);
+// this file still fills in Spanish for anything drawn by scripts.
 (() => {
   const ES = {
     "meta.title": "Joshua Painting JM & Waterproofing — Pintura de interiores y exteriores",
@@ -539,14 +540,10 @@
     if (!(kind in saved)) saved[kind] = value;
   };
 
+  // The address decides the language: /es/… pages ship in Spanish, everything else in English.
+  // (Choosing Spanish on an English page is handled by the small script in <head>, which moves to /es/….)
   function pick() {
-    const fromUrl = new URLSearchParams(location.search).get("lang");
-    if (LANGS.includes(fromUrl)) return fromUrl;
-    try {
-      const saved = localStorage.getItem(STORE);
-      if (LANGS.includes(saved)) return saved;
-    } catch {}
-    return (navigator.languages || [navigator.language || "en"]).some((l) => /^es\b/i.test(l)) ? "es" : "en";
+    return /^\/es(\/|$)/.test(location.pathname) ? "es" : "en";
   }
 
   function apply(lang) {
@@ -603,17 +600,10 @@
     }
 
     document.querySelectorAll(".lang").forEach((s) => { s.hidden = false; });
+    // EN / ES are plain links to the other address; just remember the choice for next time
     document.querySelectorAll("[data-lang]").forEach((b) =>
-      b.addEventListener("click", (e) => {
-        e.preventDefault();
-        const next = b.dataset.lang;
-        try { localStorage.setItem(STORE, next); } catch {}
-        // keep the address shareable: ?lang=es when Spanish, nothing when English
-        const url = new URL(location.href);
-        url.searchParams.delete("sent");
-        if (next === "es") url.searchParams.set("lang", "es"); else url.searchParams.delete("lang");
-        history.replaceState(null, "", url);
-        apply(next);
+      b.addEventListener("click", () => {
+        try { localStorage.setItem(STORE, b.dataset.lang); } catch {}
       }));
   }
 

@@ -382,7 +382,7 @@ def head(path, key, title, dkey, desc, es_title, es_desc, image="cape-cod-exteri
     pre = src[: src.index("<title")]
     post = src[src.index('<link rel="icon"'): src.index("</head>")]
     post = re.sub(r'<link rel="alternate" hreflang="en" href="[^"]*">', f'<link rel="alternate" hreflang="en" href="{path}">', post)
-    post = re.sub(r'<link rel="alternate" hreflang="es" href="[^"]*">', f'<link rel="alternate" hreflang="es" href="{path}?lang=es">', post)
+    post = re.sub(r'<link rel="alternate" hreflang="es" href="[^"]*">', f'<link rel="alternate" hreflang="es" href="/es{path}">', post)
     post = re.sub(r'<link rel="alternate" hreflang="x-default" href="[^"]*">', f'<link rel="alternate" hreflang="x-default" href="{path}">', post)
     return (pre + f'<title data-i18n="{key}">{e(title)}</title>\n'
             f'<meta name="description" data-i18n-attr="content:{dkey}" content="{e(desc)}">\n'
@@ -1050,13 +1050,21 @@ def build():
         js = js.replace(anchor, block + anchor)
     i18n.write_text(js, encoding="utf-8")
 
-    # sitemap + robots
+    # Spanish pages at /es/… (Spanish baked in, so search engines see it)
     urls = ["/"] + built
+    from build_es import build_es
+    es_urls = build_es(SITE, urls)
+
+    # sitemap (each page lists its other-language twin) + robots
+    def entry(u, en):
+        alts = "".join(f'    <xhtml:link rel="alternate" hreflang="{l}" href="{SITE}{h}"/>\n'
+                       for l, h in (("en", en), ("es", "/es" + en), ("x-default", en)))
+        return f"  <url>\n    <loc>{SITE}{u}</loc>\n{alts}  </url>\n"
     (PUB / "sitemap.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-        "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' +
+        "".join(entry(u, u) for u in urls) + "".join(entry("/es" + u, u) for u in urls) + "</urlset>\n", encoding="utf-8")
     (PUB / "robots.txt").write_text(f"User-agent: *\nDisallow: /admin/\nDisallow: /api/\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
-    print("built:", ", ".join(urls))
+    print("built:", ", ".join(urls + es_urls))
 
 if __name__ == "__main__":
     build()

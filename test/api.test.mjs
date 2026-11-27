@@ -110,7 +110,7 @@ await step("Spanish quotes keep their language", async () => {
   assert.equal(q.lang, "es");
   const form = new URLSearchParams({ name: "Forma", phone: "555-0102", lang: "es" });
   const f = await fetch(BASE + "/api/quotes", { method: "POST", body: form, headers: VISITOR, redirect: "manual" });
-  assert.match(f.headers.get("location"), /\?sent=1&lang=es#quote$/);
+  assert.match(f.headers.get("location"), /\/es\/contact\/\?sent=1#quote$/);
   const job = (await call("POST", `/api/admin/quotes/${r.data.id}/convert`)).data;
   assert.match(job.notes, /Spanish/);
   assert.equal((await call("DELETE", `/api/admin/jobs/${job.id}`)).status, 200);

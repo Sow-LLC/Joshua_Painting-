@@ -211,7 +211,7 @@ async function createQuote(req, env, url) {
 
   // Honeypot: real people never see the "website" field. Pretend success.
   const lang = body.lang === "es" ? "es" : "en";
-  const back = () => Response.redirect(new URL(lang === "es" ? "/contact/?sent=1&lang=es#quote" : "/contact/?sent=1#quote", req.url).href, 303);
+  const back = () => Response.redirect(new URL(lang === "es" ? "/es/contact/?sent=1#quote" : "/contact/?sent=1#quote", req.url).href, 303);
   if (str(body.website)) return isForm ? back() : json({ ok: true });
 
   const name = str(body.name, 120);

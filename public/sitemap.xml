@@ -1,18 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://joshuapaintingjm.com/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/services/interior/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/services/exterior/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/services/cabinets/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/services/wall-repair/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/services/waterproofing/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/services/commercial/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/services/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/work/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/about/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/contact/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/faq/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/reviews/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/privacy/</loc></url>
-  <url><loc>https://joshuapaintingjm.com/terms/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://joshuapaintingjm.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/services/interior/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/interior/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/interior/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/interior/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/services/exterior/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/exterior/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/exterior/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/exterior/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/services/cabinets/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/cabinets/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/cabinets/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/cabinets/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/services/wall-repair/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/wall-repair/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/wall-repair/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/wall-repair/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/services/waterproofing/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/waterproofing/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/waterproofing/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/waterproofing/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/services/commercial/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/commercial/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/commercial/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/commercial/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/services/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/work/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/work/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/work/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/work/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/about/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/contact/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/faq/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/reviews/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/reviews/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/privacy/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/terms/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/services/interior/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/interior/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/interior/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/interior/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/services/exterior/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/exterior/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/exterior/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/exterior/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/services/cabinets/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/cabinets/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/cabinets/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/cabinets/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/services/wall-repair/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/wall-repair/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/wall-repair/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/wall-repair/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/services/waterproofing/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/waterproofing/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/waterproofing/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/waterproofing/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/services/commercial/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/commercial/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/commercial/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/commercial/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/services/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/work/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/work/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/work/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/work/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/about/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/contact/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/faq/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/reviews/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/reviews/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/privacy/"/>
+  </url>
+  <url>
+    <loc>https://joshuapaintingjm.com/es/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/terms/"/>
+  </url>
 </urlset>

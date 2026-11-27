@@ -24,8 +24,8 @@
 <link rel="stylesheet" href="/css/site.css">
 <link rel="alternate" hreflang="en" href="https://joshuapaintingjm.com/services/commercial/">
 <link rel="alternate" hreflang="x-default" href="https://joshuapaintingjm.com/services/commercial/">
-<link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/services/commercial/?lang=es">
-<script>(function(){var r=document.documentElement;r.className+=" js";try{var q=new URLSearchParams(location.search).get("lang"),s=localStorage.getItem("ab-lang"),n=(navigator.languages||[navigator.language||""]).some(function(l){return /^es\b/i.test(l)});if(q==="es"||(q!=="en"&&(s==="es"||(!s&&n))))r.className+=" i18n-pending"}catch(e){}})();</script>
+<link rel="alternate" hreflang="es" href="https://joshuapaintingjm.com/es/services/commercial/">
+<script>(function(){var r=document.documentElement;r.className+=" js";try{var q=new URLSearchParams(location.search).get("lang"),s=localStorage.getItem("ab-lang"),n=(navigator.languages||[navigator.language||""]).some(function(l){return /^es\b/i.test(l)});if(q==="es"||(q!=="en"&&(s==="es"||(!s&&n)))){r.className+=" i18n-pending";var u=new URL(location.href);u.searchParams.delete("lang");location.replace("/es"+u.pathname+u.search+u.hash)}}catch(e){}})();</script>
 </head>
 <body>
 
@@ -51,7 +51,7 @@ Joshua Painting JM & Waterproofing</a>
     <a class="nav-opt" href="/reviews/" data-i18n="nav.reviews">Reviews</a>
     <a class="nav-opt" href="/faq/" data-i18n="nav.faq">FAQ</a>
     <a class="nav-cta" href="#quote" data-cta data-i18n="nav.quote" data-short="Quote" data-i18n-attr="data-short:nav.quote.short">Free quote</a>
-    <span class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">EN</a><a href="?lang=es" data-lang="es" lang="es">ES</a></span>
+    <span class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang"><a href="/services/commercial/" data-lang="en" lang="en" aria-current="true">EN</a><a href="/es/services/commercial/" data-lang="es" lang="es">ES</a></span>
   </nav>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-i18n-attr="aria-label:nav.menu" aria-label="Menu"><span></span><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Menu" data-i18n-attr="aria-label:nav.menu" hidden>
@@ -70,7 +70,7 @@ Joshua Painting JM & Waterproofing</a>
     <a href="/faq/" data-i18n="nav.faq">FAQ</a>
     <a href="/contact/" data-i18n="nav.contact">Contact</a>
     <div class="menu-foot">
-      <span class="lang menu-lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang" hidden><a href="?lang=en" data-lang="en" lang="en" aria-current="true">English</a><a href="?lang=es" data-lang="es" lang="es">Español</a></span>
+      <span class="lang menu-lang" role="group" aria-label="Language" data-i18n-attr="aria-label:aria.lang"><a href="/services/commercial/" data-lang="en" lang="en" aria-current="true">English</a><a href="/es/services/commercial/" data-lang="es" lang="es">Español</a></span>
       <a class="menu-call" href="tel:+15103699079">(510) 369-9079</a>
     </div>
   </nav>
