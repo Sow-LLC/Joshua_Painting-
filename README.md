@@ -211,3 +211,6 @@ The two current Yelp reviews (Apr 2026 exterior; Jul 2025) are approved by the c
 - `wrangler.josue.jsonc` deploys the same site into **Joshuapaintingjm@gmail.com's Account** (`0100e650…236440`), with its own D1 database (data copied from the Sow copy) and its own admin key (kept in `.admin-key-josue`, never committed). Test address: https://atelier-blanc.joshuapaintingjm.workers.dev
 - Deploy there: `npx wrangler deploy --config wrangler.josue.jsonc`
 - The domain can move into his account from about **4 Dec 2026** (Cloudflare's 10-day rule). Then: uncomment `routes` in `wrangler.josue.jsonc`, move `www-redirect/` too (add `account_id`), turn on Always Use HTTPS, and make `wrangler.josue.jsonc` the main `wrangler.jsonc`.
+- Before switching the domain: copy any quotes and jobs that arrived on the Sow copy since 25 Nov into his D1 database, because the live domain still writes to the Sow database until then.
+- After the move: in his account, open Domain Registration → `joshuapaintingjm.com` → Contacts and check that the registrant is Josué (name, email, address), not Sow. Change it there if not.
+- Both copies use Josué's admin key since 27 Nov; the old Sow key is retired.

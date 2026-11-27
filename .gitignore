@@ -1,7 +1,7 @@
 node_modules/
 .wrangler/
 .dev.vars
-.admin-key
+.admin-key*
 .ntfy-topic
 photos-src/
 .DS_Store
